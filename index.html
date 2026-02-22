@@ -518,7 +518,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   <div class="sec-head">
     <div class="sec-icon" style="background:rgba(245,158,11,.1)">💛</div>
     <div class="sec-titles"><div class="sec-title" style="color:var(--p2)">Priority 2 · Social-Emotional Learning</div><div class="sec-sub">Live from Google Sheets · District Student Survey &amp; MindUP data</div></div>
-    <span class="sec-badge ta">Coming Soon</span>
+    <span class="sec-badge ta">BOY · MOY · Live</span>
   </div>
   <div id="selContent"></div>
 </section>
@@ -725,6 +725,54 @@ function parseCA(rows){
   });
   const monthOrder=['Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
   return monthOrder.map(mo=>byMonth[mo]).filter(Boolean);
+}
+
+// ══ PARSE SEL ══
+function parseSEL(rows){
+  // Robustly handles any column name variant the Sheet might export
+  // Domain column may be "Domain: Overall", "Domain", "domain" etc.
+  // Window column may be "Year/Window", "Window" etc.
+  // Also handles positional fallback
+  const out = [];
+  if(!rows.length) return out;
+
+  // Debug: log first row keys to console so we can see exact column names
+  console.log('[SEL] Column keys:', Object.keys(rows[0]));
+  console.log('[SEL] First row:', rows[0]);
+
+  rows.forEach(r=>{
+    const keys = Object.keys(r);
+    // Window: first column
+    const win = r['Year/Window']||r['year/window']||r['Window']||r['window']||r[keys[0]]||'';
+    // Domain: second column — try many variants
+    const domain = r['Domain: Overall']||r['Domain']||r['domain']||r['Domain: overall']||r[keys[1]]||'';
+    if(!win.trim()||!domain.trim()) return;
+
+    // Normalise window: "2025-26 BOY" → "BOY 25-26"
+    let wShort = win.trim();
+    const yrMatch = wShort.match(/^(\d{4}-\d{2})\s+(BOY|MOY|EOY)$/i);
+    if(yrMatch){
+      const shortYr = yrMatch[1].slice(2,4)+'-'+yrMatch[1].slice(-2);
+      wShort = yrMatch[2].toUpperCase()+' '+shortYr; // "BOY 25-26"
+    }
+
+    // Response columns — named lookup first, then smart positional
+    // Actual sheet columns: SA, Agree, Fall (skip), Neutral, Disagree, Strongly Disagree
+    const sa = pct(r['Strongly Agree']||r['strongly agree']||0) || pct(r[keys[2]]||0);
+    const a  = pct(r['Agree']||r['agree']||0)                   || pct(r[keys[3]]||0);
+    // Find Neutral, Disagree, SD by name first; positional skips the "Fall" column (index 4)
+    const n  = pct(r['Neutral']||r['neutral']||0)               || pct(r[keys[5]]||0);
+    const d  = pct(r['Disagree']||r['disagree']||0)             || pct(r[keys[6]]||0);
+    const sd = pct(r['Strongly Disagree']||r['strongly disagree']||0) || pct(r[keys[7]]||0);
+
+    // Only push if we got meaningful data
+    if(sa+a+n+d+sd < 5) return; // skip empty/header rows
+
+    out.push({ w:wShort, domain:domain.trim(), sa, a, n, d, sd });
+  });
+
+  console.log('[SEL] Parsed', out.length, 'rows. Windows:', [...new Set(out.map(r=>r.w))]);
+  return out;
 }
 
 // ══ HELPERS ══
@@ -1208,10 +1256,184 @@ function buildInsights(containerId,data,type){
 
 // ══ SEL ══
 function renderSEL(){
-  const el=document.getElementById('selContent');
+  const el = document.getElementById('selContent');
   if(!SEL_ROWS.length||Object.keys(SEL_ROWS[0]).every(k=>!SEL_ROWS[0][k])){
-    el.innerHTML=`<div class="coming-soon"><div class="cs-icon">💛</div><div class="cs-title">SEL Data Coming Soon</div><div class="cs-desc">Priority 2 data will appear here once added to your Google Sheet. This section auto-populates when data is available.</div><span class="cs-tag">⏳ Awaiting data in Google Sheets</span></div>`;
+    el.innerHTML=`<div class="coming-soon"><div class="cs-icon">💛</div><div class="cs-title">SEL Data Coming Soon</div><div class="cs-desc">Priority 2 data will appear here once added to your Google Sheet.</div><span class="cs-tag">⏳ Awaiting data</span></div>`;
+    return;
   }
+
+  const selData = parseSEL(SEL_ROWS);
+  if(!selData.length){ el.innerHTML='<div class="fetch-error">Could not parse SEL data — check column names in Sheet.</div>'; return; }
+
+  // ── Get unique windows and domains ──
+  const windows = [...new Set(selData.map(r=>r.w))];
+  const allDomains = [...new Set(selData.map(r=>r.domain))].filter(d=>d!=='Average');
+  const domains = allDomains; // all except Average which we handle separately
+
+  // ── Current window (prefer CUR_WIN match, else last) ──
+  const curWinRows = windows.filter(w=>winType(w)===CUR_WIN);
+  const curWin = curWinRows.length ? curWinRows[curWinRows.length-1] : windows[windows.length-1];
+  // Prior window: same type, prior year
+  const prevWinKey = winType(curWin)+' '+prevYear(winYear(curWin));
+  const prevWin = windows.find(w=>w===prevWinKey) || null;
+
+  // ── Helper: get row for a domain+window ──
+  function getRow(win, domain){ return selData.find(r=>r.w===win&&r.domain===domain); }
+  function posScore(r){ return r ? r.sa+r.a : null; } // Strongly Agree + Agree = "Positive"
+
+  // ── Goal banner ──
+  const curAvg = getRow(curWin,'Average');
+  const prevAvg = prevWin ? getRow(prevWin,'Average') : null;
+  const curPos = curAvg ? posScore(curAvg) : null;
+  const prevPos = prevAvg ? posScore(prevAvg) : null;
+  const diff = (curPos!=null&&prevPos!=null) ? (curPos-prevPos).toFixed(1) : null;
+
+  // ── Build insight cards ──
+  const avgRow = curAvg;
+  const topDomain = domains.map(d=>({d,v:posScore(getRow(curWin,d))||0})).sort((a,b)=>b.v-a.v)[0];
+  const botDomain = domains.map(d=>({d,v:posScore(getRow(curWin,d))||0})).sort((a,b)=>a.v-b.v)[0];
+
+  let html = `
+  <div class="goal-banner" style="background:linear-gradient(135deg,rgba(245,158,11,.07),rgba(251,188,5,.05));border-color:rgba(245,158,11,.2)">
+    <div class="gb-icon">🎯</div>
+    <div class="gb-text">
+      <div class="gb-label" style="color:var(--p2)">Priority 2 Goal</div>
+      <div class="gb-goal">By June 2026: <strong>+10% increase</strong> in student-to-student relationships and students reporting MindUP curriculum helps manage emotions, stay focused, and make better choices.</div>
+    </div>
+    <div class="gb-target" style="background:rgba(245,158,11,.1);color:var(--amber);border-color:rgba(245,158,11,.25)">Target: June 2026</div>
+  </div>
+
+  <div class="ins-row" style="margin-bottom:1.25rem">
+    <div class="ins" style="--ic:var(--amber)">
+      <div class="il">Positive Responses · ${curWin}</div>
+      <div class="iv">${curPos!=null?curPos+'%':'—'}</div>
+      <div class="id">Strongly Agree + Agree combined across all SEL domains.</div>
+    </div>
+    <div class="ins" style="--ic:var(--${diff==null?'text3':parseFloat(diff)>=0?'green':'rose'})">
+      <div class="il">YoY Change vs ${prevWin||'Prior Year'}</div>
+      <div class="iv">${diff!=null?(parseFloat(diff)>=0?'+':'')+diff+'pts':'—'}</div>
+      <div class="id">Change in positive responses (SA+A) vs same window prior year.</div>
+    </div>
+    <div class="ins" style="--ic:var(--green)">
+      <div class="il">Strongest Domain · ${curWin}</div>
+      <div class="iv" style="font-size:1.1rem;line-height:1.2">${topDomain?topDomain.d:'—'}</div>
+      <div class="id">${topDomain?topDomain.v+'% positive responses':''}</div>
+    </div>
+  </div>
+
+  <div class="g2" style="margin-bottom:1rem">
+    <div class="card">
+      <div class="ch">
+        <div><div class="ct">SEL Survey · Domain Breakdown</div><div class="cs" id="sel-bar-sub">${curWin} · Positive Responses (SA + Agree)</div></div>
+        <span class="tag ta">All Domains</span>
+      </div>
+      <div class="cw h300"><canvas id="selBar"></canvas></div>
+    </div>
+    <div class="card">
+      <div class="ch">
+        <div><div class="ct">SEL Survey · Average Score Trend</div><div class="cs">All available windows · Positive responses %</div></div>
+        <span class="tag tb">Trend</span>
+      </div>
+      <div class="cw h300"><canvas id="selLine"></canvas></div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-bottom:1rem">
+    <div class="ch">
+      <div><div class="ct">SEL Survey · Full Response Detail</div><div class="cs" id="sel-tbl-sub">${curWin} · All domains · All response bands</div></div>
+      <span class="tag tp">Detail</span>
+    </div>
+    <div style="overflow-x:auto">
+      <table class="dt" id="selTbl">
+        <thead><tr>
+          <th>Domain</th>
+          <th style="color:#4ade80">Strongly Agree</th>
+          <th style="color:#4f8ef7">Agree</th>
+          <th>Positive Total</th>
+          <th>Neutral</th>
+          <th style="color:#fb7185">Disagree</th>
+          <th style="color:#a78bfa">Strongly Disagree</th>
+          ${prevWin?`<th>vs ${prevWin}</th>`:''}
+        </tr></thead>
+        <tbody id="selTblBody"></tbody>
+      </table>
+    </div>
+  </div>`;
+
+  el.innerHTML = html;
+
+  // ── Bar chart: domain comparison current window ──
+  const barDomains = [...domains, 'Average'];
+  const saVals  = barDomains.map(d=>{ const r=getRow(curWin,d); return r?r.sa:0; });
+  const aVals   = barDomains.map(d=>{ const r=getRow(curWin,d); return r?r.a:0; });
+  const nVals   = barDomains.map(d=>{ const r=getRow(curWin,d); return r?r.n:0; });
+  const dVals   = barDomains.map(d=>{ const r=getRow(curWin,d); return r?r.d:0; });
+  const sdVals  = barDomains.map(d=>{ const r=getRow(curWin,d); return r?r.sd:0; });
+
+  mkChart('selBar',{type:'bar',data:{labels:barDomains,datasets:[
+    {label:'Strongly Agree',data:saVals, backgroundColor:C.green, borderRadius:3,borderSkipped:false},
+    {label:'Agree',         data:aVals,  backgroundColor:'rgba(79,142,247,.7)', borderRadius:3,borderSkipped:false},
+    {label:'Neutral',       data:nVals,  backgroundColor:'rgba(245,158,11,.5)', borderRadius:3,borderSkipped:false},
+    {label:'Disagree',      data:dVals,  backgroundColor:'rgba(251,113,133,.5)', borderRadius:3,borderSkipped:false},
+    {label:'Strongly Disagree',data:sdVals,backgroundColor:C.purple, borderRadius:3,borderSkipped:false},
+  ]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom',labels:{color:'#c8cfe0',font:{size:10}}},
+      datalabels:{...STACK_LBL},
+      tooltip:{...TT_BASE,callbacks:{
+        title:i=>'SEL: '+i[0].label,
+        label:ctx=>{const n=['Strongly Agree','Agree','Neutral','Disagree','Strongly Disagree'];return ' '+n[ctx.datasetIndex]+': '+ctx.parsed.y+'%';},
+        afterBody:i=>{const d=barDomains[i[0].dataIndex];const r=getRow(curWin,d);return r?['','  ✅ Positive (SA+A): '+(r.sa+r.a)+'%','  Concerns (D+SD): '+(r.d+r.sd)+'%']:[];},
+      }}},
+    scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#c8cfe0',font:{size:9},maxRotation:35}},
+            y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
+
+  // ── Line chart: Average positive score across all windows ──
+  const lineWins = windows;
+  const avgPositive = lineWins.map(w=>{ const r=getRow(w,'Average'); return r?posScore(r):null; });
+  mkChart('selLine',{type:'line',data:{labels:lineWins,datasets:[{
+    label:'Positive Responses (SA+A)',
+    data:avgPositive,
+    borderColor:C.amber,backgroundColor:'rgba(245,158,11,.08)',
+    tension:.4,pointRadius:6,borderWidth:2.5,fill:true,
+    pointBackgroundColor:C.amber,
+  }]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},
+      datalabels:{display:true,color:C.amber,font:{family:"'IBM Plex Mono',monospace",size:9,weight:'600'},formatter:v=>v!=null?v+'%':'',anchor:'top',align:'top',offset:4,backgroundColor:'rgba(11,13,19,0.75)',borderRadius:3,padding:{top:2,bottom:2,left:4,right:4}},
+      tooltip:{...TT_BASE,callbacks:{
+        title:i=>'SEL Average · '+i[0].label,
+        label:ctx=>' Positive (SA+A): '+ctx.parsed.y+'%',
+        afterBody:i=>{
+          const w=lineWins[i[0].dataIndex];
+          const pw=lineWins[i[0].dataIndex-1];
+          if(pw){ const prev=avgPositive[i[0].dataIndex-1]; const cur=avgPositive[i[0].dataIndex]; if(cur!=null&&prev!=null) return['',' Change: '+(cur>=prev?'+':'')+(cur-prev)+' pts']; }
+          return [];
+        },
+      }}},
+    scales:{x:{grid:{color:G},ticks:{color:'#c8cfe0',font:{size:9}}},
+            y:{grid:{color:G},min:50,max:100,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
+
+  // ── Table ──
+  const tbody = document.getElementById('selTblBody'); if(!tbody) return;
+  tbody.innerHTML = '';
+  [...domains,'Average'].forEach(d=>{
+    const r = getRow(curWin,d); if(!r) return;
+    const pos = r.sa+r.a;
+    const neg = r.d+r.sd;
+    const prevR = prevWin?getRow(prevWin,d):null;
+    const prevPos = prevR?posScore(prevR):null;
+    const chg = prevPos!=null?(pos-prevPos).toFixed(1):null;
+    const isBold = d==='Average';
+    tbody.innerHTML += `<tr style="${isBold?'font-weight:700;border-top:1px solid var(--b2)':''}">
+      <td class="dn" style="${isBold?'color:var(--amber)':''}">${d}</td>
+      <td><span class="dp pg">${r.sa}%</span></td>
+      <td class="dm">${r.a}%</td>
+      <td><strong class="dm" style="color:${pos>=65?'var(--green)':pos>=55?'var(--amber)':'var(--rose)'}">${pos}%</strong></td>
+      <td class="dm">${r.n}%</td>
+      <td class="dm">${r.d}%</td>
+      <td><span class="dp ${neg<=5?'pg':neg<=10?'pa':'pr'}">${r.sd}%</span></td>
+      ${prevWin?`<td><span class="dp ${chg==null?'pb':parseFloat(chg)>=0?'pg':'pr'}">${chg==null?'—':(parseFloat(chg)>=0?'+':'')+chg+'pts'}</span></td>`:''}
+    </tr>`;
+  });
 }
 
 // ══ WINDOW FILTER BUTTONS ══
@@ -1266,7 +1488,10 @@ async function init(){
     ldStep('ls-ca','done'); ldProgress(85,'Absenteeism ✓');
 
     ldStep('ls-sel','active'); ldProgress(90,'Checking SEL tab…');
-    try { SEL_ROWS = await fetchCSV(URLS.sel,'SEL'); } catch(e){ SEL_ROWS=[]; }
+    try {
+      SEL_ROWS = await fetchCSV(URLS.sel,'SEL');
+      console.log('SEL rows loaded:', SEL_ROWS.length, SEL_ROWS[0]);
+    } catch(e){ SEL_ROWS=[]; console.warn('SEL fetch failed:', e); }
     ldStep('ls-sel','done'); ldProgress(98,'Almost ready…');
 
     updateHeroKPIs();
