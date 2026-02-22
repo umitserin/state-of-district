@@ -72,7 +72,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(11,13,19,.92);backdrop-fil
 .nav-brand{font-family:var(--ff-h);font-size:.9rem;font-weight:800;color:var(--text);white-space:nowrap;display:flex;align-items:center;gap:.5rem;}
 .nav-pulse{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-.nav-links{display:flex;gap:.15rem;overflow-x:auto;flex:1;}
+.nav-links{display:flex;gap:.15rem;overflow-x:auto;flex:1;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
 .nav-link{display:flex;align-items:center;gap:.35rem;padding:.35rem .85rem;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--ff-m);font-size:.68rem;letter-spacing:.04em;cursor:pointer;transition:all .18s;white-space:nowrap;}
 .nav-link .nl-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 .nav-link:hover,.nav-link.active{background:rgba(255,255,255,.06);color:var(--text);}
@@ -244,6 +244,125 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 @keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
 .anim{animation:fadeUp .5s ease both;}
 .d1{animation-delay:.05s}.d2{animation-delay:.1s}.d3{animation-delay:.15s}
+
+/* ══════════════════════════════════════════
+   MOBILE RESPONSIVE — full phone support
+   ══════════════════════════════════════════ */
+
+/* ── Base mobile (≤640px) ── */
+@media(max-width:640px){
+  /* Page padding */
+  .page{ padding:0 .9rem 4rem; }
+
+  /* Nav — collapse links, shrink brand */
+  .nav-inner{ padding:0 .9rem; gap:.6rem; height:48px; }
+  .nav-brand{ font-size:.75rem; }
+  .nav-links{ display:none; }          /* hide text links on phone */
+  #last-updated{ display:none; }
+  .live-badge{ font-size:.58rem; padding:.2rem .5rem; }
+
+  /* Hero */
+  .hero{ padding:1.8rem 0 1.4rem; margin-bottom:1.6rem; }
+  .hero-top{ grid-template-columns:1fr; gap:1.4rem; }
+  h1{ font-size:clamp(2rem,9vw,3rem); }
+  .hero-desc{ font-size:.82rem; max-width:100%; }
+  .hero-kpis{ grid-template-columns:1fr 1fr; }
+  .hkpi{ padding:1rem 1.1rem; }
+  .hkpi-val{ font-size:1.5rem; }
+
+  /* Section headers */
+  .sec-head{ flex-wrap:wrap; gap:.6rem; }
+  .sec-badge{ display:none; }
+
+  /* Chart grids — all single column */
+  .g2,.g21,.g3{ grid-template-columns:1fr !important; }
+
+  /* Chart heights — shorter on phone */
+  .h400{ height:260px; }
+  .h320{ height:240px; }
+  .h280{ height:220px; }
+  .h260{ height:200px; }
+  .h240{ height:190px; }
+  .h200{ height:170px; }
+  .h300{ height:220px; }
+
+  /* Chart canvas text — scale down */
+  .cw canvas{ font-size:9px; }
+
+  /* Filter strips — wrap & smaller buttons */
+  .filter-strip,.win-filter-strip{ gap:.25rem; flex-wrap:wrap; }
+  .fb,.wfb{ font-size:.6rem; padding:.18rem .55rem; }
+  .wfl{ font-size:.58rem; }
+
+  /* Cards */
+  .card{ border-radius:10px; }
+  .ch{ flex-wrap:wrap; gap:.4rem; }
+  .ct{ font-size:.85rem; }
+  .cs{ font-size:.6rem; }
+
+  /* Insight cards — single column */
+  .ins-row{ grid-template-columns:1fr !important; }
+  .ins{ padding:.9rem 1rem; }
+  .iv{ font-size:1.4rem; }
+
+  /* Tables — horizontal scroll + compact */
+  .dt{ font-size:.68rem; }
+  .dt th,.dt td{ padding:.35rem .45rem; white-space:nowrap; }
+  [style*="overflow-x:auto"]{ -webkit-overflow-scrolling:touch; }
+
+  /* KPI stats */
+  .sl{ gap:.5rem; }
+  .sl-item{ padding:.65rem .9rem; }
+  .sl-val{ font-size:1.1rem; }
+
+  /* CEP cards */
+  .cep-grid{ grid-template-columns:1fr !important; }
+
+  /* Goal tracker — single column */
+  .target-row{ grid-template-columns:1fr !important; }
+  .target-card{ padding:.9rem 1rem; }
+  .tc-current{ font-size:1.2rem; }
+
+  /* CA cards */
+  .ca-grid{ grid-template-columns:1fr 1fr !important; }
+  .cac{ padding:.8rem .9rem; }
+  .cac-val{ font-size:1.3rem; }
+
+  /* Window filter — wrap to 2 rows if needed */
+  .win-filter-strip{ margin-bottom:.6rem; }
+
+  /* Section padding */
+  .section{ margin-bottom:2.5rem; }
+  .sec-head{ margin-bottom:1.2rem; }
+
+  /* Hero KPI grid — 2 cols on phone */
+  .hero-kpis{ grid-template-columns:1fr 1fr; }
+
+  /* Footer */
+  footer .ft{ font-size:.65rem; padding:.8rem 1rem; }
+  footer .fb2{ padding:.6rem 1rem; gap:.5rem; }
+  .btn{ font-size:.7rem; padding:.4rem .8rem; }
+}
+
+/* ── Tablet (641–900px) ── */
+@media(min-width:641px) and (max-width:900px){
+  .page{ padding:0 1.25rem 4rem; }
+  .nav-links{ gap:.05rem; }
+  .nav-link{ font-size:.6rem; padding:.28rem .6rem; }
+  .g2,.g21{ grid-template-columns:1fr !important; }
+  .h400{ height:300px; }
+  .h320{ height:260px; }
+  .target-row{ grid-template-columns:repeat(3,1fr) !important; }
+  .ins-row{ grid-template-columns:1fr 1fr !important; }
+  .hero-kpis{ grid-template-columns:1fr 1fr; }
+}
+
+/* ── Touch devices — improve tap targets ── */
+@media(hover:none) and (pointer:coarse){
+  .fb,.wfb,.nav-link,.btn{ min-height:36px; display:inline-flex; align-items:center; }
+  .dt th,.dt td{ padding:.45rem .55rem; }
+}
+
 @media print{nav{display:none;}body{background:#fff;color:#000;}}
 </style>
 </head>
@@ -411,7 +530,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   </div>
   <div class="card anim d3">
     <div class="ch"><div><div class="ct">Acadience K–2 · Equity Snapshot</div><div class="cs" id="acad-tbl-sub">MOY 2025–26</div></div><span class="tag tr">Gap Analysis</span></div>
-    <table class="dt"><thead><tr><th>Subgroup</th><th>Above</th><th>At</th><th>Below</th><th>Well Below</th><th>On/Above Total</th><th>Gap vs All</th><th>vs EOY 24-25</th></tr></thead><tbody id="acadTbl"></tbody></table>
+    <table class="dt"><thead><tr><th>Subgroup</th><th>Above</th><th>At</th><th>Below</th><th>Well Below</th><th>On/Above Total</th><th>Gap vs All</th><th id="acad-base-th">vs Prior Year</th></tr></thead><tbody id="acadTbl"></tbody></table>
   </div>
 
   <!-- iReady Reading subsection -->
@@ -445,7 +564,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   </div>
   <div class="card anim d3">
     <div class="ch"><div><div class="ct">iReady Reading · Equity Snapshot</div><div class="cs" id="read-tbl-sub">MOY 2025–26</div></div><span class="tag tr">Gap Analysis</span></div>
-    <table class="dt"><thead><tr><th>Subgroup</th><th>Mid/Above GL</th><th>Early On GL</th><th>1 Below</th><th>2 Below</th><th>3+ Below</th><th>On-Track Total</th><th>vs EOY 24-25</th></tr></thead><tbody id="readTbl"></tbody></table>
+    <table class="dt"><thead><tr><th>Subgroup</th><th>Mid/Above GL</th><th>Early On GL</th><th>1 Below</th><th>2 Below</th><th>3+ Below</th><th>On-Track Total</th><th class="base-th">vs Prior Year</th>/tr></thead><tbody id="readTbl"></tbody></table>
   </div>
 </section>
 
@@ -486,7 +605,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   </div>
   <div class="card anim d3">
     <div class="ch"><div><div class="ct">iReady Math · Equity Snapshot</div><div class="cs" id="math-tbl-sub">MOY 2025–26</div></div><span class="tag ta">Gap Analysis</span></div>
-    <table class="dt"><thead><tr><th>Subgroup</th><th>Mid/Above GL</th><th>Early On GL</th><th>1 Below</th><th>2 Below</th><th>3+ Below</th><th>On-Track Total</th><th>vs EOY 24-25</th></tr></thead><tbody id="mathTbl"></tbody></table>
+    <table class="dt"><thead><tr><th>Subgroup</th><th>Mid/Above GL</th><th>Early On GL</th><th>1 Below</th><th>2 Below</th><th>3+ Below</th><th>On-Track Total</th><th class="base-th">vs Prior Year</th>/tr></thead><tbody id="mathTbl"></tbody></table>
   </div>
 </section>
 
@@ -509,7 +628,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   </div>
   <div class="card anim d3">
     <div class="ch"><div><div class="ct">Chronic Absenteeism · Monthly Detail</div><div class="cs">YTD chronic absenteeism rate</div></div><span class="tag tb">Full View</span></div>
-    <div style="overflow-x:auto"><table class="dt" id="caTblWrap"></table></div>
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch"><table class="dt" id="caTblWrap"></table></div>
   </div>
 </section>
 
@@ -569,10 +688,13 @@ function mkChart(id, cfg){ if(ci[id]) ci[id].destroy(); ci[id] = new Chart(docum
 // ══ DETERMINE CURRENT WINDOW from today's date ══
 // BOY = Oct–Dec, MOY = Jan–Mar, EOY = May–Jun  (Apr = transitional → MOY)
 function currentWindow(){
-  const mo = new Date().getMonth() + 1; // 1=Jan … 12=Dec
-  if(mo>=10)          return 'BOY';  // Oct, Nov, Dec
-  if(mo>=5 && mo<=7)  return 'EOY';  // May, Jun, Jul
-  return 'MOY';                       // Jan, Feb, Mar, Apr, Aug, Sep (catch-all)
+  // BOY = Sep 5 – Dec 31  |  MOY = Jan 1 – Apr 30  |  EOY = May 1 – Sep 4
+  const now = new Date();
+  const mo  = now.getMonth() + 1; // 1=Jan … 12=Dec
+  const day = now.getDate();
+  if(mo >= 1  && mo <= 4)                  return 'MOY'; // Jan–Apr
+  if(mo >= 5  && (mo < 9 || (mo===9 && day<=4))) return 'EOY'; // May 1–Sep 4
+  return 'BOY';                                            // Sep 5–Dec 31
 }
 const CUR_WIN = currentWindow();
 
@@ -883,17 +1005,19 @@ function renderAcad(grp){
 
   // Equity table — most recent window
   const latest = mostRecent(ACAD);
-  document.getElementById('acad-tbl-sub').textContent=latest;
+  const acadPriorW = priorYearRow(ACAD,'All Students',latest);
+  document.getElementById('acad-tbl-sub').textContent=latest+(acadPriorW?' vs '+acadPriorW.w+' (YoY)':'');
   const allR   = ACAD['All Students']?.find(r=>r.w===latest);
   const allOA  = allR?allR.ab+allR.at:0;
   const tb = document.getElementById('acadTbl'); tb.innerHTML='';
   Object.keys(ACAD).forEach(g=>{
     const r=ACAD[g].find(x=>x.w===latest); if(!r) return;
     const oa=r.ab+r.at, gap=oa-allOA;
-    // Baseline = EOY 24-25 (the normalised key after slice fix)
-    const base=ACAD[g]?.find(x=>x.w==='EOY 24-25'||x.w==='EOY 24-5'||x.w==='EOY 2024-25');
+    // Compare vs same window prior year (e.g. MOY 25-26 vs MOY 24-25)
+    const base=priorYearRow(ACAD,g,latest);
     const baseOA=base?base.ab+base.at:null;
     const chg=baseOA!=null?oa-baseOA:null;
+    const baseLabel=base?base.w:'—';
     tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.ab>=35?'pg':r.ab>=25?'pa':'pr'}">${r.ab}%</span></td><td class="dm">${r.at}%</td><td class="dm">${r.bl}%</td><td><span class="dp ${r.wb<=30?'pg':r.wb<=45?'pa':'pr'}">${r.wb}%</span></td><td><strong class="dm">${oa}%</strong></td><td><span class="dp ${gap>=0?'pg':gap>=-15?'pa':'pr'}">${gap>=0?'+':''}${gap}pts</span></td><td><span class="dp ${chg==null?'pb':chg>=0?'pg':'pr'}">${chg==null?'—':(chg>=0?'+':'')+chg+'pts'}</span></td></tr>`;
   });
 }
@@ -960,12 +1084,13 @@ function renderRead(grp){
     document.getElementById('readGroupSub').textContent='iReady Reading · '+(curYrW||'Current')+' vs '+(prevYrW||'Prior Year')+' · Mid/Above Grade Level';
   }
   const latest=mostRecent(READ);
-  document.getElementById('read-tbl-sub').textContent=latest;
+  const readPriorW = priorYearRow(READ,'All Students',latest);
+  document.getElementById('read-tbl-sub').textContent=latest+(readPriorW?' vs '+readPriorW.w+' (YoY)':'');
   const tb=document.getElementById('readTbl'); tb.innerHTML='';
   groups.forEach(g=>{
     const r=READ[g]?.find(x=>x.w===latest); if(!r) return;
     const ot=r.m+r.e;
-    const base=READ[g]?.find(x=>x.w==='EOY 24-25'||x.w==='EOY 24-5'||x.w==='EOY 2024-25');
+    const base=priorYearRow(READ,g,latest);
     const baseOT=base?base.m+base.e:null;
     const chg=baseOT!=null?ot-baseOT:null;
     tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.m>=20?'pg':r.m>=10?'pa':'pr'}">${r.m}%</span></td><td class="dm">${r.e}%</td><td class="dm">${r.o}%</td><td class="dm">${r.t}%</td><td><span class="dp ${r.th<=25?'pg':r.th<=45?'pa':'pr'}">${r.th}%</span></td><td><strong class="dm">${ot}%</strong></td><td><span class="dp ${chg==null?'pb':chg>=0?'pg':'pr'}">${chg==null?'—':(chg>=0?'+':'')+chg+'pts'}</span></td></tr>`;
@@ -1034,12 +1159,13 @@ function renderMath(grp){
   if(document.getElementById('mathYoYSub')){
     document.getElementById('mathYoYSub').textContent='iReady Math · '+(curYrW||'Current')+' vs '+(prevYrW||'Prior Year')+' · Mid/Above Grade Level';
   }
-  document.getElementById('math-tbl-sub').textContent=latest;
+  const mathPriorW = priorYearRow(MATH,'All Students',latest);
+  document.getElementById('math-tbl-sub').textContent=latest+(mathPriorW?' vs '+mathPriorW.w+' (YoY)':'');
   const tb=document.getElementById('mathTbl'); tb.innerHTML='';
   groups.forEach(g=>{
     const r=MATH[g]?.find(x=>x.w===latest); if(!r) return;
     const ot=r.m+r.e;
-    const base=MATH[g]?.find(x=>x.w==='EOY 24-25'||x.w==='EOY 24-5'||x.w==='EOY 2024-25');
+    const base=priorYearRow(MATH,g,latest);
     const baseOT=base?base.m+base.e:null;
     const chg=baseOT!=null?ot-baseOT:null;
     tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.m>=20?'pg':r.m>=10?'pa':'pr'}">${r.m}%</span></td><td class="dm">${r.e}%</td><td class="dm">${r.o}%</td><td class="dm">${r.t}%</td><td><span class="dp ${r.th<=25?'pg':r.th<=45?'pa':'pr'}">${r.th}%</span></td><td><strong class="dm">${ot}%</strong></td><td><span class="dp ${chg==null?'pb':chg>=0?'pg':'pr'}">${chg==null?'—':(chg>=0?'+':'')+chg+'pts'}</span></td></tr>`;
@@ -1343,7 +1469,7 @@ function renderSEL(){
       <div><div class="ct">SEL Survey · Full Response Detail</div><div class="cs" id="sel-tbl-sub">${curWin} · All domains · All response bands</div></div>
       <span class="tag tp">Detail</span>
     </div>
-    <div style="overflow-x:auto">
+    <div style="overflow-x:auto;-webkit-overflow-scrolling:touch">
       <table class="dt" id="selTbl">
         <thead><tr>
           <th>Domain</th>
