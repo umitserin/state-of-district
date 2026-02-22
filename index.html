@@ -156,6 +156,14 @@ h1 .acc{color:var(--teal);}
 .fb{padding:.28rem .85rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:var(--ff-m);font-size:.68rem;cursor:pointer;transition:all .17s;}
 .fb:hover{border-color:var(--text2);color:var(--text);}
 .fb.active{background:rgba(255,255,255,.1);border-color:var(--b2);color:var(--text);}
+/* Window filter buttons */
+.win-filter-strip{display:flex;gap:.35rem;margin-bottom:.75rem;align-items:center;}
+.wfl{font-family:var(--ff-m);font-size:.62rem;color:var(--text3);margin-right:.2rem;}
+.wfb{padding:.22rem .7rem;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:var(--ff-m);font-size:.65rem;cursor:pointer;transition:all .17s;}
+.wfb:hover{border-color:var(--text2);color:var(--text);}
+.wfb.active{background:rgba(255,255,255,.12);border-color:var(--b2);color:var(--text);font-weight:700;}
+/* Brighter small subtitles */
+.cs{font-family:var(--ff-m);font-size:.68rem;color:var(--text2) !important;margin-top:.2rem;}
 
 /* ── GRIDS ── */
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
@@ -379,6 +387,13 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <div class="gb-target">Target: June 2026</div>
   </div>
   <div class="ins-row anim d1" id="acadInsights"></div>
+  <div class="win-filter-strip" id="acadWinFilter">
+    <span class="wfl">Window:</span>
+    <button class="wfb active" onclick="setWinFilter('acad','ALL',this)">All Years</button>
+    <button class="wfb" onclick="setWinFilter('acad','BOY',this)">BOY Only</button>
+    <button class="wfb" onclick="setWinFilter('acad','MOY',this)">MOY Only</button>
+    <button class="wfb" onclick="setWinFilter('acad','EOY',this)">EOY Only</button>
+  </div>
   <div class="filter-strip" id="acadFilter">
     <span class="fl">Subgroup:</span>
     <button class="fb active" onclick="setGroup('acad','All Students',this)">All Students</button>
@@ -391,12 +406,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <div class="card"><div class="ch"><div><div class="ct">Benchmark Distribution Over Time</div><div class="cs" id="acad-sub">All Students · All Windows</div></div><span class="tag tt">Stacked %</span></div>
       <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Above</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>At</div><div class="si"><div class="sd" style="background:#f59e0b"></div>Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>Well Below</div></div>
       <div class="cw h280"><canvas id="acadStack"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct">On/Above Benchmark</div><div class="cs">All subgroups trend</div></div><span class="tag tb">Trend</span></div>
+    <div class="card"><div class="ch"><div><div class="ct">On/Above Benchmark Trend</div><div class="cs" id="acad-line-sub">All subgroups · All Windows</div></div><span class="tag tb">Trend</span></div>
       <div class="cw h300"><canvas id="acadLine"></canvas></div></div>
   </div>
   <div class="card anim d3">
     <div class="ch"><div><div class="ct">Equity Gap · Most Recent Window</div><div class="cs" id="acad-tbl-sub">MOY 2025–26</div></div><span class="tag tr">Gap Analysis</span></div>
-    <table class="dt"><thead><tr><th>Subgroup</th><th>Above</th><th>At</th><th>Below</th><th>Well Below</th><th>On/Above Total</th><th>Gap vs All Students</th></tr></thead><tbody id="acadTbl"></tbody></table>
+    <table class="dt"><thead><tr><th>Subgroup</th><th>Above</th><th>At</th><th>Below</th><th>Well Below</th><th>On/Above Total</th><th>Gap vs All</th><th>vs EOY 24-25</th></tr></thead><tbody id="acadTbl"></tbody></table>
   </div>
 
   <!-- iReady Reading subsection -->
@@ -406,6 +421,13 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <span class="sec-badge tt">Gr 3–8 · 5 Levels</span>
   </div>
   <div class="ins-row anim d1" id="readInsights"></div>
+  <div class="win-filter-strip" id="readWinFilter">
+    <span class="wfl">Window:</span>
+    <button class="wfb active" onclick="setWinFilter('read','ALL',this)">All Years</button>
+    <button class="wfb" onclick="setWinFilter('read','BOY',this)">BOY Only</button>
+    <button class="wfb" onclick="setWinFilter('read','MOY',this)">MOY Only</button>
+    <button class="wfb" onclick="setWinFilter('read','EOY',this)">EOY Only</button>
+  </div>
   <div class="filter-strip" id="readFilter">
     <span class="fl">Subgroup:</span>
     <button class="fb active" onclick="setGroup('read','All Students',this)">All Students</button>
@@ -418,12 +440,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <div class="card"><div class="ch"><div><div class="ct">Reading Grade-Level Distribution</div><div class="cs" id="read-sub">All Students · All Windows</div></div><span class="tag tt">Stacked %</span></div>
       <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Mid/Above GL</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>Early On GL</div><div class="si"><div class="sd" style="background:#f59e0b"></div>1 Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>2 Below</div><div class="si"><div class="sd" style="background:#a78bfa"></div>3+ Below</div></div>
       <div class="cw h280"><canvas id="readStack"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct">Mid/Above GL — All Subgroups</div><div class="cs">BOY vs MOY 2025–26</div></div><span class="tag tb">Comparison</span></div>
+    <div class="card"><div class="ch"><div><div class="ct" id="readGroupTitle">Mid/Above GL · Year-over-Year</div><div class="cs" id="readGroupSub">Current window vs prior year</div></div><span class="tag tb">Comparison</span></div>
       <div class="cw h280"><canvas id="readGroup"></canvas></div></div>
   </div>
   <div class="card anim d3">
     <div class="ch"><div><div class="ct">Reading Equity Snapshot · Most Recent Window</div><div class="cs" id="read-tbl-sub">MOY 2025–26</div></div><span class="tag tr">Gap Analysis</span></div>
-    <table class="dt"><thead><tr><th>Subgroup</th><th>Mid/Above GL</th><th>Early On GL</th><th>1 Below</th><th>2 Below</th><th>3+ Below</th><th>On-Track Total</th></tr></thead><tbody id="readTbl"></tbody></table>
+    <table class="dt"><thead><tr><th>Subgroup</th><th>Mid/Above GL</th><th>Early On GL</th><th>1 Below</th><th>2 Below</th><th>3+ Below</th><th>On-Track Total</th><th>vs EOY 24-25</th></tr></thead><tbody id="readTbl"></tbody></table>
   </div>
 </section>
 
@@ -440,6 +462,13 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <div class="gb-target" style="background:rgba(79,142,247,.1);color:var(--p3);border-color:rgba(79,142,247,.25)">Target: June 2026</div>
   </div>
   <div class="ins-row anim d1" id="mathInsights"></div>
+  <div class="win-filter-strip" id="mathWinFilter">
+    <span class="wfl">Window:</span>
+    <button class="wfb active" onclick="setWinFilter('math','ALL',this)">All Years</button>
+    <button class="wfb" onclick="setWinFilter('math','BOY',this)">BOY Only</button>
+    <button class="wfb" onclick="setWinFilter('math','MOY',this)">MOY Only</button>
+    <button class="wfb" onclick="setWinFilter('math','EOY',this)">EOY Only</button>
+  </div>
   <div class="filter-strip" id="mathFilter">
     <span class="fl">Subgroup:</span>
     <button class="fb active" onclick="setGroup('math','All Students',this)">All Students</button>
@@ -452,12 +481,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <div class="card"><div class="ch"><div><div class="ct">Math Grade-Level Distribution</div><div class="cs" id="math-sub">All Students · All Windows</div></div><span class="tag ta">Stacked %</span></div>
       <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Mid/Above GL</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>Early On GL</div><div class="si"><div class="sd" style="background:#f59e0b"></div>1 Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>2 Below</div><div class="si"><div class="sd" style="background:#a78bfa"></div>3+ Below</div></div>
       <div class="cw h280"><canvas id="mathStack"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct">EOY Year-over-Year: Mid/Above GL</div><div class="cs">End-of-year comparison by subgroup</div></div><span class="tag tb">YoY</span></div>
+    <div class="card"><div class="ch"><div><div class="ct" id="mathYoYTitle">Mid/Above GL · Year-over-Year</div><div class="cs" id="mathYoYSub">Current window vs prior year</div></div><span class="tag tb">YoY</span></div>
       <div class="cw h280"><canvas id="mathYoY"></canvas></div></div>
   </div>
   <div class="card anim d3">
     <div class="ch"><div><div class="ct">Math Equity Snapshot · Most Recent Window</div><div class="cs" id="math-tbl-sub">MOY 2025–26</div></div><span class="tag ta">Gap Analysis</span></div>
-    <table class="dt"><thead><tr><th>Subgroup</th><th>Mid/Above GL</th><th>Early On GL</th><th>1 Below</th><th>2 Below</th><th>3+ Below</th><th>On-Track Total</th></tr></thead><tbody id="mathTbl"></tbody></table>
+    <table class="dt"><thead><tr><th>Subgroup</th><th>Mid/Above GL</th><th>Early On GL</th><th>1 Below</th><th>2 Below</th><th>3+ Below</th><th>On-Track Total</th><th>vs EOY 24-25</th></tr></thead><tbody id="mathTbl"></tbody></table>
   </div>
 </section>
 
@@ -520,40 +549,45 @@ const URLS = {
 
 // ══ CHART.JS SETUP ══
 Chart.register(ChartDataLabels);
-Chart.defaults.color='#8f98b3';
-Chart.defaults.font.family="'IBM Plex Mono',monospace";
-Chart.defaults.font.size=11;
-Chart.defaults.plugins.legend.labels.boxWidth=8;
-Chart.defaults.plugins.legend.labels.usePointStyle=true;
-Chart.defaults.plugins.legend.labels.padding=14;
-Chart.defaults.plugins.datalabels.display=false;
-const G='rgba(255,255,255,0.05)';
-const C={green:'#4ade80',blue:'#4f8ef7',amber:'#f59e0b',rose:'#fb7185',purple:'#a78bfa',teal:'#34d4b0',orange:'#fb923c',cyan:'#22d3ee'};
+Chart.defaults.color = '#c8cfe0';  // ← brighter default text
+Chart.defaults.font.family = "'IBM Plex Mono',monospace";
+Chart.defaults.font.size = 11;
+Chart.defaults.plugins.legend.labels.boxWidth = 8;
+Chart.defaults.plugins.legend.labels.usePointStyle = true;
+Chart.defaults.plugins.legend.labels.padding = 14;
+Chart.defaults.plugins.datalabels.display = false;
+const G = 'rgba(255,255,255,0.05)';
+const C = {green:'#4ade80',blue:'#4f8ef7',amber:'#f59e0b',rose:'#fb7185',purple:'#a78bfa',teal:'#34d4b0',orange:'#fb923c',cyan:'#22d3ee'};
 
-// Shared label configs
-const STACK_LBL={display:ctx=>ctx.dataset.data[ctx.dataIndex]>=8,color:'rgba(0,0,0,0.75)',font:{family:"'IBM Plex Mono',monospace",size:9,weight:'600'},formatter:v=>v+'%',anchor:'center',align:'center',padding:0,textShadowBlur:3,textShadowColor:'rgba(0,0,0,0.4)'};
-const BAR_LBL={display:ctx=>ctx.dataset.data[ctx.dataIndex]>0,color:'#e8eaf2',font:{family:"'IBM Plex Mono',monospace",size:9,weight:'600'},formatter:v=>v+'%',anchor:'end',align:'end',offset:2};
-const TT_BASE={backgroundColor:'rgba(16,20,32,0.97)',titleColor:'#e8eaf2',bodyColor:'#9ba3b8',borderColor:'rgba(255,255,255,0.12)',borderWidth:1,padding:12,cornerRadius:10,titleFont:{size:11,weight:'700'},footerFont:{size:9}};
+const STACK_LBL = {display:ctx=>ctx.dataset.data[ctx.dataIndex]>=8,color:'rgba(0,0,0,0.8)',font:{family:"'IBM Plex Mono',monospace",size:9,weight:'600'},formatter:v=>v+'%',anchor:'center',align:'center',padding:0,textShadowBlur:3,textShadowColor:'rgba(0,0,0,0.5)'};
+const BAR_LBL   = {display:ctx=>ctx.dataset.data[ctx.dataIndex]>0,color:'#e8eaf2',font:{family:"'IBM Plex Mono',monospace",size:9,weight:'600'},formatter:v=>v+'%',anchor:'end',align:'end',offset:2};
+const TT_BASE   = {backgroundColor:'rgba(16,20,32,0.97)',titleColor:'#e8eaf2',bodyColor:'#b0b8d0',borderColor:'rgba(255,255,255,0.12)',borderWidth:1,padding:12,cornerRadius:10,titleFont:{size:11,weight:'700'},footerFont:{size:9}};
 
-// Chart instances map
-let ci={};
-function mkChart(id,cfg){if(ci[id])ci[id].destroy();ci[id]=new Chart(document.getElementById(id),cfg);}
+let ci = {};
+function mkChart(id, cfg){ if(ci[id]) ci[id].destroy(); ci[id] = new Chart(document.getElementById(id), cfg); }
+
+// ══ DETERMINE CURRENT WINDOW from today's date ══
+// BOY = Oct–Dec, MOY = Jan–Mar, EOY = May–Jun  (Apr = transitional → MOY)
+function currentWindow(){
+  const mo = new Date().getMonth() + 1; // 1-12
+  if(mo>=10 || mo<=12) return 'BOY';
+  if(mo>=1  && mo<=4)  return 'MOY';
+  return 'EOY';
+}
+const CUR_WIN = currentWindow();
 
 // ══ CSV PARSER ══
 function parseCSV(text){
-  const lines=text.trim().split('\n').filter(l=>l.trim());
-  // Skip any title/merged rows at top — find the real header row
-  // Real headers have multiple non-empty columns
-  let headerIdx=0;
+  const lines = text.trim().split('\n').filter(l=>l.trim());
+  let headerIdx = 0;
   for(let i=0;i<Math.min(5,lines.length);i++){
-    const cols=splitCSVLine(lines[i]);
-    const nonEmpty=cols.filter(c=>c.trim().length>0);
-    if(nonEmpty.length>=3){ headerIdx=i; break; }
+    const cols = splitCSVLine(lines[i]);
+    if(cols.filter(c=>c.trim().length>0).length >= 3){ headerIdx=i; break; }
   }
-  const headers=splitCSVLine(lines[headerIdx]);
+  const headers = splitCSVLine(lines[headerIdx]);
   return lines.slice(headerIdx+1).map(line=>{
-    const vals=splitCSVLine(line);
-    const obj={};
+    const vals = splitCSVLine(line);
+    const obj  = {};
     headers.forEach((h,i)=>{ obj[h.trim().replace(/^"|"$/g,'')]=(vals[i]||'').trim().replace(/^"|"$/g,''); });
     return obj;
   }).filter(row=>Object.values(row).some(v=>v.trim().length>0));
@@ -569,273 +603,356 @@ function splitCSVLine(line){
   result.push(cur);
   return result;
 }
-function pct(v){return parseFloat(String(v).replace('%',''))||0;}
+function pct(v){ return parseFloat(String(v).replace('%',''))||0; }
 
-// ══ FETCH with cache-bust ══
+// ══ FETCH — 4 strategies, CORS-resilient ══
 async function fetchCSV(url, label){
-  // Strategy 1: Direct fetch (works if CORS is open)
-  try {
-    const r = await fetch(url + '&t=' + Date.now());
-    if(r.ok){ const t=await r.text(); if(t.trim().length>10 && t.includes(',')) return parseCSV(t); }
-  } catch(e){}
-
-  // Strategy 2: corsproxy.io (free, reliable)
-  try {
-    const r = await fetch('https://corsproxy.io/?' + encodeURIComponent(url));
-    if(r.ok){ const t=await r.text(); if(t.trim().length>10 && t.includes(',')) return parseCSV(t); }
-  } catch(e){}
-
-  // Strategy 3: allorigins (second free proxy)
-  try {
-    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
-    if(r.ok){ const t=await r.text(); if(t.trim().length>10 && t.includes(',')) return parseCSV(t); }
-  } catch(e){}
-
-  // Strategy 4: Extract sheet ID and gid, use Google Sheets export URL variant
-  try {
-    const match = url.match(/spreadsheets\/d\/e\/([^/]+)\/pub/);
-    const gid = (url.match(/gid=(\d+)/)||[])[1]||'0';
-    if(match){
-      const exportUrl = 'https://docs.google.com/spreadsheets/d/e/' + match[1] + '/pub?gid=' + gid + '&single=true&output=csv&t=' + Date.now();
-      const r = await fetch('https://corsproxy.io/?' + encodeURIComponent(exportUrl));
-      if(r.ok){ const t=await r.text(); if(t.trim().length>10 && t.includes(',')) return parseCSV(t); }
-    }
-  } catch(e){}
-
-  throw new Error('Could not load ' + label + '. Please check your internet connection and that the Google Sheet is published.');
+  const t = '&t=' + Date.now();
+  const proxies = [
+    u => 'https://corsproxy.io/?' + encodeURIComponent(u),
+    u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
+  ];
+  try { const r=await fetch(url+t); if(r.ok){const tx=await r.text();if(tx.trim().length>10&&tx.includes(','))return parseCSV(tx);} } catch(e){}
+  for(const proxy of proxies){
+    try { const r=await fetch(proxy(url)); if(r.ok){const tx=await r.text();if(tx.trim().length>10&&tx.includes(','))return parseCSV(tx);} } catch(e){}
+  }
+  throw new Error('Could not load ' + label + '. Check the Sheet tab is published as CSV.');
 }
 
-// ══ LOADER HELPERS ══
-function ldProgress(pct,msg){
-  document.getElementById('ldBar').style.width=pct+'%';
-  document.getElementById('ldStatus').textContent=msg;
-}
-function ldStep(id,state){document.getElementById(id).className='ld-step '+state;}
-function ldHide(){
-  document.getElementById('loader').classList.add('done');
-  document.getElementById('app').classList.add('visible');
-}
+// ══ LOADER ══
+function ldProgress(p,msg){ document.getElementById('ldBar').style.width=p+'%'; document.getElementById('ldStatus').textContent=msg; }
+function ldStep(id,state){ document.getElementById(id).className='ld-step '+state; }
+function ldHide(){ document.getElementById('loader').classList.add('done'); document.getElementById('app').classList.add('visible'); }
 
 // ══ DATA STORES ══
-let ACAD={},READ={},MATH={},CA_DATA=[],SEL_ROWS=[];
+let ACAD={}, READ={}, MATH={}, CA_DATA=[], SEL_ROWS=[];
+
+// ══ WINDOW FILTER STATES ══
+let acadWinFilter='ALL', readWinFilter='ALL', mathWinFilter='ALL';
 
 // ══ PARSE ACADIENCE ══
 function parseAcad(rows){
   const out={};
   rows.forEach(r=>{
-    const sg=r['Subgroup']||r['subgroup']||Object.values(r)[2];
-    const win=r['Academic Year/Window']||Object.values(r)[0];
+    const sg  = r['Subgroup']||r['subgroup']||Object.values(r)[1];
+    const win = r['Academic Year/Window']||Object.values(r)[0];
     if(!sg||!win) return;
     if(!out[sg]) out[sg]=[];
-    // short window label
-    const wShort=win.replace('Beginning of Year Performance','BOY').replace('Middle of Year Performance','MOY').replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY')
+    const wShort = win
+      .replace('Beginning of Year Performance','BOY').replace('Middle of Year Performance','MOY')
+      .replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY')
       .replace('2023-24 ','23-24 ').replace('2024-25 ','24-25 ').replace('2025-26 ','25-26 ').trim();
-    // Try every known column name variant from the sheet
-    const ab = pct(r['above benchmark']||r['Above Benchmark']||r['abovebenchmark']||0);
-    const at = pct(r['at benchmark']||r['At Benchmark']||r['atbenchmark']||0);
-    const bl = pct(r['below benchmark']||r['Below Benchmark']||r['belowbenchmark']||0);
-    const wb = pct(r['well below benchmark']||r['Well Below Benchmark']||r['wellbelowbenchmark']||0);
+    const ab = pct(r['above benchmark']||r['Above Benchmark']||0);
+    const at = pct(r['at benchmark']||r['At Benchmark']||0);
+    const bl = pct(r['below benchmark']||r['Below Benchmark']||0);
+    const wb = pct(r['well below benchmark']||r['Well Below Benchmark']||0);
     out[sg].push({ w:wShort, wFull:win, ab, at, bl, wb });
   });
   return out;
 }
 
-// ══ PARSE iREADY (Reading + Math share same structure) ══
+// ══ PARSE iREADY ══
 function parseIReady(rows){
   const out={};
   rows.forEach(r=>{
-    const sg=r['Subgroup']||r['subgroup']||Object.values(r)[2];
-    const win=r['Academic Year/Window']||Object.values(r)[0];
+    const sg  = r['Subgroup']||r['subgroup']||Object.values(r)[1];
+    const win = r['Academic Year/Window']||Object.values(r)[0];
     if(!sg||!win) return;
     if(!out[sg]) out[sg]=[];
-    const wShort=win.replace('Beginning of Year Performance','BOY').replace('Middle of Year Performance','MOY').replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY')
+    const wShort = win
+      .replace('Beginning of Year Performance','BOY').replace('Middle of Year Performance','MOY')
+      .replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY')
       .replace('2023-24 ','23-24 ').replace('2024-25 ','24-25 ').replace('2025-26 ','25-26 ').trim();
-    // iReady Reading columns: Mid or Above Grade Level, Early On Grade Level, 1 Grade Level Below, 2 Grade Levels Below, 3 or More Grade Levels Below
-    // iReady Math columns: same structure
-    const m  = pct(r['Mid or Above Grade Level']||r['mid or above grade level']||r['Mid/Above Grade Level']||0);
-    const e  = pct(r['Early On Grade Level']||r['early on grade level']||0);
-    const o  = pct(r['1 Grade Level Below']||r['1 grade level below']||0);
-    const t  = pct(r['2 Grade Levels Below']||r['2 grade levels below']||0);
-    const th = pct(r['3 or More Grade Levels Below']||r['3 or more grade levels below']||r['3+ Grade Levels Below']||0);
-    // Fallback to positional if named columns not found
-    const keys=Object.keys(r);
-    out[sg].push({
-      w:wShort, wFull:win,
-      m:  m  || pct(r[keys[3]]||0),
-      e:  e  || pct(r[keys[4]]||0),
-      o:  o  || pct(r[keys[5]]||0),
-      t:  t  || pct(r[keys[6]]||0),
-      th: th || pct(r[keys[7]]||0),
-    });
+    const keys = Object.keys(r);
+    const m  = pct(r['Mid or Above Grade Level']||r['mid or above grade level']||r[keys[3]]||0);
+    const e  = pct(r['Early On Grade Level']||r['early on grade level']||r[keys[4]]||0);
+    const o  = pct(r['1 Grade Level Below']||r['1 grade level below']||r[keys[5]]||0);
+    const t  = pct(r['2 Grade Levels Below']||r['2 grade levels below']||r[keys[6]]||0);
+    const th = pct(r['3 or More Grade Levels Below']||r['3 or more grade levels below']||r['3+ Grade Levels Below']||r[keys[7]]||0);
+    out[sg].push({ w:wShort, wFull:win, m, e, o, t, th });
   });
   return out;
 }
 
 // ══ PARSE CA ══
 function parseCA(rows){
-  // Group by month, collect years
   const byMonth={};
   rows.forEach(r=>{
-    const mo=r['month']||r['Month'];
-    const yr=r['year']||r['Year'];
-    const rate=pct(r['Average of ytd_ca_rate']||r['average of ytd_ca_rate']||Object.values(r)[2]);
+    const mo   = r['month']||r['Month'];
+    const yr   = r['year']||r['Year'];
+    const rate = pct(r['Average of ytd_ca_rate']||r['average of ytd_ca_rate']||Object.values(r)[2]);
     if(!mo||!yr) return;
     if(!byMonth[mo]) byMonth[mo]={month:mo};
-    byMonth[mo][yr]=rate;
+    byMonth[mo][yr] = rate;
   });
   const monthOrder=['Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
   return monthOrder.map(mo=>byMonth[mo]).filter(Boolean);
 }
 
-// ══ MOST RECENT WINDOW helper ══
+// ══ HELPERS ══
 function mostRecent(groupData){
-  const g=groupData['All Students']||Object.values(groupData)[0]||[];
-  return g.length>0?g[g.length-1].w:'—';
+  const g = groupData['All Students']||Object.values(groupData)[0]||[];
+  return g.length>0 ? g[g.length-1].w : '—';
 }
+// Get the window type (BOY/MOY/EOY) from a short label like "MOY 25-26"
+function winType(w){ return w.split(' ')[0]; }
+// Get the school year from a short label like "MOY 25-26" → "25-26"
+function winYear(w){ return w.split(' ')[1]||''; }
+// Filter rows by window type
+function filterByWin(rows, winFilter){
+  if(winFilter==='ALL') return rows;
+  return rows.filter(r=>winType(r.w)===winFilter);
+}
+// Previous school year label e.g. "25-26" → "24-25"
+function prevYear(yr){
+  const [a,b]=yr.split('-');
+  return (parseInt(a)-1)+'-'+(parseInt(b)-1);
+}
+// Find same-window row from prior year for YoY tooltip
+function priorYearRow(data, grp, currentW){
+  const type=winType(currentW), yr=winYear(currentW), prev=prevYear(yr);
+  return data[grp]?.find(r=>winType(r.w)===type && winYear(r.w)===prev);
+}
+
+// ══ DYNAMIC YoY WINDOW — based on current calendar date ══
+// Returns the window label to use for YoY comparison (e.g. "BOY", "MOY", "EOY")
+function yoyWindowLabel(){
+  return CUR_WIN; // BOY/MOY/EOY determined at load time
+}
+function yoyWinFull(){ return {BOY:'BOY',MOY:'MOY',EOY:'EOY'}[CUR_WIN]; }
 
 // ══ RENDER ACADIENCE ══
 function renderAcad(grp){
-  const rows=ACAD[grp]||[];
-  if(!rows.length) return;
-  const L=rows.map(r=>r.w);
+  const allRows = ACAD[grp]||[];
+  if(!allRows.length) return;
+  const rows = filterByWin(allRows, acadWinFilter);
+  const L    = rows.map(r=>r.w);
 
   mkChart('acadStack',{type:'bar',data:{labels:L,datasets:[
-    {label:'Above',data:rows.map(r=>r.ab),backgroundColor:C.green,borderRadius:3,borderSkipped:false},
-    {label:'At',   data:rows.map(r=>r.at),backgroundColor:C.blue, borderRadius:3,borderSkipped:false},
-    {label:'Below',data:rows.map(r=>r.bl),backgroundColor:C.amber,borderRadius:3,borderSkipped:false},
-    {label:'Well Below',data:rows.map(r=>r.wb),backgroundColor:C.rose,borderRadius:3,borderSkipped:false},
+    {label:'Above',     data:rows.map(r=>r.ab),backgroundColor:C.green,borderRadius:3,borderSkipped:false},
+    {label:'At',        data:rows.map(r=>r.at),backgroundColor:C.blue, borderRadius:3,borderSkipped:false},
+    {label:'Below',     data:rows.map(r=>r.bl),backgroundColor:C.amber,borderRadius:3,borderSkipped:false},
+    {label:'Well Below',data:rows.map(r=>r.wb),backgroundColor:C.rose, borderRadius:3,borderSkipped:false},
   ]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},datalabels:STACK_LBL,
       tooltip:{...TT_BASE,callbacks:{
         title:i=>i[0].label,
-        label:ctx=>{const n=['Above Benchmark','At Benchmark','Below Benchmark','Well Below'];return ` ${n[ctx.datasetIndex]}: ${ctx.parsed.y}%`;},
-        afterBody:i=>{const r=rows[i[0].dataIndex];return['',`  ✅ On/Above Combined: ${r.ab+r.at}%`,`  ⚠️  Below Combined: ${r.bl+r.wb}%`];},
-        footer:()=>`Subgroup: ${grp}`,
+        label:ctx=>{const n=['Above Benchmark','At Benchmark','Below Benchmark','Well Below'];return ' '+n[ctx.datasetIndex]+': '+rows[ctx.dataIndex][['ab','at','bl','wb'][ctx.datasetIndex]]+'%';},
+        afterBody:items=>{
+          const r = rows[items[0].dataIndex];
+          const priorRow = priorYearRow(ACAD, grp, r.w);
+          const lines = ['','  ✅ On/Above Combined: '+(r.ab+r.at)+'%','  ⚠️  Below Combined: '+(r.bl+r.wb)+'%'];
+          if(priorRow){
+            lines.push('');
+            lines.push('  📅 Same window prior year ('+priorRow.w+'):');
+            lines.push('     On/Above: '+(priorRow.ab+priorRow.at)+'%  ·  Well Below: '+priorRow.wb+'%');
+            const diff=(r.ab+r.at)-(priorRow.ab+priorRow.at);
+            lines.push('     YoY change: '+(diff>=0?'+':'')+diff+' pts');
+          }
+          return lines;
+        },
+        footer:()=>'Subgroup: '+grp,
       }}},
-    scales:{x:{stacked:true,grid:{color:G},ticks:{maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{callback:v=>v+'%'}}}}});
+    scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#c8cfe0',maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
 
-  const wins=(ACAD['All Students']||rows).map(r=>r.w);
-  const pal=[C.teal,C.amber,C.purple,C.rose,C.blue];
+  // Trend line — filtered by window type, all subgroups
+  const trendRows = filterByWin(ACAD['All Students']||allRows, acadWinFilter);
+  const wins = trendRows.map(r=>r.w);
+  const pal  = [C.teal,C.amber,C.purple,C.rose,C.blue];
   mkChart('acadLine',{type:'line',data:{labels:wins,datasets:Object.keys(ACAD).map((g,i)=>({
-    label:g,data:ACAD[g].map(r=>r.ab+r.at),
+    label:g,
+    data:filterByWin(ACAD[g],acadWinFilter).map(r=>r.ab+r.at),
     borderColor:pal[i%pal.length],backgroundColor:'transparent',
     tension:.4,pointRadius:5,borderWidth:g===grp?3:1.5,pointBackgroundColor:pal[i%pal.length],
   }))},options:{responsive:true,maintainAspectRatio:false,
     interaction:{mode:'index',intersect:false},
-    plugins:{legend:{position:'bottom',labels:{font:{size:10}}},
-      datalabels:{...{display:ctx=>ctx.dataset.label===grp,color:ctx=>ctx.dataset.borderColor,font:{family:"'IBM Plex Mono',monospace",size:8.5,weight:'600'},formatter:v=>v+'%',anchor:'top',align:'top',offset:4,backgroundColor:'rgba(11,13,19,0.7)',borderRadius:3,padding:{top:2,bottom:2,left:4,right:4}}},
-      tooltip:{...TT_BASE,callbacks:{title:i=>i[0].label,label:ctx=>` ${ctx.dataset.label}: ${ctx.parsed.y}% on/above`,afterLabel:ctx=>{const all=ACAD['All Students']?.find(r=>r.w===ctx.label);const av=all?all.ab+all.at:null;if(ctx.dataset.label!=='All Students'&&av){const g=ctx.parsed.y-av;return ` Gap vs All: ${g>=0?'+':''}${g} pts`;}return '';},},}},
-    scales:{x:{grid:{color:G},ticks:{maxRotation:45,font:{size:9}}},y:{grid:{color:G},min:0,max:100,ticks:{callback:v=>v+'%'}}}}});
+    plugins:{
+      legend:{position:'bottom',labels:{color:'#c8cfe0',font:{size:10}}},
+      datalabels:{display:ctx=>ctx.dataset.label===grp,color:ctx=>ctx.dataset.borderColor,font:{family:"'IBM Plex Mono',monospace",size:8.5,weight:'600'},formatter:v=>v+'%',anchor:'top',align:'top',offset:4,backgroundColor:'rgba(11,13,19,0.7)',borderRadius:3,padding:{top:2,bottom:2,left:4,right:4}},
+      tooltip:{...TT_BASE,callbacks:{
+        title:i=>i[0].label,
+        label:ctx=>' '+ctx.dataset.label+': '+ctx.parsed.y+'% on/above',
+        afterLabel:ctx=>{
+          const all=ACAD['All Students']?.find(r=>r.w===ctx.label);
+          const av=all?all.ab+all.at:null;
+          if(ctx.dataset.label!=='All Students'&&av){ const g=ctx.parsed.y-av; return ' Gap vs All: '+(g>=0?'+':'')+g+' pts'; }
+          return '';
+        },
+      }},
+    },
+    scales:{x:{grid:{color:G},ticks:{color:'#c8cfe0',maxRotation:45,font:{size:9}}},y:{grid:{color:G},min:0,max:100,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
 
-  document.getElementById('acad-sub').textContent=`${grp} · All Windows`;
+  document.getElementById('acad-sub').textContent=grp+' · '+(acadWinFilter==='ALL'?'All Windows':acadWinFilter+' windows only');
 
-  // equity table
-  const latest=mostRecent(ACAD);
+  // Equity table — most recent window
+  const latest = mostRecent(ACAD);
   document.getElementById('acad-tbl-sub').textContent=latest;
-  const allR=ACAD['All Students']?.find(r=>r.w===latest);
-  const allOA=allR?allR.ab+allR.at:0;
-  const tb=document.getElementById('acadTbl'); tb.innerHTML='';
+  const allR   = ACAD['All Students']?.find(r=>r.w===latest);
+  const allOA  = allR?allR.ab+allR.at:0;
+  const tb = document.getElementById('acadTbl'); tb.innerHTML='';
   Object.keys(ACAD).forEach(g=>{
-    const r=ACAD[g].find(x=>x.w===latest);
-    if(!r) return;
-    const oa=r.ab+r.at; const gap=oa-allOA;
-    tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.ab>=35?'pg':r.ab>=25?'pa':'pr'}">${r.ab}%</span></td><td class="dm">${r.at}%</td><td class="dm">${r.bl}%</td><td><span class="dp ${r.wb<=30?'pg':r.wb<=45?'pa':'pr'}">${r.wb}%</span></td><td><strong class="dm">${oa}%</strong></td><td><span class="dp ${gap>=0?'pg':gap>=-15?'pa':'pr'}">${gap>=0?'+':''}${gap} pts</span></td></tr>`;
+    const r=ACAD[g].find(x=>x.w===latest); if(!r) return;
+    const oa=r.ab+r.at, gap=oa-allOA;
+    // Baseline = EOY 24-25
+    const base=ACAD[g]?.find(x=>x.w==='EOY 24-25');
+    const baseOA=base?base.ab+base.at:null;
+    const chg=baseOA!=null?oa-baseOA:null;
+    tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.ab>=35?'pg':r.ab>=25?'pa':'pr'}">${r.ab}%</span></td><td class="dm">${r.at}%</td><td class="dm">${r.bl}%</td><td><span class="dp ${r.wb<=30?'pg':r.wb<=45?'pa':'pr'}">${r.wb}%</span></td><td><strong class="dm">${oa}%</strong></td><td><span class="dp ${gap>=0?'pg':gap>=-15?'pa':'pr'}">${gap>=0?'+':''}${gap}pts</span></td><td><span class="dp ${chg==null?'pb':chg>=0?'pg':'pr'}">${chg==null?'—':(chg>=0?'+':'')+chg+'pts'}</span></td></tr>`;
   });
 }
 
 // ══ RENDER iREADY READING ══
 function renderRead(grp){
-  const rows=READ[grp]||[];
-  if(!rows.length) return;
-  const L=rows.map(r=>r.w);
+  const allRows = READ[grp]||[]; if(!allRows.length) return;
+  const rows    = filterByWin(allRows, readWinFilter);
+  const L       = rows.map(r=>r.w);
+
   mkChart('readStack',{type:'bar',data:{labels:L,datasets:[
-    {label:'Mid/Above',data:rows.map(r=>r.m),backgroundColor:C.green, borderRadius:3,borderSkipped:false},
-    {label:'Early On', data:rows.map(r=>r.e),backgroundColor:C.blue,  borderRadius:3,borderSkipped:false},
-    {label:'1 Below',  data:rows.map(r=>r.o),backgroundColor:C.amber, borderRadius:3,borderSkipped:false},
-    {label:'2 Below',  data:rows.map(r=>r.t),backgroundColor:C.rose,  borderRadius:3,borderSkipped:false},
+    {label:'Mid/Above',data:rows.map(r=>r.m), backgroundColor:C.green, borderRadius:3,borderSkipped:false},
+    {label:'Early On', data:rows.map(r=>r.e), backgroundColor:C.blue,  borderRadius:3,borderSkipped:false},
+    {label:'1 Below',  data:rows.map(r=>r.o), backgroundColor:C.amber, borderRadius:3,borderSkipped:false},
+    {label:'2 Below',  data:rows.map(r=>r.t), backgroundColor:C.rose,  borderRadius:3,borderSkipped:false},
     {label:'3+ Below', data:rows.map(r=>r.th),backgroundColor:C.purple,borderRadius:3,borderSkipped:false},
   ]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},datalabels:STACK_LBL,
       tooltip:{...TT_BASE,callbacks:{
         title:i=>i[0].label,
-        label:ctx=>{const n=['Mid/Above GL','Early On GL','1 Level Below','2 Levels Below','3+ Levels Below'];const r=rows[ctx.dataIndex];const v=[r.m,r.e,r.o,r.t,r.th];return ` ${n[ctx.datasetIndex]}: ${v[ctx.datasetIndex]}%`;},
-        afterBody:i=>{const r=rows[i[0].dataIndex];return['',`  ✅ On-Track (Mid+Early): ${r.m+r.e}%`,`  🔴 3+ Below: ${r.th}%`];},
-        footer:()=>`Subgroup: ${grp}`,
+        label:ctx=>{const n=['Mid/Above GL','Early On GL','1 Level Below','2 Levels Below','3+ Levels Below'];const r=rows[ctx.dataIndex];const v=[r.m,r.e,r.o,r.t,r.th];return ' '+n[ctx.datasetIndex]+': '+v[ctx.datasetIndex]+'%';},
+        afterBody:items=>{
+          const r=rows[items[0].dataIndex];
+          const priorRow=priorYearRow(READ,grp,r.w);
+          const lines=['','  ✅ On-Track (Mid+Early): '+(r.m+r.e)+'%','  🔴 3+ Below: '+r.th+'%'];
+          if(priorRow){
+            lines.push('');
+            lines.push('  📅 Same window prior year ('+priorRow.w+'):');
+            lines.push('     On-Track: '+(priorRow.m+priorRow.e)+'%  ·  3+ Below: '+priorRow.th+'%');
+            const diff=(r.m+r.e)-(priorRow.m+priorRow.e);
+            lines.push('     YoY change: '+(diff>=0?'+':'')+diff+' pts');
+          }
+          return lines;
+        },
+        footer:()=>'Subgroup: '+grp,
       }}},
-    scales:{x:{stacked:true,grid:{color:G},ticks:{maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{callback:v=>v+'%'}}}}});
+    scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#c8cfe0',maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
 
-  const groups=Object.keys(READ);
-  const latest=mostRecent(READ);
-  const prev=READ['All Students']?.find(r=>r.w.startsWith('BOY'))?.w;
+  // Dynamic YoY comparison chart
+  const yw      = yoyWinFull();
+  const groups  = Object.keys(READ);
+  const curYrW  = groups.length?READ[groups[0]]?.filter(r=>winType(r.w)===yw).slice(-1)[0]?.w:null;
+  const prevYrW = curYrW?winType(curYrW)+' '+prevYear(winYear(curYrW)):null;
   mkChart('readGroup',{type:'bar',data:{labels:groups,datasets:[
-    {label:`BOY (latest)`,data:groups.map(g=>READ[g]?.find(r=>r.w.includes('BOY 25'))?.m||0),backgroundColor:'rgba(79,142,247,0.35)',borderRadius:6},
-    {label:`MOY (latest)`,data:groups.map(g=>READ[g]?.find(r=>r.w===latest)?.m||0),backgroundColor:C.blue,borderRadius:6},
+    {label:prevYrW||'Prior Year '+yw,data:groups.map(g=>READ[g]?.find(r=>r.w===prevYrW)?.m||READ[g]?.find(r=>winType(r.w)===yw&&r.w!==curYrW)?.m||0),backgroundColor:'rgba(79,142,247,0.3)',borderRadius:6},
+    {label:curYrW||'Current '+yw,   data:groups.map(g=>READ[g]?.find(r=>r.w===curYrW)?.m||0),backgroundColor:C.blue,borderRadius:6},
   ]},options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{position:'bottom'},datalabels:BAR_LBL,
-      tooltip:{...TT_BASE,callbacks:{title:i=>i[0].label+' — Mid/Above GL',label:ctx=>` ${ctx.dataset.label}: ${ctx.parsed.y}%`,afterBody:i=>{const g=i[0].label;const b=READ[g]?.find(r=>r.w.includes('BOY 25'))?.m||0;const m=READ[g]?.find(r=>r.w===latest)?.m||0;return['',` Within-year gain: +${m-b} pts`];},}}},
-    scales:{x:{grid:{display:false}},y:{grid:{color:G},ticks:{callback:v=>v+'%'}}}}});
+    plugins:{legend:{position:'bottom',labels:{color:'#c8cfe0'}},datalabels:BAR_LBL,
+      tooltip:{...TT_BASE,callbacks:{
+        title:i=>i[0].label+' — Mid/Above GL ('+yw+')',
+        label:ctx=>' '+ctx.dataset.label+': '+ctx.parsed.y+'%',
+        afterBody:i=>{
+          const g=i[0].label;
+          const prev=READ[g]?.find(r=>r.w===prevYrW)?.m||0;
+          const cur=READ[g]?.find(r=>r.w===curYrW)?.m||0;
+          return ['', ' YoY change: '+(cur>=prev?'+':'')+(cur-prev)+' pts'];
+        },
+      }}},
+    scales:{x:{grid:{display:false},ticks:{color:'#c8cfe0'}},y:{grid:{color:G},ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
 
-  document.getElementById('read-sub').textContent=`${grp} · All Windows`;
+  document.getElementById('read-sub').textContent=grp+' · '+(readWinFilter==='ALL'?'All Windows':readWinFilter+' windows only');
+  const latest=mostRecent(READ);
   document.getElementById('read-tbl-sub').textContent=latest;
   const tb=document.getElementById('readTbl'); tb.innerHTML='';
   groups.forEach(g=>{
-    const r=READ[g]?.find(x=>x.w===latest);
-    if(!r) return;
+    const r=READ[g]?.find(x=>x.w===latest); if(!r) return;
     const ot=r.m+r.e;
-    tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.m>=20?'pg':r.m>=10?'pa':'pr'}">${r.m}%</span></td><td class="dm">${r.e}%</td><td class="dm">${r.o}%</td><td class="dm">${r.t}%</td><td><span class="dp ${r.th<=25?'pg':r.th<=45?'pa':'pr'}">${r.th}%</span></td><td><strong class="dm">${ot}%</strong></td></tr>`;
+    const base=READ[g]?.find(x=>x.w==='EOY 24-25');
+    const baseOT=base?base.m+base.e:null;
+    const chg=baseOT!=null?ot-baseOT:null;
+    tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.m>=20?'pg':r.m>=10?'pa':'pr'}">${r.m}%</span></td><td class="dm">${r.e}%</td><td class="dm">${r.o}%</td><td class="dm">${r.t}%</td><td><span class="dp ${r.th<=25?'pg':r.th<=45?'pa':'pr'}">${r.th}%</span></td><td><strong class="dm">${ot}%</strong></td><td><span class="dp ${chg==null?'pb':chg>=0?'pg':'pr'}">${chg==null?'—':(chg>=0?'+':'')+chg+'pts'}</span></td></tr>`;
   });
 }
 
 // ══ RENDER MATH ══
 function renderMath(grp){
-  const rows=MATH[grp]||[];
-  if(!rows.length) return;
-  const L=rows.map(r=>r.w);
+  const allRows=MATH[grp]||[]; if(!allRows.length) return;
+  const rows   =filterByWin(allRows,mathWinFilter);
+  const L      =rows.map(r=>r.w);
+
   mkChart('mathStack',{type:'bar',data:{labels:L,datasets:[
-    {label:'Mid/Above',data:rows.map(r=>r.m),backgroundColor:C.green, borderRadius:3,borderSkipped:false},
-    {label:'Early On', data:rows.map(r=>r.e),backgroundColor:C.blue,  borderRadius:3,borderSkipped:false},
-    {label:'1 Below',  data:rows.map(r=>r.o),backgroundColor:C.amber, borderRadius:3,borderSkipped:false},
-    {label:'2 Below',  data:rows.map(r=>r.t),backgroundColor:C.rose,  borderRadius:3,borderSkipped:false},
+    {label:'Mid/Above',data:rows.map(r=>r.m), backgroundColor:C.green, borderRadius:3,borderSkipped:false},
+    {label:'Early On', data:rows.map(r=>r.e), backgroundColor:C.blue,  borderRadius:3,borderSkipped:false},
+    {label:'1 Below',  data:rows.map(r=>r.o), backgroundColor:C.amber, borderRadius:3,borderSkipped:false},
+    {label:'2 Below',  data:rows.map(r=>r.t), backgroundColor:C.rose,  borderRadius:3,borderSkipped:false},
     {label:'3+ Below', data:rows.map(r=>r.th),backgroundColor:C.purple,borderRadius:3,borderSkipped:false},
   ]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},datalabels:STACK_LBL,
       tooltip:{...TT_BASE,callbacks:{
         title:i=>i[0].label,
-        label:ctx=>{const n=['Mid/Above GL','Early On GL','1 Level Below','2 Levels Below','3+ Levels Below'];const r=rows[ctx.dataIndex];const v=[r.m,r.e,r.o,r.t,r.th];return ` ${n[ctx.datasetIndex]}: ${v[ctx.datasetIndex]}%`;},
-        afterBody:i=>{const r=rows[i[0].dataIndex];return['',`  ✅ On-Track: ${r.m+r.e}%`,`  🔴 3+ Below: ${r.th}%`];},
-        footer:()=>`Subgroup: ${grp}`,
+        label:ctx=>{const n=['Mid/Above GL','Early On GL','1 Level Below','2 Levels Below','3+ Levels Below'];const r=rows[ctx.dataIndex];const v=[r.m,r.e,r.o,r.t,r.th];return ' '+n[ctx.datasetIndex]+': '+v[ctx.datasetIndex]+'%';},
+        afterBody:items=>{
+          const r=rows[items[0].dataIndex];
+          const priorRow=priorYearRow(MATH,grp,r.w);
+          const lines=['','  ✅ On-Track: '+(r.m+r.e)+'%','  🔴 3+ Below: '+r.th+'%'];
+          if(priorRow){
+            lines.push('');
+            lines.push('  📅 Same window prior year ('+priorRow.w+'):');
+            lines.push('     On-Track: '+(priorRow.m+priorRow.e)+'%  ·  3+ Below: '+priorRow.th+'%');
+            const diff=(r.m+r.e)-(priorRow.m+priorRow.e);
+            lines.push('     YoY change: '+(diff>=0?'+':'')+diff+' pts');
+          }
+          return lines;
+        },
+        footer:()=>'Subgroup: '+grp,
       }}},
-    scales:{x:{stacked:true,grid:{color:G},ticks:{maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{callback:v=>v+'%'}}}}});
+    scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#c8cfe0',maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
 
+  // Dynamic YoY
+  const yw=yoyWinFull();
   const groups=Object.keys(MATH);
+  const curYrW=groups.length?MATH[groups[0]]?.filter(r=>winType(r.w)===yw).slice(-1)[0]?.w:null;
+  const prevYrW=curYrW?winType(curYrW)+' '+prevYear(winYear(curYrW)):null;
   mkChart('mathYoY',{type:'bar',data:{labels:groups,datasets:[
-    {label:'EOY 2023-24',data:groups.map(g=>MATH[g]?.find(r=>r.w==='EOY 23-24')?.m||0),backgroundColor:'rgba(245,158,11,0.35)',borderRadius:6},
-    {label:'EOY 2024-25',data:groups.map(g=>MATH[g]?.find(r=>r.w==='EOY 24-25')?.m||0),backgroundColor:C.amber,borderRadius:6},
+    {label:prevYrW||'Prior Year '+yw,data:groups.map(g=>MATH[g]?.find(r=>r.w===prevYrW)?.m||MATH[g]?.find(r=>winType(r.w)===yw&&r.w!==curYrW)?.m||0),backgroundColor:'rgba(245,158,11,0.3)',borderRadius:6},
+    {label:curYrW||'Current '+yw,    data:groups.map(g=>MATH[g]?.find(r=>r.w===curYrW)?.m||0),backgroundColor:C.amber,borderRadius:6},
   ]},options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{position:'bottom'},datalabels:BAR_LBL,
-      tooltip:{...TT_BASE,callbacks:{title:i=>i[0].label+' — Mid/Above GL (EOY)',label:ctx=>` ${ctx.dataset.label}: ${ctx.parsed.y}%`,afterBody:i=>{const g=i[0].label;const e23=MATH[g]?.find(r=>r.w==='EOY 23-24')?.m||0;const e24=MATH[g]?.find(r=>r.w==='EOY 24-25')?.m||0;return['',` YoY gain: +${e24-e23} pts`];},}}},
-    scales:{x:{grid:{display:false}},y:{grid:{color:G},ticks:{callback:v=>v+'%'}}}}});
+    plugins:{legend:{position:'bottom',labels:{color:'#c8cfe0'}},datalabels:BAR_LBL,
+      tooltip:{...TT_BASE,callbacks:{
+        title:i=>i[0].label+' — Mid/Above GL ('+yw+')',
+        label:ctx=>' '+ctx.dataset.label+': '+ctx.parsed.y+'%',
+        afterBody:i=>{
+          const g=i[0].label;
+          const prev=MATH[g]?.find(r=>r.w===prevYrW)?.m||0;
+          const cur=MATH[g]?.find(r=>r.w===curYrW)?.m||0;
+          return ['',' YoY change: '+(cur>=prev?'+':'')+(cur-prev)+' pts'];
+        },
+      }}},
+    scales:{x:{grid:{display:false},ticks:{color:'#c8cfe0'}},y:{grid:{color:G},ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
 
   const latest=mostRecent(MATH);
-  document.getElementById('math-sub').textContent=`${grp} · All Windows`;
+  document.getElementById('math-sub').textContent=grp+' · '+(mathWinFilter==='ALL'?'All Windows':mathWinFilter+' windows only');
   document.getElementById('math-tbl-sub').textContent=latest;
   const tb=document.getElementById('mathTbl'); tb.innerHTML='';
   groups.forEach(g=>{
-    const r=MATH[g]?.find(x=>x.w===latest);
-    if(!r) return;
+    const r=MATH[g]?.find(x=>x.w===latest); if(!r) return;
     const ot=r.m+r.e;
-    tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.m>=20?'pg':r.m>=10?'pa':'pr'}">${r.m}%</span></td><td class="dm">${r.e}%</td><td class="dm">${r.o}%</td><td class="dm">${r.t}%</td><td><span class="dp ${r.th<=25?'pg':r.th<=45?'pa':'pr'}">${r.th}%</span></td><td><strong class="dm">${ot}%</strong></td></tr>`;
+    const base=MATH[g]?.find(x=>x.w==='EOY 24-25');
+    const baseOT=base?base.m+base.e:null;
+    const chg=baseOT!=null?ot-baseOT:null;
+    tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.m>=20?'pg':r.m>=10?'pa':'pr'}">${r.m}%</span></td><td class="dm">${r.e}%</td><td class="dm">${r.o}%</td><td class="dm">${r.t}%</td><td><span class="dp ${r.th<=25?'pg':r.th<=45?'pa':'pr'}">${r.th}%</span></td><td><strong class="dm">${ot}%</strong></td><td><span class="dp ${chg==null?'pb':chg>=0?'pg':'pr'}">${chg==null?'—':(chg>=0?'+':'')+chg+'pts'}</span></td></tr>`;
   });
 }
 
-// ══ RENDER CA ══
+// ══ RENDER CA — last 3 years only ══
 function renderCA(){
-  const years=[...new Set(CA_DATA.flatMap(r=>Object.keys(r).filter(k=>k!=='month')))].sort();
-  const colors=[C.cyan,C.purple,C.amber,C.rose,C.blue,C.teal];
-  const months=CA_DATA.map(r=>r.month);
+  let allYears = [...new Set(CA_DATA.flatMap(r=>Object.keys(r).filter(k=>k!=='month')))].sort();
+  // Keep only last 3 years
+  const years = allYears.slice(-3);
+  const colors = [C.amber, C.blue, C.teal]; // prior-prior, prior, current
+  const months = CA_DATA.map(r=>r.month);
 
-  // Year avg cards
+  // Year avg cards (3 years)
   const cc=document.getElementById('caCards'); cc.innerHTML='';
+  // Override grid to 3 columns
+  cc.style.gridTemplateColumns='repeat(3,1fr)';
   years.forEach((yr,i)=>{
     const vals=CA_DATA.map(r=>r[yr]).filter(v=>v!=null&&!isNaN(v));
     if(!vals.length) return;
@@ -845,21 +962,49 @@ function renderCA(){
     const delta=pa?(avg-pa).toFixed(1):null;
     const col=avg>20?'var(--rose)':avg>16?'var(--amber)':'var(--teal)';
     const trCol=delta===null?'var(--text3)':delta<0?'var(--teal)':'var(--rose)';
-    cc.innerHTML+=`<div class="cac"><div class="cac-yr">${yr}</div><div class="cac-val" style="color:${col}">${avg}%</div><div class="cac-tr" style="color:${trCol}">${delta===null?'Baseline':delta<0?'▼ '+Math.abs(delta)+'pts':'▲ '+Math.abs(delta)+'pts'}</div></div>`;
+    const isLatest=i===years.length-1;
+    cc.innerHTML+=`<div class="cac" style="${isLatest?'border-color:var(--ca);border-width:2px':''}"><div class="cac-yr">${yr}${isLatest?' · Current':''}</div><div class="cac-val" style="color:${col}">${avg}%</div><div class="cac-tr" style="color:${trCol}">${delta===null?'Baseline':delta<0?'▼ '+Math.abs(delta)+'pts':'▲ '+Math.abs(delta)+'pts'}</div></div>`;
   });
 
   mkChart('caLine',{type:'line',data:{labels:months,datasets:years.map((yr,i)=>({
-    label:yr,data:CA_DATA.map(r=>r[yr]??null),borderColor:colors[i%colors.length],backgroundColor:'transparent',
+    label:yr,
+    data:CA_DATA.map(r=>r[yr]??null),
+    borderColor:colors[i],backgroundColor:'transparent',
     tension:.4,pointRadius:5,spanGaps:false,
-    borderWidth:i===years.length-1?3:i===years.length-2?2.5:1.5,
-    borderDash:i===0?[5,3]:[],pointBackgroundColor:colors[i%colors.length],
+    borderWidth:i===years.length-1?3:i===years.length-2?2:1.5,
+    borderDash:i===0?[5,3]:[],
+    pointBackgroundColor:colors[i],
   }))},options:{responsive:true,maintainAspectRatio:false,
     interaction:{mode:'index',intersect:false},
-    plugins:{legend:{position:'bottom',labels:{font:{size:10}}},
-      datalabels:{display:ctx=>{const yr=ctx.dataset.label;return(yr===years[years.length-1]||yr===years[years.length-2])&&ctx.dataset.data[ctx.dataIndex]!=null;},color:ctx=>ctx.dataset.borderColor,font:{family:"'IBM Plex Mono',monospace",size:8,weight:'600'},formatter:v=>v!=null?v+'%':'',anchor:'top',align:'top',offset:3,backgroundColor:'rgba(11,13,19,0.75)',borderRadius:3,padding:{top:1,bottom:1,left:3,right:3}},
-      tooltip:{...TT_BASE,footerColor:'#fb7185',callbacks:{title:i=>`${i[0].label} — CA YTD Rate`,label:ctx=>ctx.parsed.y!=null?` ${ctx.dataset.label}: ${ctx.parsed.y}%`:` ${ctx.dataset.label}: n/a`,footer:()=>'Goal: 4% reduction for ELL, SWD, Hispanic, Black'}}},
-    scales:{x:{grid:{color:G}},y:{grid:{color:G},min:8,ticks:{callback:v=>v+'%'}}}}});
+    plugins:{
+      legend:{position:'bottom',labels:{color:'#c8cfe0',font:{size:10}}},
+      datalabels:{
+        display:ctx=>(ctx.dataset.label===years[years.length-1]||ctx.dataset.label===years[years.length-2])&&ctx.dataset.data[ctx.dataIndex]!=null,
+        color:ctx=>ctx.dataset.borderColor,
+        font:{family:"'IBM Plex Mono',monospace",size:8,weight:'600'},
+        formatter:v=>v!=null?v+'%':'',
+        anchor:'top',align:'top',offset:3,
+        backgroundColor:'rgba(11,13,19,0.75)',borderRadius:3,padding:{top:1,bottom:1,left:3,right:3},
+      },
+      tooltip:{...TT_BASE,footerColor:'#fb7185',callbacks:{
+        title:i=>i[0].label+' — CA YTD Rate',
+        label:ctx=>ctx.parsed.y!=null?' '+ctx.dataset.label+': '+ctx.parsed.y+'%':' '+ctx.dataset.label+': n/a',
+        afterBody:items=>{
+          const validItems=items.filter(i=>i.parsed.y!=null);
+          if(validItems.length>=2){
+            const cur=validItems[validItems.length-1].parsed.y;
+            const prev=validItems[validItems.length-2].parsed.y;
+            const diff=(cur-prev).toFixed(1);
+            return ['', ' YoY change: '+(diff<0?'▼ '+Math.abs(diff):'▲ '+diff)+'%'];
+          }
+          return [];
+        },
+        footer:()=>'Goal: 4% reduction for ELL, SWD, Hispanic, Black',
+      }},
+    },
+    scales:{x:{grid:{color:G},ticks:{color:'#c8cfe0'}},y:{grid:{color:G},min:8,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
 
+  // Sep bar — 3 years
   const latestYr=years[years.length-1];
   const sepRow=CA_DATA.find(r=>r.month==='Sep');
   const sepVals=years.map(yr=>sepRow?sepRow[yr]??null:null);
@@ -870,76 +1015,76 @@ function renderCA(){
   }]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},
       datalabels:{display:ctx=>ctx.dataset.data[ctx.dataIndex]!=null,color:'rgba(255,255,255,.9)',font:{family:"'IBM Plex Mono',monospace",size:10,weight:'700'},formatter:v=>v!=null?v+'%':'',anchor:'center',align:'center'},
-      tooltip:{...TT_BASE,footerColor:'#fb7185',callbacks:{title:i=>`${i[0].label} — September YTD`,label:ctx=>` Rate: ${ctx.parsed.y}%`,afterLabel:ctx=>{const v=ctx.parsed.y;return ` Status: ${v>17?'⚠️ Above threshold':v>14?'🟡 Moderate':'✅ Below target'}`;},footer:()=>'4% reduction goal vs prior year'}}},
-    scales:{x:{grid:{display:false}},y:{grid:{color:G},min:8,ticks:{callback:v=>v+'%'}}}}});
+      tooltip:{...TT_BASE,footerColor:'#fb7185',callbacks:{
+        title:i=>i[0].label+' — September YTD',
+        label:ctx=>' Rate: '+ctx.parsed.y+'%',
+        afterLabel:ctx=>{const v=ctx.parsed.y;return ' Status: '+(v>17?'⚠️ Above threshold':v>14?'🟡 Moderate':'✅ Below target');},
+        footer:()=>'4% reduction goal vs prior year',
+      }}},
+    scales:{x:{grid:{display:false},ticks:{color:'#c8cfe0'}},y:{grid:{color:G},min:8,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
 
-  // Full table — build dynamic columns
+  // Table — 3 years
   const tbl=document.getElementById('caTblWrap');
   let html=`<thead><tr><th>Month</th>${years.map(y=>`<th>${y}</th>`).join('')}<th>vs Prior Year</th></tr></thead><tbody>`;
   CA_DATA.forEach(row=>{
-    const curr=row[latestYr]; const prev=row[years[years.length-2]];
-    const trend=curr!=null&&prev!=null?`<span class="dp ${curr<prev?'pg':curr>prev?'pr':'pb'}">${curr<prev?'▼ '+(prev-curr).toFixed(1)+'pts':curr>prev?'▲ '+(curr-prev).toFixed(1)+'pts':'—'}</span>`:'<span style="color:var(--text3);font-size:.7rem">Pending</span>';
+    const curr=row[latestYr], prev=row[years[years.length-2]];
+    const trend=curr!=null&&prev!=null
+      ?`<span class="dp ${curr<prev?'pg':curr>prev?'pr':'pb'}">${curr<prev?'▼ '+(prev-curr).toFixed(1)+'pts':curr>prev?'▲ '+(curr-prev).toFixed(1)+'pts':'—'}</span>`
+      :'<span style="color:var(--text3);font-size:.7rem">Pending</span>';
     html+=`<tr><td class="dn">${row.month}</td>${years.map(y=>`<td class="dm">${row[y]!=null?row[y]+'%':'—'}</td>`).join('')}<td>${trend}</td></tr>`;
   });
-  html+='</tbody>';
-  tbl.innerHTML=html;
+  tbl.innerHTML=html+'</tbody>';
 }
 
-// ══ RENDER SEL (placeholder if empty) ══
-function renderSEL(){
-  const el=document.getElementById('selContent');
-  if(!SEL_ROWS.length||Object.keys(SEL_ROWS[0]).every(k=>!SEL_ROWS[0][k])){
-    el.innerHTML=`<div class="coming-soon"><div class="cs-icon">💛</div><div class="cs-title">SEL Data Coming Soon</div><div class="cs-desc">Priority 2 data (District Student Survey, MindUP Moments outcomes) will be displayed here once added to your Google Sheet. This section will automatically populate when data is available.</div><span class="cs-tag">⏳ Awaiting data in Google Sheets tab</span></div>`;
-  } else {
-    el.innerHTML=`<div class="card"><div class="ch"><div class="ct">SEL Survey Results</div></div><p style="color:var(--text2);font-size:.85rem;line-height:1.7">${SEL_ROWS.length} records loaded. Chart will render based on your column structure.</p></div>`;
-  }
+// ══ GOAL TRACKER — baseline = EOY 24-25 ══
+function renderTargets(){
+  const container=document.getElementById('targetRow'); container.innerHTML='';
+  const baselineWin='EOY 24-25';
+  const targets=[
+    {label:'P1: All Students Reading',tc:'var(--p1)',grp:'All Students',data:ACAD,goal:5,calc:r=>r.ab+r.at,note:'Acadience On/Above · baseline EOY 24-25 · +5pt goal'},
+    {label:'P1: Hispanic Reading',    tc:'var(--amber)',grp:'Hispanics',data:ACAD,goal:10,calc:r=>r.ab+r.at,note:'Acadience On/Above · baseline EOY 24-25 · +10pt goal'},
+    {label:'P3: All Students Math',   tc:'var(--p3)',grp:'All Students',data:MATH,goal:5,calc:r=>r.m+r.e,note:'iReady Math On-Track · baseline EOY 24-25 · +5pt goal'},
+    {label:'P3: Hispanic Math',       tc:'var(--orange)',grp:'Hispanics',data:MATH,goal:10,calc:r=>r.m+r.e,note:'iReady Math On-Track · baseline EOY 24-25 · +10pt goal'},
+  ];
+  targets.forEach(t=>{
+    const baseRow=t.data[t.grp]?.find(r=>r.w===baselineWin);
+    const latest=mostRecent(t.data);
+    const curRow=t.data[t.grp]?.find(r=>r.w===latest);
+    if(!baseRow||!curRow){
+      container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}"><div class="tc-label">${t.label}</div><div class="tc-target-txt">Baseline (EOY 24-25) not yet in Sheet</div></div>`;
+      return;
+    }
+    const base=t.calc(baseRow), cur=t.calc(curRow), goal=base+t.goal;
+    const gained=cur-base;
+    const progress=Math.min(Math.max((gained/t.goal)*100,0),100);
+    const onTrack=gained>=t.goal*.5;
+    container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}">
+      <div class="tc-label">${t.label}</div>
+      <div class="tc-current" style="color:${t.tc}">${cur}%</div>
+      <div class="tc-target-txt">Baseline (EOY 24-25): ${base}%  →  Target: ${goal}%</div>
+      <div class="tc-bar-wrap"><div class="tc-bar-bg"><div class="tc-bar-fill" data-w="${progress}" style="background:${t.tc};width:0%"></div></div><div class="tc-pct">${Math.round(progress)}%</div></div>
+      <div class="tc-vals"><span>+${gained} pts gained</span><span style="color:${onTrack?'var(--green)':'var(--amber)'}">${onTrack?'On Track ✓':'Watch ⚠'}</span></div>
+      <div class="tc-note">${t.note}</div>
+    </div>`;
+  });
+  setTimeout(()=>{ document.querySelectorAll('.tc-bar-fill').forEach(b=>{ b.style.width=b.dataset.w+'%'; }); },400);
 }
 
-// ══ HERO KPI updaters ══
+// ══ HERO KPIs ══
 function updateHeroKPIs(){
-  // Acadience — latest All Students on/above
   const aLatest=mostRecent(ACAD);
   const aRow=ACAD['All Students']?.find(r=>r.w===aLatest);
-  if(aRow) document.getElementById('hkpi-acad').textContent=(aRow.ab+aRow.at)+'%';
-  document.getElementById('hkpi-window').textContent=aLatest||'MOY 25-26';
-
-  // Reading — latest Mid/Above
+  if(aRow){ document.getElementById('hkpi-acad').textContent=(aRow.ab+aRow.at)+'%'; }
+  document.getElementById('hkpi-window').textContent=aLatest||'—';
   const rLatest=mostRecent(READ);
   const rRow=READ['All Students']?.find(r=>r.w===rLatest);
-  if(rRow) document.getElementById('hkpi-read').textContent=(rRow.m+rRow.e)+'%';
-
-  // CA — most recent available month
-  const caYears=CA_DATA.length?[...new Set(CA_DATA.flatMap(r=>Object.keys(r).filter(k=>k!=='month')))].sort():[];
+  if(rRow){ document.getElementById('hkpi-read').textContent=(rRow.m+rRow.e)+'%'; }
+  const caYears=[...new Set(CA_DATA.flatMap(r=>Object.keys(r).filter(k=>k!=='month')))].sort();
   const latestYr=caYears[caYears.length-1];
   if(latestYr){
     const lastWithData=[...CA_DATA].reverse().find(r=>r[latestYr]!=null);
     if(lastWithData) document.getElementById('hkpi-ca').textContent=lastWithData[latestYr]+'%';
   }
-}
-
-// ══ GOAL PROGRESS TRACKER ══
-function renderTargets(){
-  const container=document.getElementById('targetRow');
-  container.innerHTML='';
-  const baseline='BOY 23-24';
-  const targets=[
-    {label:'P1: All Students Reading',tc:'var(--p1)',grp:'All Students',data:ACAD,goal:5,calc:r=>r.ab+r.at,note:'Acadience On/Above · +5pt goal'},
-    {label:'P1: Hispanic Reading',tc:'var(--amber)',grp:'Hispanics',data:ACAD,goal:10,calc:r=>r.ab+r.at,note:'Acadience On/Above · +10pt goal'},
-    {label:'P3: All Students Math',tc:'var(--p3)',grp:'All Students',data:MATH,goal:5,calc:r=>r.m+r.e,note:'iReady Math On-Track · +5pt goal'},
-    {label:'P3: Hispanic Math',tc:'var(--orange)',grp:'Hispanics',data:MATH,goal:10,calc:r=>r.m+r.e,note:'iReady Math On-Track · +10pt goal'},
-  ];
-  targets.forEach(t=>{
-    const baseRow=t.data[t.grp]?.find(r=>r.w===baseline);
-    const latest=mostRecent(t.data);
-    const curRow=t.data[t.grp]?.find(r=>r.w===latest);
-    if(!baseRow||!curRow){container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}"><div class="tc-label">${t.label}</div><div class="tc-target-txt">Baseline data loading…</div></div>`;return;}
-    const base=t.calc(baseRow), cur=t.calc(curRow), goal=base+t.goal;
-    const gained=cur-base;
-    const progress=Math.min(Math.max((gained/t.goal)*100,0),100);
-    const onTrack=gained>=t.goal*.5;
-    container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}"><div class="tc-label">${t.label}</div><div class="tc-current" style="color:${t.tc}">${cur}%</div><div class="tc-target-txt">Baseline: ${base}% → Target: ${goal}%</div><div class="tc-bar-wrap"><div class="tc-bar-bg"><div class="tc-bar-fill" data-w="${progress}" style="background:${t.tc};width:0%"></div></div><div class="tc-pct">${Math.round(progress)}%</div></div><div class="tc-vals"><span>+${gained} pts gained</span><span style="color:${onTrack?'var(--green)':'var(--amber)'}">${onTrack?'On Track ✓':'Watch ⚠'}</span></div><div class="tc-note">${t.note}</div></div>`;
-  });
-  setTimeout(()=>{document.querySelectorAll('.tc-bar-fill').forEach(b=>{b.style.width=b.dataset.w+'%';});},400);
 }
 
 // ══ INSIGHT CARDS ══
@@ -948,7 +1093,6 @@ function buildInsights(containerId,data,type){
   const latest=mostRecent(data);
   const allRow=data['All Students']?.find(r=>r.w===latest);
   if(!allRow){el.innerHTML='';return;}
-
   if(type==='acad'){
     const oa=allRow.ab+allRow.at;
     const ell=data['ELL']?.find(r=>r.w===latest);
@@ -957,8 +1101,8 @@ function buildInsights(containerId,data,type){
       <div class="ins" style="--ic:var(--teal)"><div class="il">All Students · On/Above (${latest})</div><div class="iv">${oa}%</div><div class="id">Above+At benchmark combined. Tracking toward June 2026 +5% goal.</div></div>
       <div class="ins" style="--ic:var(--rose)"><div class="il">ELL · Well Below (${latest})</div><div class="iv">${ell?ell.wb+'%':'—'}</div><div class="id">Highest well-below rate. NYSESLAT proficiency advancement is the ELL-specific metric.</div></div>
       <div class="ins" style="--ic:var(--amber)"><div class="il">SWD · Well Below (${latest})</div><div class="iv">${swd?swd.wb+'%':'—'}</div><div class="id">Tracking toward 10% improvement goal for SWD subgroup.</div></div>`;
-  } else if(type==='read'||type==='math'){
-    const ot=type==='read'?allRow.m+allRow.e:allRow.m+allRow.e;
+  } else {
+    const ot=allRow.m+allRow.e;
     const ell=data['ELL']?.find(r=>r.w===latest);
     const blk=data['Black']?.find(r=>r.w===latest);
     const blkBoy=data['Black']?.find(r=>r.w.includes('BOY 25'));
@@ -966,12 +1110,34 @@ function buildInsights(containerId,data,type){
     const col=type==='read'?'var(--blue)':'var(--amber)';
     el.innerHTML=`
       <div class="ins" style="--ic:${col}"><div class="il">All Students · On-Track (${latest})</div><div class="iv">${ot}%</div><div class="id">Mid/Above + Early On Grade Level combined.</div></div>
-      <div class="ins" style="--ic:var(--rose)"><div class="il">ELL · 3+ Levels Below (${latest})</div><div class="iv">${ell?ell.th+'%':'—'}</div><div class="id">Largest concentration of students significantly below grade level.</div></div>
+      <div class="ins" style="--ic:var(--rose)"><div class="il">ELL · 3+ Levels Below (${latest})</div><div class="iv">${ell?ell.th+'%':'—'}</div><div class="id">Largest concentration significantly below grade level.</div></div>
       <div class="ins" style="--ic:var(--purple)"><div class="il">Black Students · Within-Year Gain</div><div class="iv">${blkGain!=null?(blkGain>=0?'+':'')+blkGain+' pts':'—'}</div><div class="id">Mid/Above GL change from BOY to ${latest}.</div></div>`;
   }
 }
 
-// ══ FILTER HANDLERS ══
+// ══ SEL ══
+function renderSEL(){
+  const el=document.getElementById('selContent');
+  if(!SEL_ROWS.length||Object.keys(SEL_ROWS[0]).every(k=>!SEL_ROWS[0][k])){
+    el.innerHTML=`<div class="coming-soon"><div class="cs-icon">💛</div><div class="cs-title">SEL Data Coming Soon</div><div class="cs-desc">Priority 2 data will appear here once added to your Google Sheet. This section auto-populates when data is available.</div><span class="cs-tag">⏳ Awaiting data in Google Sheets</span></div>`;
+  }
+}
+
+// ══ WINDOW FILTER BUTTONS ══
+function setWinFilter(type, win, btn){
+  if(type==='acad') acadWinFilter=win;
+  else if(type==='read') readWinFilter=win;
+  else if(type==='math') mathWinFilter=win;
+  btn.closest('.win-filter-strip').querySelectorAll('.wfb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  const grpBtn = document.querySelector('#'+type+'Filter .fb.active');
+  const grp = grpBtn ? grpBtn.textContent.trim()==='Hispanic'?'Hispanics':grpBtn.textContent.trim() : 'All Students';
+  if(type==='acad') renderAcad(grp);
+  else if(type==='read') renderRead(grp);
+  else if(type==='math') renderMath(grp);
+}
+
+// ══ SUBGROUP FILTER ══
 function setGroup(type,grp,btn){
   btn.closest('.filter-strip').querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
   btn.classList.add('active');
@@ -980,90 +1146,64 @@ function setGroup(type,grp,btn){
   else if(type==='math') renderMath(grp);
 }
 
-// ══ NAV ══
 function navTo(id,btn){
   document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
   if(btn){document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));btn.classList.add('active');}
 }
-
-// ══ REFRESH ══
-function hardRefresh(){location.reload();}
+function hardRefresh(){ location.reload(); }
 
 // ══════════════════════════════════════════════
-//  MAIN INIT — fetch all sheets, then render
+//  MAIN INIT
 // ══════════════════════════════════════════════
 async function init(){
   ldProgress(5,'Connecting to Google Sheets…');
-
   try {
-    // Acadience
     ldStep('ls-acad','active'); ldProgress(10,'Loading Acadience data…');
-    const acadRows=await fetchCSV(URLS.acad,'Acadience');
-    ACAD=parseAcad(acadRows);
+    ACAD = parseAcad(await fetchCSV(URLS.acad,'Acadience'));
     ldStep('ls-acad','done'); ldProgress(25,'Acadience ✓');
 
-    // iReady Reading
     ldStep('ls-read','active'); ldProgress(30,'Loading iReady Reading…');
-    const readRows=await fetchCSV(URLS.read,'iReady Reading');
-    READ=parseIReady(readRows);
+    READ = parseIReady(await fetchCSV(URLS.read,'iReady Reading'));
     ldStep('ls-read','done'); ldProgress(45,'iReady Reading ✓');
 
-    // iReady Math
     ldStep('ls-math','active'); ldProgress(50,'Loading iReady Math…');
-    const mathRows=await fetchCSV(URLS.math,'iReady Math');
-    MATH=parseIReady(mathRows);
+    MATH = parseIReady(await fetchCSV(URLS.math,'iReady Math'));
     ldStep('ls-math','done'); ldProgress(65,'iReady Math ✓');
 
-    // CA
     ldStep('ls-ca','active'); ldProgress(70,'Loading Absenteeism data…');
-    const caRows=await fetchCSV(URLS.ca,'Chronic Absenteeism');
-    CA_DATA=parseCA(caRows);
+    CA_DATA = parseCA(await fetchCSV(URLS.ca,'Chronic Absenteeism'));
     ldStep('ls-ca','done'); ldProgress(85,'Absenteeism ✓');
 
-    // SEL
     ldStep('ls-sel','active'); ldProgress(90,'Checking SEL tab…');
-    try {
-      const selRows=await fetchCSV(URLS.sel,'SEL');
-      SEL_ROWS=selRows;
-    } catch(e){ SEL_ROWS=[]; }
+    try { SEL_ROWS = await fetchCSV(URLS.sel,'SEL'); } catch(e){ SEL_ROWS=[]; }
     ldStep('ls-sel','done'); ldProgress(98,'Almost ready…');
 
-    // Render everything
     updateHeroKPIs();
-    renderAcad('All Students');
-    buildInsights('acadInsights',ACAD,'acad');
-    renderRead('All Students');
-    buildInsights('readInsights',READ,'read');
-    renderMath('All Students');
-    buildInsights('mathInsights',MATH,'math');
+    renderAcad('All Students'); buildInsights('acadInsights',ACAD,'acad');
+    renderRead('All Students'); buildInsights('readInsights',READ,'read');
+    renderMath('All Students'); buildInsights('mathInsights',MATH,'math');
     renderCA();
     renderSEL();
     renderTargets();
 
-    // Timestamps
-    const now=new Date().toLocaleString();
-    document.getElementById('last-updated').textContent='Updated: '+now;
-    document.getElementById('ft-updated').textContent='Last updated: '+now+' · ';
-
+    const now = new Date().toLocaleString();
+    document.getElementById('last-updated').textContent = 'Updated: '+now;
+    document.getElementById('ft-updated').textContent   = 'Last updated: '+now+' · ';
     ldProgress(100,'Ready!');
     setTimeout(ldHide, 600);
 
   } catch(err){
-    document.getElementById('ldStatus').textContent='⚠️ ' + err.message;
+    document.getElementById('ldStatus').textContent = '⚠️ '+err.message;
     console.error(err);
-    // Show a visible error banner on the page too
     document.getElementById('app').classList.add('visible');
     document.querySelector('.page').insertAdjacentHTML('afterbegin',
-      '<div style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.4);border-radius:14px;padding:1.25rem 1.5rem;margin:1rem 0;font-family:var(--ff-m);font-size:.8rem;color:#fb7185;line-height:1.7">' +
-      '⚠️ <strong>Could not load live data from Google Sheets.</strong><br>' +
-      'Most likely cause: the Sheet tabs need to be published to the web as CSV.<br>' +
-      'Go to <strong>File → Share → Publish to the web</strong> in your Google Sheet, select each tab, choose CSV, and click Publish.' +
-      '</div>'
+      '<div style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.4);border-radius:14px;padding:1.25rem 1.5rem;margin:1rem 0;font-family:var(--ff-m);font-size:.8rem;color:#fb7185;line-height:1.7">'+
+      '⚠️ <strong>Could not load live data.</strong><br>'+
+      'Check: File → Share → Publish to the web in your Google Sheet. Each tab must be published as CSV.</div>'
     );
     setTimeout(ldHide, 2500);
   }
 }
-
 document.addEventListener('DOMContentLoaded', init);
 </script>
 </body>
