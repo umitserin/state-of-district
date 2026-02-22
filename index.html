@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>State of the District · 2025–26 CEP</title>
+<title>D25 · State of the District</title>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -266,7 +266,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 <!-- ── NAV ── -->
 <nav>
   <div class="nav-inner">
-    <div class="nav-brand"><span class="nav-pulse"></span>State of the District</div>
+    <div class="nav-brand"><span class="nav-pulse"></span>D25 · State of the District</div>
     <div class="nav-links">
       <button class="nav-link active" onclick="navTo('cep',this)"><span class="nl-dot" style="background:var(--teal)"></span>CEP Goals</button>
       <button class="nav-link" onclick="navTo('p1',this)"><span class="nl-dot" style="background:var(--p1)"></span>P1 · Literacy</button>
@@ -288,7 +288,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 <div class="hero anim d1">
   <div class="hero-top">
     <div>
-      <div class="hero-eye">2025–26 Comprehensive Education Plan</div>
+      <div class="hero-eye">D25 · 2025–26 Comprehensive Education Plan</div>
       <h1>STATE OF<br>THE <span class="acc">DISTRICT</span></h1>
       <p class="hero-desc">Progress toward our five strategic priorities — measured by Acadience (K–2), iReady Reading &amp; Mathematics (3–8), chronic absenteeism data, and SEL outcomes. Reported three times per year: BOY · MOY · EOY.</p>
     </div>
@@ -505,7 +505,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   <div class="ca-grid anim d1" id="caCards"></div>
   <div class="g2 anim d2" style="margin-bottom:1rem">
     <div class="card"><div class="ch"><div><div class="ct">Chronic Absenteeism · Monthly YTD Rate</div><div class="cs">September through June</div></div><span class="tag tr">Multi-Year</span></div><div class="cw h320"><canvas id="caLine"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct">Chronic Absenteeism · September YTD Rate</div><div class="cs">Year-over-year BOY snapshot</div></div><span class="tag ta">YoY BOY</span></div><div class="cw h320"><canvas id="caSep"></canvas></div></div>
+    <div class="card"><div class="ch"><div><div class="ct" id="ca-yoy-title">Chronic Absenteeism · Current Month YTD Rate</div><div class="cs" id="ca-yoy-sub">Most recent month · year-over-year comparison</div></div><span class="tag ta">YoY BOY</span></div><div class="cw h320"><canvas id="caSep"></canvas></div></div>
   </div>
   <div class="card anim d3">
     <div class="ch"><div><div class="ct">Chronic Absenteeism · Monthly Detail</div><div class="cs">YTD chronic absenteeism rate</div></div><span class="tag tb">Full View</span></div>
@@ -527,7 +527,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 </div><!-- /app -->
 
 <footer>
-  <div class="ft">2025–26 CEP · State of the District · <span id="ft-updated"></span><br>Data feeds live from Google Sheets — update the spreadsheet to update this dashboard</div>
+  <div class="ft">D25 · State of the District · 2025–26 CEP · <span id="ft-updated"></span><br>Data feeds live from Google Sheets — update the spreadsheet to update this dashboard</div>
   <div class="fb2">
     <button class="btn btn-g" onclick="window.print()">🖨 Export PDF</button>
     <button class="btn btn-p" onclick="hardRefresh()">↺ Refresh Data</button>
@@ -569,10 +569,10 @@ function mkChart(id, cfg){ if(ci[id]) ci[id].destroy(); ci[id] = new Chart(docum
 // ══ DETERMINE CURRENT WINDOW from today's date ══
 // BOY = Oct–Dec, MOY = Jan–Mar, EOY = May–Jun  (Apr = transitional → MOY)
 function currentWindow(){
-  const mo = new Date().getMonth() + 1; // 1-12
-  if(mo>=10 || mo<=12) return 'BOY';
-  if(mo>=1  && mo<=4)  return 'MOY';
-  return 'EOY';
+  const mo = new Date().getMonth() + 1; // 1=Jan … 12=Dec
+  if(mo>=10)          return 'BOY';  // Oct, Nov, Dec
+  if(mo>=5 && mo<=7)  return 'EOY';  // May, Jun, Jul
+  return 'MOY';                       // Jan, Feb, Mar, Apr, Aug, Sep (catch-all)
 }
 const CUR_WIN = currentWindow();
 
@@ -1055,19 +1055,26 @@ function renderCA(){
     },
     scales:{x:{grid:{color:G},ticks:{color:'#c8cfe0'}},y:{grid:{color:G},min:8,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
 
-  // Sep bar — 3 years
+  // Current-month bar — find most recent month that has data for the latest year
   const latestYr=years[years.length-1];
-  const sepRow=CA_DATA.find(r=>r.month==='Sep');
-  const sepVals=years.map(yr=>sepRow?sepRow[yr]??null:null);
+  const monthsWithData = CA_DATA.filter(r=>r[latestYr]!=null);
+  const curMonthRow = monthsWithData.length ? monthsWithData[monthsWithData.length-1] : CA_DATA.find(r=>r.month==='Sep');
+  const curMonthName = curMonthRow ? curMonthRow.month : 'Sep';
+  const sepVals=years.map(yr=>curMonthRow?curMonthRow[yr]??null:null);
+  // Update chart card subtitle
+  const caYoYSubEl = document.getElementById('ca-yoy-sub');
+  if(caYoYSubEl) caYoYSubEl.textContent = curMonthName+' YTD · year-over-year comparison';
+  const caYoYTitleEl = document.getElementById('ca-yoy-title');
+  if(caYoYTitleEl) caYoYTitleEl.textContent = 'Chronic Absenteeism · '+curMonthName+' YTD Rate';
   mkChart('caSep',{type:'bar',data:{labels:years,datasets:[{
-    label:'Sep YTD Rate',data:sepVals,
+    label:curMonthName+' YTD Rate',data:sepVals,
     backgroundColor:sepVals.map(v=>v==null?'transparent':v>17?'rgba(251,113,133,.7)':v>14?'rgba(245,158,11,.7)':'rgba(52,212,176,.7)'),
     borderRadius:8,
   }]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},
       datalabels:{display:ctx=>ctx.dataset.data[ctx.dataIndex]!=null,color:'rgba(255,255,255,.9)',font:{family:"'IBM Plex Mono',monospace",size:10,weight:'700'},formatter:v=>v!=null?v+'%':'',anchor:'center',align:'center'},
       tooltip:{...TT_BASE,footerColor:'#fb7185',callbacks:{
-        title:i=>i[0].label+' — September YTD',
+        title:i=>i[0].label+' — '+curMonthName+' YTD',
         label:ctx=>' Rate: '+ctx.parsed.y+'%',
         afterLabel:ctx=>{const v=ctx.parsed.y;return ' Status: '+(v>17?'⚠️ Above threshold':v>14?'🟡 Moderate':'✅ Below target');},
         footer:()=>'4% reduction goal vs prior year',
