@@ -730,7 +730,13 @@ function parseCA(rows){
 // ══ HELPERS ══
 function mostRecent(groupData){
   const g = groupData['All Students']||Object.values(groupData)[0]||[];
-  return g.length>0 ? g[g.length-1].w : '—';
+  if(!g.length) return '—';
+  // Prefer the most recent window that matches the current reporting period (BOY/MOY/EOY)
+  // e.g. in February (MOY), show MOY 25-26 not EOY 24-25
+  const matching = g.filter(r=>winType(r.w)===CUR_WIN);
+  if(matching.length) return matching[matching.length-1].w;
+  // Fallback: most recent window of any type
+  return g[g.length-1].w;
 }
 // Get the window type (BOY/MOY/EOY) from a short label like "MOY 25-26"
 function winType(w){ return w.split(' ')[0]; }
