@@ -1,12 +1,13 @@
-<!DOCTYPE html>
-<!-- saved from url=(0060)file:///Users/userin/Downloads/state-of-district-LIVE_2.html -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>State of the District · 2025–26 CEP</title>
-<script src="./D25 State of the District Report_files/chart.umd.min.js"></script>
-<script src="./D25 State of the District Report_files/chartjs-plugin-datalabels.min.js"></script>
-<link href="./D25 State of the District Report_files/css2" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.2.0/dist/chartjs-plugin-datalabels.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
   --bg:     #0b0d13;
@@ -241,17 +242,17 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 <body>
 
 <!-- ── LOADER ── -->
-<div id="loader" class="done">
+<div id="loader">
   <div class="ld-logo">State of the District · Loading</div>
-  <div class="ld-bar-bg"><div class="ld-bar-fill" id="ldBar" style="width: 100%;"></div></div>
+  <div class="ld-bar-bg"><div class="ld-bar-fill" id="ldBar"></div></div>
   <div class="ld-steps">
-    <div class="ld-step done" id="ls-acad"><span class="ld-step-dot"></span>Acadience</div>
-    <div class="ld-step done" id="ls-read"><span class="ld-step-dot"></span>iReady Reading</div>
-    <div class="ld-step done" id="ls-math"><span class="ld-step-dot"></span>iReady Math</div>
-    <div class="ld-step done" id="ls-ca"><span class="ld-step-dot"></span>Absenteeism</div>
-    <div class="ld-step done" id="ls-sel"><span class="ld-step-dot"></span>SEL</div>
+    <div class="ld-step" id="ls-acad"><span class="ld-step-dot"></span>Acadience</div>
+    <div class="ld-step" id="ls-read"><span class="ld-step-dot"></span>iReady Reading</div>
+    <div class="ld-step" id="ls-math"><span class="ld-step-dot"></span>iReady Math</div>
+    <div class="ld-step" id="ls-ca"><span class="ld-step-dot"></span>Absenteeism</div>
+    <div class="ld-step" id="ls-sel"><span class="ld-step-dot"></span>SEL</div>
   </div>
-  <div class="ld-status" id="ldStatus">Ready!</div>
+  <div class="ld-status" id="ldStatus">Connecting to Google Sheets…</div>
 </div>
 
 <!-- ── NAV ── -->
@@ -259,20 +260,20 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   <div class="nav-inner">
     <div class="nav-brand"><span class="nav-pulse"></span>State of the District</div>
     <div class="nav-links">
-      <button class="nav-link active" onclick="navTo(&#39;cep&#39;,this)"><span class="nl-dot" style="background:var(--teal)"></span>CEP Goals</button>
-      <button class="nav-link" onclick="navTo(&#39;p1&#39;,this)"><span class="nl-dot" style="background:var(--p1)"></span>P1 · Literacy</button>
-      <button class="nav-link" onclick="navTo(&#39;p3&#39;,this)"><span class="nl-dot" style="background:var(--p3)"></span>P3 · Math</button>
-      <button class="nav-link" onclick="navTo(&#39;ca-section&#39;,this)"><span class="nl-dot" style="background:var(--ca)"></span>Absenteeism</button>
-      <button class="nav-link" onclick="navTo(&#39;sel-section&#39;,this)"><span class="nl-dot" style="background:var(--p2)"></span>P2 · SEL</button>
+      <button class="nav-link active" onclick="navTo('cep',this)"><span class="nl-dot" style="background:var(--teal)"></span>CEP Goals</button>
+      <button class="nav-link" onclick="navTo('p1',this)"><span class="nl-dot" style="background:var(--p1)"></span>P1 · Literacy</button>
+      <button class="nav-link" onclick="navTo('p3',this)"><span class="nl-dot" style="background:var(--p3)"></span>P3 · Math</button>
+      <button class="nav-link" onclick="navTo('ca-section',this)"><span class="nl-dot" style="background:var(--ca)"></span>Absenteeism</button>
+      <button class="nav-link" onclick="navTo('sel-section',this)"><span class="nl-dot" style="background:var(--p2)"></span>P2 · SEL</button>
     </div>
     <div class="nav-right">
-      <div id="last-updated">Updated: 2/22/2026, 1:04:07 PM</div>
+      <div id="last-updated"></div>
       <div class="live-badge"><span class="nav-pulse" style="background:var(--teal)"></span>Live · Google Sheets</div>
     </div>
   </div>
 </nav>
 
-<div id="app" class="visible">
+<div id="app">
 <div class="page">
 
 <!-- ── HERO ── -->
@@ -286,7 +287,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <div class="hero-kpis">
       <div class="hkpi">
         <div class="hkpi-label">Report Window</div>
-        <div class="hkpi-val" style="color:var(--teal)" id="hkpi-window">—</div>
+        <div class="hkpi-val" style="color:var(--teal)" id="hkpi-window">MOY 25-26</div>
         <div class="hkpi-sub">Middle of Year</div>
       </div>
       <div class="hkpi">
@@ -312,21 +313,21 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 <section class="cep-section anim d2" id="cep">
   <div class="cep-heading">2025–26 CEP Strategic Priorities</div>
   <div class="cep-grid">
-    <div class="cep-card" style="--cc:var(--p1)" onclick="navTo(&#39;p1&#39;,null)">
+    <div class="cep-card" style="--cc:var(--p1)" onclick="navTo('p1',null)">
       <div class="cep-top"><div class="cep-num">● Priority 1</div><div class="cep-title">All Students Learn to Read Well</div></div>
       <div class="cep-body">
         <div class="cep-goal">By June 2026: <strong>+5% All Students</strong> and <strong>+10% Hispanic, Black, SWD</strong> meeting/exceeding grade level in K–8. <strong>+10% ELL</strong> advancing 1 NYSESLAT proficiency level.</div>
         <div class="cep-metrics"><span class="cep-metric"><span class="dot" style="background:var(--p1)"></span>Acadience K–2</span><span class="cep-metric"><span class="dot" style="background:var(--p1)"></span>iReady Reading 3–8</span><span class="cep-metric"><span class="dot" style="background:var(--p1)"></span>NYS Assessments</span></div>
       </div>
     </div>
-    <div class="cep-card" style="--cc:var(--p2)" onclick="navTo(&#39;sel-section&#39;,null)">
+    <div class="cep-card" style="--cc:var(--p2)" onclick="navTo('sel-section',null)">
       <div class="cep-top"><div class="cep-num">● Priority 2</div><div class="cep-title">All Students Are Physically and Emotionally Safe</div></div>
       <div class="cep-body">
         <div class="cep-goal">By June 2026: <strong>+10% increase</strong> in student-to-student relationships and students reporting MindUP curriculum helps manage emotions, stay focused, and make better choices.</div>
         <div class="cep-metrics"><span class="cep-metric"><span class="dot" style="background:var(--p2)"></span>District Student Survey</span><span class="cep-metric"><span class="dot" style="background:var(--p2)"></span>MindUP Moments</span></div>
       </div>
     </div>
-    <div class="cep-card" style="--cc:var(--p3)" onclick="navTo(&#39;p3&#39;,null)">
+    <div class="cep-card" style="--cc:var(--p3)" onclick="navTo('p3',null)">
       <div class="cep-top"><div class="cep-num">● Priority 3</div><div class="cep-title">All Students Are Mathematically Proficient</div></div>
       <div class="cep-body">
         <div class="cep-goal">By June 2026: <strong>+5% All Students</strong> and <strong>+10% Hispanic, Black, SWD, ELL</strong> meeting or exceeding grade level in mathematics.</div>
@@ -349,7 +350,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
         <div class="cep-metrics"><span class="cep-metric"><span class="dot" style="background:var(--p5)"></span>NYC School Survey</span><span class="cep-metric"><span class="dot" style="background:var(--p5)"></span>Family Events</span></div>
       </div>
     </div>
-    <div class="cep-card" style="--cc:var(--ca)" onclick="navTo(&#39;ca-section&#39;,null)">
+    <div class="cep-card" style="--cc:var(--ca)" onclick="navTo('ca-section',null)">
       <div class="cep-top"><div class="cep-num">● Chronic Absenteeism</div><div class="cep-title">Reduce Chronic Absence for All Subgroups</div></div>
       <div class="cep-body">
         <div class="cep-goal">By June 2026: CASE teams monitor CA data providing support resulting in a <strong>4% reduction</strong> in CA rates for ELL, SWD, Hispanic and Black learners.</div>
@@ -362,7 +363,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 <!-- ── GOAL TRACKER ── -->
 <div class="anim d3" style="margin-bottom:3rem;">
   <div class="cep-heading">Goal Progress Tracker — P1 &amp; P3 · vs Baseline (BOY 23-24)</div>
-  <div class="target-row" id="targetRow"><div class="target-card" style="--tc:var(--p1)"><div class="tc-label">P1: All Students Reading</div><div class="tc-target-txt">Baseline data loading…</div></div><div class="target-card" style="--tc:var(--amber)"><div class="tc-label">P1: Hispanic Reading</div><div class="tc-target-txt">Baseline data loading…</div></div><div class="target-card" style="--tc:var(--p3)"><div class="tc-label">P3: All Students Math</div><div class="tc-target-txt">Baseline data loading…</div></div><div class="target-card" style="--tc:var(--orange)"><div class="tc-label">P3: Hispanic Math</div><div class="tc-target-txt">Baseline data loading…</div></div></div>
+  <div class="target-row" id="targetRow"></div>
 </div>
 
 <!-- ════════ P1 ACADIENCE ════════ -->
@@ -380,11 +381,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   <div class="ins-row anim d1" id="acadInsights"></div>
   <div class="filter-strip" id="acadFilter">
     <span class="fl">Subgroup:</span>
-    <button class="fb active" onclick="setGroup(&#39;acad&#39;,&#39;All Students&#39;,this)">All Students</button>
-    <button class="fb" onclick="setGroup(&#39;acad&#39;,&#39;Hispanics&#39;,this)">Hispanic</button>
-    <button class="fb" onclick="setGroup(&#39;acad&#39;,&#39;Black&#39;,this)">Black</button>
-    <button class="fb" onclick="setGroup(&#39;acad&#39;,&#39;ELL&#39;,this)">ELL</button>
-    <button class="fb" onclick="setGroup(&#39;acad&#39;,&#39;SWD&#39;,this)">SWD</button>
+    <button class="fb active" onclick="setGroup('acad','All Students',this)">All Students</button>
+    <button class="fb" onclick="setGroup('acad','Hispanics',this)">Hispanic</button>
+    <button class="fb" onclick="setGroup('acad','Black',this)">Black</button>
+    <button class="fb" onclick="setGroup('acad','ELL',this)">ELL</button>
+    <button class="fb" onclick="setGroup('acad','SWD',this)">SWD</button>
   </div>
   <div class="g21 anim d2" style="margin-bottom:1rem">
     <div class="card"><div class="ch"><div><div class="ct">Benchmark Distribution Over Time</div><div class="cs" id="acad-sub">All Students · All Windows</div></div><span class="tag tt">Stacked %</span></div>
@@ -407,11 +408,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   <div class="ins-row anim d1" id="readInsights"></div>
   <div class="filter-strip" id="readFilter">
     <span class="fl">Subgroup:</span>
-    <button class="fb active" onclick="setGroup(&#39;read&#39;,&#39;All Students&#39;,this)">All Students</button>
-    <button class="fb" onclick="setGroup(&#39;read&#39;,&#39;Hispanics&#39;,this)">Hispanic</button>
-    <button class="fb" onclick="setGroup(&#39;read&#39;,&#39;Black&#39;,this)">Black</button>
-    <button class="fb" onclick="setGroup(&#39;read&#39;,&#39;ELL&#39;,this)">ELL</button>
-    <button class="fb" onclick="setGroup(&#39;read&#39;,&#39;SWD&#39;,this)">SWD</button>
+    <button class="fb active" onclick="setGroup('read','All Students',this)">All Students</button>
+    <button class="fb" onclick="setGroup('read','Hispanics',this)">Hispanic</button>
+    <button class="fb" onclick="setGroup('read','Black',this)">Black</button>
+    <button class="fb" onclick="setGroup('read','ELL',this)">ELL</button>
+    <button class="fb" onclick="setGroup('read','SWD',this)">SWD</button>
   </div>
   <div class="g2 anim d2" style="margin-bottom:1rem">
     <div class="card"><div class="ch"><div><div class="ct">Reading Grade-Level Distribution</div><div class="cs" id="read-sub">All Students · All Windows</div></div><span class="tag tt">Stacked %</span></div>
@@ -441,11 +442,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   <div class="ins-row anim d1" id="mathInsights"></div>
   <div class="filter-strip" id="mathFilter">
     <span class="fl">Subgroup:</span>
-    <button class="fb active" onclick="setGroup(&#39;math&#39;,&#39;All Students&#39;,this)">All Students</button>
-    <button class="fb" onclick="setGroup(&#39;math&#39;,&#39;Hispanics&#39;,this)">Hispanic</button>
-    <button class="fb" onclick="setGroup(&#39;math&#39;,&#39;Black&#39;,this)">Black</button>
-    <button class="fb" onclick="setGroup(&#39;math&#39;,&#39;ELL&#39;,this)">ELL</button>
-    <button class="fb" onclick="setGroup(&#39;math&#39;,&#39;SWD&#39;,this)">SWD</button>
+    <button class="fb active" onclick="setGroup('math','All Students',this)">All Students</button>
+    <button class="fb" onclick="setGroup('math','Hispanics',this)">Hispanic</button>
+    <button class="fb" onclick="setGroup('math','Black',this)">Black</button>
+    <button class="fb" onclick="setGroup('math','ELL',this)">ELL</button>
+    <button class="fb" onclick="setGroup('math','SWD',this)">SWD</button>
   </div>
   <div class="g2 anim d2" style="margin-bottom:1rem">
     <div class="card"><div class="ch"><div><div class="ct">Math Grade-Level Distribution</div><div class="cs" id="math-sub">All Students · All Windows</div></div><span class="tag ta">Stacked %</span></div>
@@ -474,12 +475,12 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   </div>
   <div class="ca-grid anim d1" id="caCards"></div>
   <div class="g2 anim d2" style="margin-bottom:1rem">
-    <div class="card"><div class="ch"><div><div class="ct">Monthly YTD Rate — All Years</div><div class="cs">September through June</div></div><span class="tag tr">Multi-Year</span></div><div class="cw h320"><canvas id="caLine" width="1260" height="640" style="display: block; box-sizing: border-box; height: 320px; width: 630px;"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct">September Back-to-School Rate</div><div class="cs">Year-over-year BOY snapshot</div></div><span class="tag ta">YoY BOY</span></div><div class="cw h320"><canvas id="caSep" width="1260" height="640" style="display: block; box-sizing: border-box; height: 320px; width: 630px;"></canvas></div></div>
+    <div class="card"><div class="ch"><div><div class="ct">Monthly YTD Rate — All Years</div><div class="cs">September through June</div></div><span class="tag tr">Multi-Year</span></div><div class="cw h320"><canvas id="caLine"></canvas></div></div>
+    <div class="card"><div class="ch"><div><div class="ct">September Back-to-School Rate</div><div class="cs">Year-over-year BOY snapshot</div></div><span class="tag ta">YoY BOY</span></div><div class="cw h320"><canvas id="caSep"></canvas></div></div>
   </div>
   <div class="card anim d3">
     <div class="ch"><div><div class="ct">Monthly Detail — All Years</div><div class="cs">YTD chronic absenteeism rate</div></div><span class="tag tb">Full View</span></div>
-    <div style="overflow-x:auto"><table class="dt" id="caTblWrap"><thead><tr><th>Month</th><th>vs Prior Year</th></tr></thead><tbody></tbody></table></div>
+    <div style="overflow-x:auto"><table class="dt" id="caTblWrap"></table></div>
   </div>
 </section>
 
@@ -490,14 +491,14 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <div class="sec-titles"><div class="sec-title" style="color:var(--p2)">Priority 2 · Social-Emotional Learning</div><div class="sec-sub">Live from Google Sheets · District Student Survey &amp; MindUP data</div></div>
     <span class="sec-badge ta">Coming Soon</span>
   </div>
-  <div id="selContent"><div class="coming-soon"><div class="cs-icon">💛</div><div class="cs-title">SEL Data Coming Soon</div><div class="cs-desc">Priority 2 data (District Student Survey, MindUP Moments outcomes) will be displayed here once added to your Google Sheet. This section will automatically populate when data is available.</div><span class="cs-tag">⏳ Awaiting data in Google Sheets tab</span></div></div>
+  <div id="selContent"></div>
 </section>
 
 </div><!-- /page -->
 </div><!-- /app -->
 
 <footer>
-  <div class="ft">2025–26 CEP · State of the District · <span id="ft-updated">Last updated: 2/22/2026, 1:04:07 PM · </span><br>Data feeds live from Google Sheets — update the spreadsheet to update this dashboard</div>
+  <div class="ft">2025–26 CEP · State of the District · <span id="ft-updated"></span><br>Data feeds live from Google Sheets — update the spreadsheet to update this dashboard</div>
   <div class="fb2">
     <button class="btn btn-g" onclick="window.print()">🖨 Export PDF</button>
     <button class="btn btn-p" onclick="hardRefresh()">↺ Refresh Data</button>
@@ -541,13 +542,21 @@ function mkChart(id,cfg){if(ci[id])ci[id].destroy();ci[id]=new Chart(document.ge
 // ══ CSV PARSER ══
 function parseCSV(text){
   const lines=text.trim().split('\n').filter(l=>l.trim());
-  const headers=splitCSVLine(lines[0]);
-  return lines.slice(1).map(line=>{
+  // Skip any title/merged rows at top — find the real header row
+  // Real headers have multiple non-empty columns
+  let headerIdx=0;
+  for(let i=0;i<Math.min(5,lines.length);i++){
+    const cols=splitCSVLine(lines[i]);
+    const nonEmpty=cols.filter(c=>c.trim().length>0);
+    if(nonEmpty.length>=3){ headerIdx=i; break; }
+  }
+  const headers=splitCSVLine(lines[headerIdx]);
+  return lines.slice(headerIdx+1).map(line=>{
     const vals=splitCSVLine(line);
     const obj={};
-    headers.forEach((h,i)=>obj[h.trim()]=( vals[i]||'').trim().replace(/^"|"$/g,''));
+    headers.forEach((h,i)=>{ obj[h.trim().replace(/^"|"$/g,'')]=(vals[i]||'').trim().replace(/^"|"$/g,''); });
     return obj;
-  });
+  }).filter(row=>Object.values(row).some(v=>v.trim().length>0));
 }
 function splitCSVLine(line){
   const result=[]; let cur='',inQ=false;
@@ -564,24 +573,36 @@ function pct(v){return parseFloat(String(v).replace('%',''))||0;}
 
 // ══ FETCH with cache-bust ══
 async function fetchCSV(url, label){
-  const bust = url + '&cachebust=' + Date.now();
-  const proxies = [
-    u => 'https://corsproxy.io/?' + encodeURIComponent(u),
-    u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
-  ];
-  // Try direct fetch first
+  // Strategy 1: Direct fetch (works if CORS is open)
   try {
-    const r = await fetch(bust);
-    if(r.ok){ const t=await r.text(); if(t.trim().length>10) return parseCSV(t); }
+    const r = await fetch(url + '&t=' + Date.now());
+    if(r.ok){ const t=await r.text(); if(t.trim().length>10 && t.includes(',')) return parseCSV(t); }
   } catch(e){}
-  // Fall back through CORS proxies
-  for(const proxy of proxies){
-    try {
-      const r = await fetch(proxy(url));
-      if(r.ok){ const t=await r.text(); if(t.trim().length>10) return parseCSV(t); }
-    } catch(e){}
-  }
-  throw new Error('Could not load ' + label + '. Check the Sheet tab is published as CSV.');
+
+  // Strategy 2: corsproxy.io (free, reliable)
+  try {
+    const r = await fetch('https://corsproxy.io/?' + encodeURIComponent(url));
+    if(r.ok){ const t=await r.text(); if(t.trim().length>10 && t.includes(',')) return parseCSV(t); }
+  } catch(e){}
+
+  // Strategy 3: allorigins (second free proxy)
+  try {
+    const r = await fetch('https://api.allorigins.win/raw?url=' + encodeURIComponent(url));
+    if(r.ok){ const t=await r.text(); if(t.trim().length>10 && t.includes(',')) return parseCSV(t); }
+  } catch(e){}
+
+  // Strategy 4: Extract sheet ID and gid, use Google Sheets export URL variant
+  try {
+    const match = url.match(/spreadsheets\/d\/e\/([^/]+)\/pub/);
+    const gid = (url.match(/gid=(\d+)/)||[])[1]||'0';
+    if(match){
+      const exportUrl = 'https://docs.google.com/spreadsheets/d/e/' + match[1] + '/pub?gid=' + gid + '&single=true&output=csv&t=' + Date.now();
+      const r = await fetch('https://corsproxy.io/?' + encodeURIComponent(exportUrl));
+      if(r.ok){ const t=await r.text(); if(t.trim().length>10 && t.includes(',')) return parseCSV(t); }
+    }
+  } catch(e){}
+
+  throw new Error('Could not load ' + label + '. Please check your internet connection and that the Google Sheet is published.');
 }
 
 // ══ LOADER HELPERS ══
@@ -609,13 +630,12 @@ function parseAcad(rows){
     // short window label
     const wShort=win.replace('Beginning of Year Performance','BOY').replace('Middle of Year Performance','MOY').replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY')
       .replace('2023-24 ','23-24 ').replace('2024-25 ','24-25 ').replace('2025-26 ','25-26 ').trim();
-    out[sg].push({
-      w:wShort, wFull:win,
-      ab:pct(r['above benchmark']||r['Above Benchmark']||r['above benchmmark']||0),
-      at:pct(r['at benchmark']||r['At Benchmark']||0),
-      bl:pct(r['below benchmark']||r['Below Benchmark']||0),
-      wb:pct(r['well below benchmark']||r['Well Below Benchmark']||0),
-    });
+    // Try every known column name variant from the sheet
+    const ab = pct(r['above benchmark']||r['Above Benchmark']||r['abovebenchmark']||0);
+    const at = pct(r['at benchmark']||r['At Benchmark']||r['atbenchmark']||0);
+    const bl = pct(r['below benchmark']||r['Below Benchmark']||r['belowbenchmark']||0);
+    const wb = pct(r['well below benchmark']||r['Well Below Benchmark']||r['wellbelowbenchmark']||0);
+    out[sg].push({ w:wShort, wFull:win, ab, at, bl, wb });
   });
   return out;
 }
@@ -630,14 +650,22 @@ function parseIReady(rows){
     if(!out[sg]) out[sg]=[];
     const wShort=win.replace('Beginning of Year Performance','BOY').replace('Middle of Year Performance','MOY').replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY')
       .replace('2023-24 ','23-24 ').replace('2024-25 ','24-25 ').replace('2025-26 ','25-26 ').trim();
+    // iReady Reading columns: Mid or Above Grade Level, Early On Grade Level, 1 Grade Level Below, 2 Grade Levels Below, 3 or More Grade Levels Below
+    // iReady Math columns: same structure
+    const m  = pct(r['Mid or Above Grade Level']||r['mid or above grade level']||r['Mid/Above Grade Level']||0);
+    const e  = pct(r['Early On Grade Level']||r['early on grade level']||0);
+    const o  = pct(r['1 Grade Level Below']||r['1 grade level below']||0);
+    const t  = pct(r['2 Grade Levels Below']||r['2 grade levels below']||0);
+    const th = pct(r['3 or More Grade Levels Below']||r['3 or more grade levels below']||r['3+ Grade Levels Below']||0);
+    // Fallback to positional if named columns not found
     const keys=Object.keys(r);
     out[sg].push({
       w:wShort, wFull:win,
-      m:pct(r[keys[3]]||0),
-      e:pct(r[keys[4]]||0),
-      o:pct(r[keys[5]]||0),
-      t:pct(r[keys[6]]||0),
-      th:pct(r[keys[7]]||0),
+      m:  m  || pct(r[keys[3]]||0),
+      e:  e  || pct(r[keys[4]]||0),
+      o:  o  || pct(r[keys[5]]||0),
+      t:  t  || pct(r[keys[6]]||0),
+      th: th || pct(r[keys[7]]||0),
     });
   });
   return out;
@@ -1038,6 +1066,5 @@ async function init(){
 
 document.addEventListener('DOMContentLoaded', init);
 </script>
-
-
-</body></html>
+</body>
+</html>
