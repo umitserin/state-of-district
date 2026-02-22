@@ -1,0 +1,1043 @@
+<!DOCTYPE html>
+<!-- saved from url=(0060)file:///Users/userin/Downloads/state-of-district-LIVE_2.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>State of the District · 2025–26 CEP</title>
+<script src="./D25 State of the District Report_files/chart.umd.min.js"></script>
+<script src="./D25 State of the District Report_files/chartjs-plugin-datalabels.min.js"></script>
+<link href="./D25 State of the District Report_files/css2" rel="stylesheet">
+<style>
+:root {
+  --bg:     #0b0d13;
+  --bg2:    #10131c;
+  --card:   #161b27;
+  --card2:  #1c2233;
+  --border: rgba(255,255,255,0.07);
+  --b2:     rgba(255,255,255,0.13);
+  --text:   #e8eaf2;
+  --text2:  #8f98b3;
+  --text3:  #4e5670;
+  --p1: #34d4b0;
+  --p2: #f59e0b;
+  --p3: #4f8ef7;
+  --p4: #a78bfa;
+  --p5: #fb923c;
+  --ca: #fb7185;
+  --green:  #4ade80;
+  --rose:   #fb7185;
+  --amber:  #f59e0b;
+  --blue:   #4f8ef7;
+  --purple: #a78bfa;
+  --teal:   #34d4b0;
+  --orange: #fb923c;
+  --ff-h: 'Syne', sans-serif;
+  --ff-b: 'Lora', serif;
+  --ff-m: 'IBM Plex Mono', monospace;
+  --r: 14px; --r2: 20px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:var(--ff-b);min-height:100vh;overflow-x:hidden;}
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 80% 50% at 10% 0%,rgba(52,212,176,.06) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 40% at 90% 100%,rgba(79,142,247,.05) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 50% at 50% 50%,rgba(167,139,250,.03) 0%,transparent 60%);
+}
+
+/* ── LOADER ── */
+#loader{
+  position:fixed;inset:0;z-index:200;
+  background:var(--bg);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.5rem;
+  transition:opacity .5s ease, visibility .5s ease;
+}
+#loader.done{opacity:0;visibility:hidden;pointer-events:none;}
+.ld-logo{font-family:var(--ff-h);font-size:1.4rem;font-weight:800;color:var(--text2);}
+.ld-bar-bg{width:260px;height:3px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden;}
+.ld-bar-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--teal),var(--blue));border-radius:100px;transition:width .4s ease;}
+.ld-status{font-family:var(--ff-m);font-size:.7rem;color:var(--text3);}
+.ld-steps{display:flex;gap:1.5rem;}
+.ld-step{display:flex;align-items:center;gap:.4rem;font-family:var(--ff-m);font-size:.65rem;color:var(--text3);transition:color .3s;}
+.ld-step.done{color:var(--teal);}
+.ld-step.active{color:var(--text);}
+.ld-step-dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;background:rgba(11,13,19,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-inner{max-width:1440px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;height:54px;gap:1.5rem;}
+.nav-brand{font-family:var(--ff-h);font-size:.9rem;font-weight:800;color:var(--text);white-space:nowrap;display:flex;align-items:center;gap:.5rem;}
+.nav-pulse{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+.nav-links{display:flex;gap:.15rem;overflow-x:auto;flex:1;}
+.nav-link{display:flex;align-items:center;gap:.35rem;padding:.35rem .85rem;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--ff-m);font-size:.68rem;letter-spacing:.04em;cursor:pointer;transition:all .18s;white-space:nowrap;}
+.nav-link .nl-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
+.nav-link:hover,.nav-link.active{background:rgba(255,255,255,.06);color:var(--text);}
+.nav-right{margin-left:auto;display:flex;align-items:center;gap:.75rem;flex-shrink:0;}
+.live-badge{display:flex;align-items:center;gap:.4rem;font-family:var(--ff-m);font-size:.65rem;color:var(--teal);padding:.25rem .7rem;background:rgba(52,212,176,.08);border:1px solid rgba(52,212,176,.2);border-radius:100px;}
+#last-updated{font-family:var(--ff-m);font-size:.62rem;color:var(--text3);}
+
+/* ── PAGE ── */
+#app{position:relative;z-index:1;opacity:0;transition:opacity .5s ease;}
+#app.visible{opacity:1;}
+.page{max-width:1440px;margin:0 auto;padding:0 2rem 5rem;}
+
+/* ── HERO ── */
+.hero{padding:3.5rem 0 2.5rem;border-bottom:1px solid var(--border);margin-bottom:3rem;}
+.hero-top{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:2.5rem;}
+@media(max-width:900px){.hero-top{grid-template-columns:1fr;}}
+.hero-eye{font-family:var(--ff-m);font-size:.68rem;color:var(--teal);letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;}
+.hero-eye::before{content:'';width:18px;height:1.5px;background:var(--teal);}
+h1{font-family:var(--ff-h);font-size:clamp(2.8rem,5.5vw,5.2rem);font-weight:800;line-height:.92;letter-spacing:-.02em;}
+h1 .acc{color:var(--teal);}
+.hero-desc{margin-top:1.1rem;font-size:.9rem;color:var(--text2);line-height:1.75;max-width:480px;}
+.hero-kpis{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--r2);overflow:hidden;}
+.hkpi{background:var(--card);padding:1.4rem 1.6rem;}
+.hkpi-label{font-family:var(--ff-m);font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.4rem;}
+.hkpi-val{font-family:var(--ff-h);font-size:1.9rem;font-weight:700;line-height:1;margin-bottom:.25rem;}
+.hkpi-sub{font-size:.72rem;color:var(--text2);}
+
+/* ── CEP PRIORITY CARDS ── */
+.cep-section{margin-bottom:3rem;}
+.cep-heading{font-family:var(--ff-h);font-size:1rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);margin-bottom:1.25rem;display:flex;align-items:center;gap:.75rem;}
+.cep-heading::after{content:'';flex:1;height:1px;background:var(--border);}
+.cep-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1rem;}
+@media(max-width:1100px){.cep-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:700px){.cep-grid{grid-template-columns:1fr;}}
+.cep-card{border-radius:var(--r2);overflow:hidden;border:1px solid var(--border);background:var(--card);transition:border-color .2s,transform .2s,box-shadow .2s;cursor:pointer;}
+.cep-card:hover{border-color:var(--cc,var(--teal));transform:translateY(-3px);box-shadow:0 12px 40px rgba(0,0,0,.35);}
+.cep-top{padding:1.25rem 1.4rem 1rem;border-bottom:1px solid var(--border);border-top:3px solid var(--cc,var(--teal));}
+.cep-num{font-family:var(--ff-m);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--cc,var(--teal));margin-bottom:.5rem;display:flex;align-items:center;gap:.5rem;}
+.cep-title{font-family:var(--ff-h);font-size:1rem;font-weight:700;line-height:1.2;color:var(--text);}
+.cep-body{padding:1rem 1.4rem 1.25rem;}
+.cep-goal{font-size:.78rem;color:var(--text2);line-height:1.6;margin-bottom:.85rem;}
+.cep-metrics{display:flex;flex-wrap:wrap;gap:.4rem;}
+.cep-metric{display:flex;align-items:center;gap:.3rem;font-family:var(--ff-m);font-size:.63rem;padding:.22rem .6rem;border-radius:6px;background:rgba(255,255,255,.05);border:1px solid var(--border);color:var(--text2);}
+.cep-metric .dot{width:5px;height:5px;border-radius:50%;}
+
+/* ── TARGET TRACKER ── */
+.target-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:3rem;}
+@media(max-width:1000px){.target-row{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.target-row{grid-template-columns:1fr;}}
+.target-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1.4rem;border-top:2px solid var(--tc,var(--teal));}
+.tc-label{font-family:var(--ff-m);font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.7rem;}
+.tc-current{font-family:var(--ff-h);font-size:1.6rem;font-weight:700;color:var(--text);line-height:1;margin-bottom:.3rem;}
+.tc-target-txt{font-size:.72rem;color:var(--text2);}
+.tc-bar-wrap{display:flex;align-items:center;gap:.75rem;margin-top:.75rem;margin-bottom:.5rem;}
+.tc-bar-bg{flex:1;height:8px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden;}
+.tc-bar-fill{height:100%;width:0%;border-radius:100px;background:var(--tc,var(--teal));transition:width 1.4s cubic-bezier(.4,0,.2,1);}
+.tc-pct{font-family:var(--ff-m);font-size:.75rem;color:var(--text);width:35px;text-align:right;flex-shrink:0;}
+.tc-vals{display:flex;justify-content:space-between;font-family:var(--ff-m);font-size:.67rem;color:var(--text3);}
+.tc-note{font-family:var(--ff-m);font-size:.6rem;color:var(--text3);margin-top:.4rem;}
+
+/* ── SECTION ── */
+.section{margin-bottom:4rem;}
+.sec-head{display:flex;align-items:center;gap:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border);margin-bottom:1.75rem;}
+.sec-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
+.sec-titles{flex:1;}
+.sec-title{font-family:var(--ff-h);font-size:1.4rem;font-weight:700;}
+.sec-sub{font-family:var(--ff-m);font-size:.67rem;color:var(--text3);margin-top:.2rem;}
+.sec-badge{font-family:var(--ff-m);font-size:.63rem;padding:.22rem .65rem;border-radius:6px;font-weight:500;white-space:nowrap;}
+
+/* ── GOAL BANNER ── */
+.goal-banner{background:linear-gradient(135deg,rgba(52,212,176,.07),rgba(79,142,247,.05));border:1px solid rgba(52,212,176,.15);border-radius:var(--r2);padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:flex-start;gap:1rem;flex-wrap:wrap;}
+.gb-icon{font-size:1.4rem;flex-shrink:0;}
+.gb-text{flex:1;}
+.gb-label{font-family:var(--ff-m);font-size:.62rem;color:var(--teal);text-transform:uppercase;letter-spacing:.12em;margin-bottom:.3rem;}
+.gb-goal{font-size:.82rem;color:var(--text);line-height:1.6;}
+.gb-target{font-family:var(--ff-m);font-size:.68rem;padding:.25rem .7rem;border-radius:6px;background:rgba(52,212,176,.1);color:var(--teal);border:1px solid rgba(52,212,176,.2);white-space:nowrap;flex-shrink:0;align-self:flex-start;}
+
+/* ── FILTER ── */
+.filter-strip{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:1.4rem;align-items:center;}
+.fl{font-family:var(--ff-m);font-size:.65rem;color:var(--text3);margin-right:.25rem;}
+.fb{padding:.28rem .85rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:var(--ff-m);font-size:.68rem;cursor:pointer;transition:all .17s;}
+.fb:hover{border-color:var(--text2);color:var(--text);}
+.fb.active{background:rgba(255,255,255,.1);border-color:var(--b2);color:var(--text);}
+
+/* ── GRIDS ── */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.g21{display:grid;grid-template-columns:2fr 1fr;gap:1rem;}
+@media(max-width:1000px){.g2,.g21{grid-template-columns:1fr;}}
+
+/* ── CARDS ── */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1.5rem;transition:border-color .2s,box-shadow .2s;}
+.card:hover{border-color:var(--b2);box-shadow:0 8px 30px rgba(0,0,0,.25);}
+.ch{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.25rem;gap:.75rem;}
+.ct{font-family:var(--ff-h);font-size:1.05rem;font-weight:700;line-height:1.2;}
+.cs{font-family:var(--ff-m);font-size:.64rem;color:var(--text3);margin-top:.2rem;}
+.tag{font-family:var(--ff-m);font-size:.62rem;padding:.2rem .55rem;border-radius:5px;font-weight:500;white-space:nowrap;flex-shrink:0;}
+.tg{background:rgba(74,222,128,.1);color:var(--green);border:1px solid rgba(74,222,128,.2);}
+.tb{background:rgba(79,142,247,.1);color:var(--blue);border:1px solid rgba(79,142,247,.2);}
+.ta{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2);}
+.tr{background:rgba(251,113,133,.1);color:var(--rose);border:1px solid rgba(251,113,133,.2);}
+.tp{background:rgba(167,139,250,.1);color:var(--purple);border:1px solid rgba(167,139,250,.2);}
+.tt{background:rgba(52,212,176,.1);color:var(--teal);border:1px solid rgba(52,212,176,.2);}
+.cw{position:relative;}
+.h200{height:200px;}.h240{height:240px;}.h280{height:280px;}.h300{height:300px;}.h320{height:320px;}
+.sl{display:flex;gap:.85rem;flex-wrap:wrap;margin-bottom:.9rem;}
+.si{display:flex;align-items:center;gap:.35rem;font-size:.72rem;color:var(--text2);}
+.sd{width:9px;height:9px;border-radius:2px;flex-shrink:0;}
+
+/* ── INSIGHT CARDS ── */
+.ins-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:1.25rem;}
+@media(max-width:900px){.ins-row{grid-template-columns:1fr;}}
+.ins{background:var(--card2);border:1px solid var(--border);border-radius:var(--r2);padding:1.2rem 1.4rem;border-left:3px solid var(--ic,var(--teal));}
+.il{font-family:var(--ff-m);font-size:.62rem;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-bottom:.35rem;}
+.iv{font-family:var(--ff-h);font-size:2.1rem;font-weight:700;color:var(--ic,var(--teal));line-height:1;margin-bottom:.25rem;}
+.id{font-size:.78rem;color:var(--text2);line-height:1.5;}
+
+/* ── TABLE ── */
+.dt{width:100%;border-collapse:collapse;font-size:.79rem;}
+.dt th{font-family:var(--ff-m);font-size:.62rem;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);padding:.5rem .7rem;border-bottom:1px solid var(--border);text-align:left;font-weight:500;}
+.dt td{padding:.6rem .7rem;border-bottom:1px solid rgba(255,255,255,.04);}
+.dt tr:last-child td{border-bottom:none;}
+.dt tr:hover td{background:rgba(255,255,255,.02);}
+.dn{font-family:var(--ff-b);font-weight:600;}
+.dm{font-family:var(--ff-m);font-size:.75rem;}
+.dp{display:inline-block;padding:.14rem .5rem;border-radius:100px;font-family:var(--ff-m);font-size:.65rem;font-weight:500;}
+.pg{background:rgba(74,222,128,.1);color:var(--green);}
+.pa{background:rgba(245,158,11,.1);color:var(--amber);}
+.pr{background:rgba(251,113,133,.1);color:var(--rose);}
+.pb{background:rgba(79,142,247,.1);color:var(--blue);}
+
+/* ── CA YEAR CARDS ── */
+.ca-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:.75rem;margin-bottom:1.5rem;}
+@media(max-width:1000px){.ca-grid{grid-template-columns:repeat(3,1fr);}}
+.cac{background:var(--card2);border:1px solid var(--border);border-radius:var(--r);padding:1rem;text-align:center;transition:all .2s;}
+.cac:hover{border-color:var(--b2);transform:translateY(-2px);}
+.cac-yr{font-family:var(--ff-m);font-size:.6rem;color:var(--text3);margin-bottom:.3rem;}
+.cac-val{font-family:var(--ff-h);font-size:1.45rem;font-weight:700;}
+.cac-tr{font-family:var(--ff-m);font-size:.67rem;margin-top:.2rem;}
+
+/* ── COMING SOON ── */
+.coming-soon{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--r2);
+  padding:4rem 2rem;text-align:center;
+}
+.cs-icon{font-size:3rem;margin-bottom:1rem;}
+.cs-title{font-family:var(--ff-h);font-size:1.5rem;font-weight:700;margin-bottom:.75rem;color:var(--text2);}
+.cs-desc{font-size:.85rem;color:var(--text3);max-width:400px;margin:0 auto;line-height:1.7;}
+.cs-tag{display:inline-block;margin-top:1rem;font-family:var(--ff-m);font-size:.68rem;padding:.3rem .8rem;border-radius:6px;background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2);}
+
+/* ── ERROR STATE ── */
+.fetch-error{background:rgba(251,113,133,.06);border:1px solid rgba(251,113,133,.2);border-radius:var(--r2);padding:1.5rem;margin-bottom:1rem;font-family:var(--ff-m);font-size:.75rem;color:var(--rose);}
+
+/* ── FOOTER ── */
+footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.75rem 2rem;max-width:1440px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;}
+.ft{font-family:var(--ff-m);font-size:.66rem;color:var(--text3);}
+.fb2{display:flex;gap:.6rem;}
+.btn{padding:.48rem 1.2rem;border-radius:8px;font-family:var(--ff-b);font-size:.8rem;font-weight:600;cursor:pointer;border:none;transition:all .2s;}
+.btn-p{background:var(--blue);color:#fff;}.btn-p:hover{background:#3a7ae8;}
+.btn-g{background:transparent;border:1px solid var(--b2);color:var(--text2);}.btn-g:hover{border-color:var(--teal);color:var(--teal);}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.anim{animation:fadeUp .5s ease both;}
+.d1{animation-delay:.05s}.d2{animation-delay:.1s}.d3{animation-delay:.15s}
+@media print{nav{display:none;}body{background:#fff;color:#000;}}
+</style>
+</head>
+<body>
+
+<!-- ── LOADER ── -->
+<div id="loader" class="done">
+  <div class="ld-logo">State of the District · Loading</div>
+  <div class="ld-bar-bg"><div class="ld-bar-fill" id="ldBar" style="width: 100%;"></div></div>
+  <div class="ld-steps">
+    <div class="ld-step done" id="ls-acad"><span class="ld-step-dot"></span>Acadience</div>
+    <div class="ld-step done" id="ls-read"><span class="ld-step-dot"></span>iReady Reading</div>
+    <div class="ld-step done" id="ls-math"><span class="ld-step-dot"></span>iReady Math</div>
+    <div class="ld-step done" id="ls-ca"><span class="ld-step-dot"></span>Absenteeism</div>
+    <div class="ld-step done" id="ls-sel"><span class="ld-step-dot"></span>SEL</div>
+  </div>
+  <div class="ld-status" id="ldStatus">Ready!</div>
+</div>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-brand"><span class="nav-pulse"></span>State of the District</div>
+    <div class="nav-links">
+      <button class="nav-link active" onclick="navTo(&#39;cep&#39;,this)"><span class="nl-dot" style="background:var(--teal)"></span>CEP Goals</button>
+      <button class="nav-link" onclick="navTo(&#39;p1&#39;,this)"><span class="nl-dot" style="background:var(--p1)"></span>P1 · Literacy</button>
+      <button class="nav-link" onclick="navTo(&#39;p3&#39;,this)"><span class="nl-dot" style="background:var(--p3)"></span>P3 · Math</button>
+      <button class="nav-link" onclick="navTo(&#39;ca-section&#39;,this)"><span class="nl-dot" style="background:var(--ca)"></span>Absenteeism</button>
+      <button class="nav-link" onclick="navTo(&#39;sel-section&#39;,this)"><span class="nl-dot" style="background:var(--p2)"></span>P2 · SEL</button>
+    </div>
+    <div class="nav-right">
+      <div id="last-updated">Updated: 2/22/2026, 1:04:07 PM</div>
+      <div class="live-badge"><span class="nav-pulse" style="background:var(--teal)"></span>Live · Google Sheets</div>
+    </div>
+  </div>
+</nav>
+
+<div id="app" class="visible">
+<div class="page">
+
+<!-- ── HERO ── -->
+<div class="hero anim d1">
+  <div class="hero-top">
+    <div>
+      <div class="hero-eye">2025–26 Comprehensive Education Plan</div>
+      <h1>STATE OF<br>THE <span class="acc">DISTRICT</span></h1>
+      <p class="hero-desc">Progress toward our five strategic priorities — measured by Acadience (K–2), iReady Reading &amp; Mathematics (3–8), chronic absenteeism data, and SEL outcomes. Reported three times per year: BOY · MOY · EOY.</p>
+    </div>
+    <div class="hero-kpis">
+      <div class="hkpi">
+        <div class="hkpi-label">Report Window</div>
+        <div class="hkpi-val" style="color:var(--teal)" id="hkpi-window">—</div>
+        <div class="hkpi-sub">Middle of Year</div>
+      </div>
+      <div class="hkpi">
+        <div class="hkpi-label">Acadience On/Above (All)</div>
+        <div class="hkpi-val" style="color:var(--p1)" id="hkpi-acad">—</div>
+        <div class="hkpi-sub">K–2 · All Students</div>
+      </div>
+      <div class="hkpi">
+        <div class="hkpi-label">iReady Reading ≥ GL (All)</div>
+        <div class="hkpi-val" style="color:var(--p3)" id="hkpi-read">—</div>
+        <div class="hkpi-sub">Gr 3–8 · All Students</div>
+      </div>
+      <div class="hkpi">
+        <div class="hkpi-label">Chronic Absence (Latest)</div>
+        <div class="hkpi-val" style="color:var(--ca)" id="hkpi-ca">—</div>
+        <div class="hkpi-sub">Most recent YTD month</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CEP PRIORITIES ── -->
+<section class="cep-section anim d2" id="cep">
+  <div class="cep-heading">2025–26 CEP Strategic Priorities</div>
+  <div class="cep-grid">
+    <div class="cep-card" style="--cc:var(--p1)" onclick="navTo(&#39;p1&#39;,null)">
+      <div class="cep-top"><div class="cep-num">● Priority 1</div><div class="cep-title">All Students Learn to Read Well</div></div>
+      <div class="cep-body">
+        <div class="cep-goal">By June 2026: <strong>+5% All Students</strong> and <strong>+10% Hispanic, Black, SWD</strong> meeting/exceeding grade level in K–8. <strong>+10% ELL</strong> advancing 1 NYSESLAT proficiency level.</div>
+        <div class="cep-metrics"><span class="cep-metric"><span class="dot" style="background:var(--p1)"></span>Acadience K–2</span><span class="cep-metric"><span class="dot" style="background:var(--p1)"></span>iReady Reading 3–8</span><span class="cep-metric"><span class="dot" style="background:var(--p1)"></span>NYS Assessments</span></div>
+      </div>
+    </div>
+    <div class="cep-card" style="--cc:var(--p2)" onclick="navTo(&#39;sel-section&#39;,null)">
+      <div class="cep-top"><div class="cep-num">● Priority 2</div><div class="cep-title">All Students Are Physically and Emotionally Safe</div></div>
+      <div class="cep-body">
+        <div class="cep-goal">By June 2026: <strong>+10% increase</strong> in student-to-student relationships and students reporting MindUP curriculum helps manage emotions, stay focused, and make better choices.</div>
+        <div class="cep-metrics"><span class="cep-metric"><span class="dot" style="background:var(--p2)"></span>District Student Survey</span><span class="cep-metric"><span class="dot" style="background:var(--p2)"></span>MindUP Moments</span></div>
+      </div>
+    </div>
+    <div class="cep-card" style="--cc:var(--p3)" onclick="navTo(&#39;p3&#39;,null)">
+      <div class="cep-top"><div class="cep-num">● Priority 3</div><div class="cep-title">All Students Are Mathematically Proficient</div></div>
+      <div class="cep-body">
+        <div class="cep-goal">By June 2026: <strong>+5% All Students</strong> and <strong>+10% Hispanic, Black, SWD, ELL</strong> meeting or exceeding grade level in mathematics.</div>
+        <div class="cep-metrics"><span class="cep-metric"><span class="dot" style="background:var(--p3)"></span>iReady Mathematics 3–8</span><span class="cep-metric"><span class="dot" style="background:var(--p3)"></span>NYS Assessments</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="cep-grid" style="margin-top:1rem">
+    <div class="cep-card" style="--cc:var(--p4)">
+      <div class="cep-top"><div class="cep-num">● Priority 4</div><div class="cep-title">College, Career Ready &amp; Economic Security</div></div>
+      <div class="cep-body">
+        <div class="cep-goal">By June 2026: All learners in <strong>Project Soapbox</strong> + one Take Action Project. 8th graders earn 1 pt toward <strong>Seal for Civic Readiness</strong>. <strong>+10%</strong> Save for College activated accounts.</div>
+        <div class="cep-metrics"><span class="cep-metric"><span class="dot" style="background:var(--p4)"></span>Project Soapbox</span><span class="cep-metric"><span class="dot" style="background:var(--p4)"></span>Civic Readiness Seal</span><span class="cep-metric"><span class="dot" style="background:var(--p4)"></span>Save for College</span></div>
+      </div>
+    </div>
+    <div class="cep-card" style="--cc:var(--p5)">
+      <div class="cep-top"><div class="cep-num">● Priority 5</div><div class="cep-title">Inclusive &amp; Responsive for Families</div></div>
+      <div class="cep-body">
+        <div class="cep-goal">By June 2026: Monthly/quarterly family engagement events. <strong>+5% positive responses</strong> on NYC School Survey related to family engagement and communication.</div>
+        <div class="cep-metrics"><span class="cep-metric"><span class="dot" style="background:var(--p5)"></span>NYC School Survey</span><span class="cep-metric"><span class="dot" style="background:var(--p5)"></span>Family Events</span></div>
+      </div>
+    </div>
+    <div class="cep-card" style="--cc:var(--ca)" onclick="navTo(&#39;ca-section&#39;,null)">
+      <div class="cep-top"><div class="cep-num">● Chronic Absenteeism</div><div class="cep-title">Reduce Chronic Absence for All Subgroups</div></div>
+      <div class="cep-body">
+        <div class="cep-goal">By June 2026: CASE teams monitor CA data providing support resulting in a <strong>4% reduction</strong> in CA rates for ELL, SWD, Hispanic and Black learners.</div>
+        <div class="cep-metrics"><span class="cep-metric"><span class="dot" style="background:var(--ca)"></span>YTD CA Rate</span><span class="cep-metric"><span class="dot" style="background:var(--ca)"></span>Subgroup Breakdown</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── GOAL TRACKER ── -->
+<div class="anim d3" style="margin-bottom:3rem;">
+  <div class="cep-heading">Goal Progress Tracker — P1 &amp; P3 · vs Baseline (BOY 23-24)</div>
+  <div class="target-row" id="targetRow"><div class="target-card" style="--tc:var(--p1)"><div class="tc-label">P1: All Students Reading</div><div class="tc-target-txt">Baseline data loading…</div></div><div class="target-card" style="--tc:var(--amber)"><div class="tc-label">P1: Hispanic Reading</div><div class="tc-target-txt">Baseline data loading…</div></div><div class="target-card" style="--tc:var(--p3)"><div class="tc-label">P3: All Students Math</div><div class="tc-target-txt">Baseline data loading…</div></div><div class="target-card" style="--tc:var(--orange)"><div class="tc-label">P3: Hispanic Math</div><div class="tc-target-txt">Baseline data loading…</div></div></div>
+</div>
+
+<!-- ════════ P1 ACADIENCE ════════ -->
+<section class="section" id="p1">
+  <div class="sec-head">
+    <div class="sec-icon" style="background:rgba(52,212,176,.1)">📚</div>
+    <div class="sec-titles"><div class="sec-title" style="color:var(--p1)">Priority 1 · Acadience Reading K–2</div><div class="sec-sub">Live from Google Sheets · All subgroups · 2023–24 through 2025–26</div></div>
+    <span class="sec-badge tt">K–2 · 5 Subgroups</span>
+  </div>
+  <div class="goal-banner">
+    <div class="gb-icon">🎯</div>
+    <div class="gb-text"><div class="gb-label">Priority 1 Goal</div><div class="gb-goal">By June 2026: <strong>+5% increase</strong> for All Students and <strong>+10% increase</strong> for Hispanic, Black, and SWD learners meeting or exceeding grade-level standards (Acadience On/Above Benchmark).</div></div>
+    <div class="gb-target">Target: June 2026</div>
+  </div>
+  <div class="ins-row anim d1" id="acadInsights"></div>
+  <div class="filter-strip" id="acadFilter">
+    <span class="fl">Subgroup:</span>
+    <button class="fb active" onclick="setGroup(&#39;acad&#39;,&#39;All Students&#39;,this)">All Students</button>
+    <button class="fb" onclick="setGroup(&#39;acad&#39;,&#39;Hispanics&#39;,this)">Hispanic</button>
+    <button class="fb" onclick="setGroup(&#39;acad&#39;,&#39;Black&#39;,this)">Black</button>
+    <button class="fb" onclick="setGroup(&#39;acad&#39;,&#39;ELL&#39;,this)">ELL</button>
+    <button class="fb" onclick="setGroup(&#39;acad&#39;,&#39;SWD&#39;,this)">SWD</button>
+  </div>
+  <div class="g21 anim d2" style="margin-bottom:1rem">
+    <div class="card"><div class="ch"><div><div class="ct">Benchmark Distribution Over Time</div><div class="cs" id="acad-sub">All Students · All Windows</div></div><span class="tag tt">Stacked %</span></div>
+      <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Above</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>At</div><div class="si"><div class="sd" style="background:#f59e0b"></div>Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>Well Below</div></div>
+      <div class="cw h280"><canvas id="acadStack"></canvas></div></div>
+    <div class="card"><div class="ch"><div><div class="ct">On/Above Benchmark</div><div class="cs">All subgroups trend</div></div><span class="tag tb">Trend</span></div>
+      <div class="cw h300"><canvas id="acadLine"></canvas></div></div>
+  </div>
+  <div class="card anim d3">
+    <div class="ch"><div><div class="ct">Equity Gap · Most Recent Window</div><div class="cs" id="acad-tbl-sub">MOY 2025–26</div></div><span class="tag tr">Gap Analysis</span></div>
+    <table class="dt"><thead><tr><th>Subgroup</th><th>Above</th><th>At</th><th>Below</th><th>Well Below</th><th>On/Above Total</th><th>Gap vs All Students</th></tr></thead><tbody id="acadTbl"></tbody></table>
+  </div>
+
+  <!-- iReady Reading subsection -->
+  <div class="sec-head" style="margin-top:2.5rem">
+    <div class="sec-icon" style="background:rgba(52,212,176,.1)">📖</div>
+    <div class="sec-titles"><div class="sec-title" style="color:var(--p1)">Priority 1 · iReady Reading Gr 3–8</div><div class="sec-sub">Live from Google Sheets · Grade-level performance bands</div></div>
+    <span class="sec-badge tt">Gr 3–8 · 5 Levels</span>
+  </div>
+  <div class="ins-row anim d1" id="readInsights"></div>
+  <div class="filter-strip" id="readFilter">
+    <span class="fl">Subgroup:</span>
+    <button class="fb active" onclick="setGroup(&#39;read&#39;,&#39;All Students&#39;,this)">All Students</button>
+    <button class="fb" onclick="setGroup(&#39;read&#39;,&#39;Hispanics&#39;,this)">Hispanic</button>
+    <button class="fb" onclick="setGroup(&#39;read&#39;,&#39;Black&#39;,this)">Black</button>
+    <button class="fb" onclick="setGroup(&#39;read&#39;,&#39;ELL&#39;,this)">ELL</button>
+    <button class="fb" onclick="setGroup(&#39;read&#39;,&#39;SWD&#39;,this)">SWD</button>
+  </div>
+  <div class="g2 anim d2" style="margin-bottom:1rem">
+    <div class="card"><div class="ch"><div><div class="ct">Reading Grade-Level Distribution</div><div class="cs" id="read-sub">All Students · All Windows</div></div><span class="tag tt">Stacked %</span></div>
+      <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Mid/Above GL</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>Early On GL</div><div class="si"><div class="sd" style="background:#f59e0b"></div>1 Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>2 Below</div><div class="si"><div class="sd" style="background:#a78bfa"></div>3+ Below</div></div>
+      <div class="cw h280"><canvas id="readStack"></canvas></div></div>
+    <div class="card"><div class="ch"><div><div class="ct">Mid/Above GL — All Subgroups</div><div class="cs">BOY vs MOY 2025–26</div></div><span class="tag tb">Comparison</span></div>
+      <div class="cw h280"><canvas id="readGroup"></canvas></div></div>
+  </div>
+  <div class="card anim d3">
+    <div class="ch"><div><div class="ct">Reading Equity Snapshot · Most Recent Window</div><div class="cs" id="read-tbl-sub">MOY 2025–26</div></div><span class="tag tr">Gap Analysis</span></div>
+    <table class="dt"><thead><tr><th>Subgroup</th><th>Mid/Above GL</th><th>Early On GL</th><th>1 Below</th><th>2 Below</th><th>3+ Below</th><th>On-Track Total</th></tr></thead><tbody id="readTbl"></tbody></table>
+  </div>
+</section>
+
+<!-- ════════ P3 MATH ════════ -->
+<section class="section" id="p3">
+  <div class="sec-head">
+    <div class="sec-icon" style="background:rgba(79,142,247,.1)">🔢</div>
+    <div class="sec-titles"><div class="sec-title" style="color:var(--p3)">Priority 3 · iReady Mathematics Gr 3–8</div><div class="sec-sub">Live from Google Sheets · Grade-level performance bands</div></div>
+    <span class="sec-badge tb">Gr 3–8 · 5 Levels</span>
+  </div>
+  <div class="goal-banner" style="background:linear-gradient(135deg,rgba(79,142,247,.07),rgba(167,139,250,.05));border-color:rgba(79,142,247,.2)">
+    <div class="gb-icon">🎯</div>
+    <div class="gb-text"><div class="gb-label" style="color:var(--p3)">Priority 3 Goal</div><div class="gb-goal">By June 2026: <strong>+5% increase</strong> for All Students and <strong>+10% increase</strong> for Hispanic, Black, SWD, and ELL learners meeting or exceeding grade-level standards in mathematics.</div></div>
+    <div class="gb-target" style="background:rgba(79,142,247,.1);color:var(--p3);border-color:rgba(79,142,247,.25)">Target: June 2026</div>
+  </div>
+  <div class="ins-row anim d1" id="mathInsights"></div>
+  <div class="filter-strip" id="mathFilter">
+    <span class="fl">Subgroup:</span>
+    <button class="fb active" onclick="setGroup(&#39;math&#39;,&#39;All Students&#39;,this)">All Students</button>
+    <button class="fb" onclick="setGroup(&#39;math&#39;,&#39;Hispanics&#39;,this)">Hispanic</button>
+    <button class="fb" onclick="setGroup(&#39;math&#39;,&#39;Black&#39;,this)">Black</button>
+    <button class="fb" onclick="setGroup(&#39;math&#39;,&#39;ELL&#39;,this)">ELL</button>
+    <button class="fb" onclick="setGroup(&#39;math&#39;,&#39;SWD&#39;,this)">SWD</button>
+  </div>
+  <div class="g2 anim d2" style="margin-bottom:1rem">
+    <div class="card"><div class="ch"><div><div class="ct">Math Grade-Level Distribution</div><div class="cs" id="math-sub">All Students · All Windows</div></div><span class="tag ta">Stacked %</span></div>
+      <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Mid/Above GL</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>Early On GL</div><div class="si"><div class="sd" style="background:#f59e0b"></div>1 Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>2 Below</div><div class="si"><div class="sd" style="background:#a78bfa"></div>3+ Below</div></div>
+      <div class="cw h280"><canvas id="mathStack"></canvas></div></div>
+    <div class="card"><div class="ch"><div><div class="ct">EOY Year-over-Year: Mid/Above GL</div><div class="cs">End-of-year comparison by subgroup</div></div><span class="tag tb">YoY</span></div>
+      <div class="cw h280"><canvas id="mathYoY"></canvas></div></div>
+  </div>
+  <div class="card anim d3">
+    <div class="ch"><div><div class="ct">Math Equity Snapshot · Most Recent Window</div><div class="cs" id="math-tbl-sub">MOY 2025–26</div></div><span class="tag ta">Gap Analysis</span></div>
+    <table class="dt"><thead><tr><th>Subgroup</th><th>Mid/Above GL</th><th>Early On GL</th><th>1 Below</th><th>2 Below</th><th>3+ Below</th><th>On-Track Total</th></tr></thead><tbody id="mathTbl"></tbody></table>
+  </div>
+</section>
+
+<!-- ════════ CHRONIC ABSENTEEISM ════════ -->
+<section class="section" id="ca-section">
+  <div class="sec-head">
+    <div class="sec-icon" style="background:rgba(251,113,133,.1)">📅</div>
+    <div class="sec-titles"><div class="sec-title" style="color:var(--ca)">Chronic Absenteeism</div><div class="sec-sub">Live from Google Sheets · YTD monthly rates by school year</div></div>
+    <span class="sec-badge tr">Multi-Year</span>
+  </div>
+  <div class="goal-banner" style="background:linear-gradient(135deg,rgba(251,113,133,.07),rgba(245,158,11,.05));border-color:rgba(251,113,133,.2)">
+    <div class="gb-icon">🎯</div>
+    <div class="gb-text"><div class="gb-label" style="color:var(--ca)">CA Reduction Goal</div><div class="gb-goal">By June 2026: CASE teams monitor CA data resulting in a <strong>4% reduction in CA rates</strong> for <strong>ELL, SWD, Hispanic, and Black learners</strong>.</div></div>
+    <div class="gb-target" style="background:rgba(251,113,133,.1);color:var(--ca);border-color:rgba(251,113,133,.25)">Target: –4% by June 2026</div>
+  </div>
+  <div class="ca-grid anim d1" id="caCards"></div>
+  <div class="g2 anim d2" style="margin-bottom:1rem">
+    <div class="card"><div class="ch"><div><div class="ct">Monthly YTD Rate — All Years</div><div class="cs">September through June</div></div><span class="tag tr">Multi-Year</span></div><div class="cw h320"><canvas id="caLine" width="1260" height="640" style="display: block; box-sizing: border-box; height: 320px; width: 630px;"></canvas></div></div>
+    <div class="card"><div class="ch"><div><div class="ct">September Back-to-School Rate</div><div class="cs">Year-over-year BOY snapshot</div></div><span class="tag ta">YoY BOY</span></div><div class="cw h320"><canvas id="caSep" width="1260" height="640" style="display: block; box-sizing: border-box; height: 320px; width: 630px;"></canvas></div></div>
+  </div>
+  <div class="card anim d3">
+    <div class="ch"><div><div class="ct">Monthly Detail — All Years</div><div class="cs">YTD chronic absenteeism rate</div></div><span class="tag tb">Full View</span></div>
+    <div style="overflow-x:auto"><table class="dt" id="caTblWrap"><thead><tr><th>Month</th><th>vs Prior Year</th></tr></thead><tbody></tbody></table></div>
+  </div>
+</section>
+
+<!-- ════════ SEL / P2 ════════ -->
+<section class="section" id="sel-section">
+  <div class="sec-head">
+    <div class="sec-icon" style="background:rgba(245,158,11,.1)">💛</div>
+    <div class="sec-titles"><div class="sec-title" style="color:var(--p2)">Priority 2 · Social-Emotional Learning</div><div class="sec-sub">Live from Google Sheets · District Student Survey &amp; MindUP data</div></div>
+    <span class="sec-badge ta">Coming Soon</span>
+  </div>
+  <div id="selContent"><div class="coming-soon"><div class="cs-icon">💛</div><div class="cs-title">SEL Data Coming Soon</div><div class="cs-desc">Priority 2 data (District Student Survey, MindUP Moments outcomes) will be displayed here once added to your Google Sheet. This section will automatically populate when data is available.</div><span class="cs-tag">⏳ Awaiting data in Google Sheets tab</span></div></div>
+</section>
+
+</div><!-- /page -->
+</div><!-- /app -->
+
+<footer>
+  <div class="ft">2025–26 CEP · State of the District · <span id="ft-updated">Last updated: 2/22/2026, 1:04:07 PM · </span><br>Data feeds live from Google Sheets — update the spreadsheet to update this dashboard</div>
+  <div class="fb2">
+    <button class="btn btn-g" onclick="window.print()">🖨 Export PDF</button>
+    <button class="btn btn-p" onclick="hardRefresh()">↺ Refresh Data</button>
+  </div>
+</footer>
+
+<script>
+// ══════════════════════════════════════════════════════════════
+//  GOOGLE SHEETS CSV URLS
+// ══════════════════════════════════════════════════════════════
+const URLS = {
+  acad: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT8xmZm5dQBKDEqNr2MZ5pyfhBu5WHjUzGN9TTv71RcO6SJmbk7XvUKZIyTztQJsbQ8ywbBZE7dTdzt/pub?gid=0&single=true&output=csv',
+  read: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT8xmZm5dQBKDEqNr2MZ5pyfhBu5WHjUzGN9TTv71RcO6SJmbk7XvUKZIyTztQJsbQ8ywbBZE7dTdzt/pub?gid=1211071891&single=true&output=csv',
+  math: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vT8xmZm5dQBKDEqNr2MZ5pyfhBu5WHjUzGN9TTv71RcO6SJmbk7XvUKZIyTztQJsbQ8ywbBZE7dTdzt/pub?gid=657974428&single=true&output=csv',
+  ca:   'https://docs.google.com/spreadsheets/d/e/2PACX-1vT8xmZm5dQBKDEqNr2MZ5pyfhBu5WHjUzGN9TTv71RcO6SJmbk7XvUKZIyTztQJsbQ8ywbBZE7dTdzt/pub?gid=1538011971&single=true&output=csv',
+  cep:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vT8xmZm5dQBKDEqNr2MZ5pyfhBu5WHjUzGN9TTv71RcO6SJmbk7XvUKZIyTztQJsbQ8ywbBZE7dTdzt/pub?gid=2066501189&single=true&output=csv',
+  sel:  'https://docs.google.com/spreadsheets/d/e/2PACX-1vT8xmZm5dQBKDEqNr2MZ5pyfhBu5WHjUzGN9TTv71RcO6SJmbk7XvUKZIyTztQJsbQ8ywbBZE7dTdzt/pub?gid=1051368613&single=true&output=csv',
+};
+
+// ══ CHART.JS SETUP ══
+Chart.register(ChartDataLabels);
+Chart.defaults.color='#8f98b3';
+Chart.defaults.font.family="'IBM Plex Mono',monospace";
+Chart.defaults.font.size=11;
+Chart.defaults.plugins.legend.labels.boxWidth=8;
+Chart.defaults.plugins.legend.labels.usePointStyle=true;
+Chart.defaults.plugins.legend.labels.padding=14;
+Chart.defaults.plugins.datalabels.display=false;
+const G='rgba(255,255,255,0.05)';
+const C={green:'#4ade80',blue:'#4f8ef7',amber:'#f59e0b',rose:'#fb7185',purple:'#a78bfa',teal:'#34d4b0',orange:'#fb923c',cyan:'#22d3ee'};
+
+// Shared label configs
+const STACK_LBL={display:ctx=>ctx.dataset.data[ctx.dataIndex]>=8,color:'rgba(0,0,0,0.75)',font:{family:"'IBM Plex Mono',monospace",size:9,weight:'600'},formatter:v=>v+'%',anchor:'center',align:'center',padding:0,textShadowBlur:3,textShadowColor:'rgba(0,0,0,0.4)'};
+const BAR_LBL={display:ctx=>ctx.dataset.data[ctx.dataIndex]>0,color:'#e8eaf2',font:{family:"'IBM Plex Mono',monospace",size:9,weight:'600'},formatter:v=>v+'%',anchor:'end',align:'end',offset:2};
+const TT_BASE={backgroundColor:'rgba(16,20,32,0.97)',titleColor:'#e8eaf2',bodyColor:'#9ba3b8',borderColor:'rgba(255,255,255,0.12)',borderWidth:1,padding:12,cornerRadius:10,titleFont:{size:11,weight:'700'},footerFont:{size:9}};
+
+// Chart instances map
+let ci={};
+function mkChart(id,cfg){if(ci[id])ci[id].destroy();ci[id]=new Chart(document.getElementById(id),cfg);}
+
+// ══ CSV PARSER ══
+function parseCSV(text){
+  const lines=text.trim().split('\n').filter(l=>l.trim());
+  const headers=splitCSVLine(lines[0]);
+  return lines.slice(1).map(line=>{
+    const vals=splitCSVLine(line);
+    const obj={};
+    headers.forEach((h,i)=>obj[h.trim()]=( vals[i]||'').trim().replace(/^"|"$/g,''));
+    return obj;
+  });
+}
+function splitCSVLine(line){
+  const result=[]; let cur='',inQ=false;
+  for(let i=0;i<line.length;i++){
+    const ch=line[i];
+    if(ch==='"'){inQ=!inQ;}
+    else if(ch===','&&!inQ){result.push(cur);cur='';}
+    else cur+=ch;
+  }
+  result.push(cur);
+  return result;
+}
+function pct(v){return parseFloat(String(v).replace('%',''))||0;}
+
+// ══ FETCH with cache-bust ══
+async function fetchCSV(url, label){
+  const bust = url + '&cachebust=' + Date.now();
+  const proxies = [
+    u => 'https://corsproxy.io/?' + encodeURIComponent(u),
+    u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u),
+  ];
+  // Try direct fetch first
+  try {
+    const r = await fetch(bust);
+    if(r.ok){ const t=await r.text(); if(t.trim().length>10) return parseCSV(t); }
+  } catch(e){}
+  // Fall back through CORS proxies
+  for(const proxy of proxies){
+    try {
+      const r = await fetch(proxy(url));
+      if(r.ok){ const t=await r.text(); if(t.trim().length>10) return parseCSV(t); }
+    } catch(e){}
+  }
+  throw new Error('Could not load ' + label + '. Check the Sheet tab is published as CSV.');
+}
+
+// ══ LOADER HELPERS ══
+function ldProgress(pct,msg){
+  document.getElementById('ldBar').style.width=pct+'%';
+  document.getElementById('ldStatus').textContent=msg;
+}
+function ldStep(id,state){document.getElementById(id).className='ld-step '+state;}
+function ldHide(){
+  document.getElementById('loader').classList.add('done');
+  document.getElementById('app').classList.add('visible');
+}
+
+// ══ DATA STORES ══
+let ACAD={},READ={},MATH={},CA_DATA=[],SEL_ROWS=[];
+
+// ══ PARSE ACADIENCE ══
+function parseAcad(rows){
+  const out={};
+  rows.forEach(r=>{
+    const sg=r['Subgroup']||r['subgroup']||Object.values(r)[2];
+    const win=r['Academic Year/Window']||Object.values(r)[0];
+    if(!sg||!win) return;
+    if(!out[sg]) out[sg]=[];
+    // short window label
+    const wShort=win.replace('Beginning of Year Performance','BOY').replace('Middle of Year Performance','MOY').replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY')
+      .replace('2023-24 ','23-24 ').replace('2024-25 ','24-25 ').replace('2025-26 ','25-26 ').trim();
+    out[sg].push({
+      w:wShort, wFull:win,
+      ab:pct(r['above benchmark']||r['Above Benchmark']||r['above benchmmark']||0),
+      at:pct(r['at benchmark']||r['At Benchmark']||0),
+      bl:pct(r['below benchmark']||r['Below Benchmark']||0),
+      wb:pct(r['well below benchmark']||r['Well Below Benchmark']||0),
+    });
+  });
+  return out;
+}
+
+// ══ PARSE iREADY (Reading + Math share same structure) ══
+function parseIReady(rows){
+  const out={};
+  rows.forEach(r=>{
+    const sg=r['Subgroup']||r['subgroup']||Object.values(r)[2];
+    const win=r['Academic Year/Window']||Object.values(r)[0];
+    if(!sg||!win) return;
+    if(!out[sg]) out[sg]=[];
+    const wShort=win.replace('Beginning of Year Performance','BOY').replace('Middle of Year Performance','MOY').replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY')
+      .replace('2023-24 ','23-24 ').replace('2024-25 ','24-25 ').replace('2025-26 ','25-26 ').trim();
+    const keys=Object.keys(r);
+    out[sg].push({
+      w:wShort, wFull:win,
+      m:pct(r[keys[3]]||0),
+      e:pct(r[keys[4]]||0),
+      o:pct(r[keys[5]]||0),
+      t:pct(r[keys[6]]||0),
+      th:pct(r[keys[7]]||0),
+    });
+  });
+  return out;
+}
+
+// ══ PARSE CA ══
+function parseCA(rows){
+  // Group by month, collect years
+  const byMonth={};
+  rows.forEach(r=>{
+    const mo=r['month']||r['Month'];
+    const yr=r['year']||r['Year'];
+    const rate=pct(r['Average of ytd_ca_rate']||r['average of ytd_ca_rate']||Object.values(r)[2]);
+    if(!mo||!yr) return;
+    if(!byMonth[mo]) byMonth[mo]={month:mo};
+    byMonth[mo][yr]=rate;
+  });
+  const monthOrder=['Sep','Oct','Nov','Dec','Jan','Feb','Mar','Apr','May','Jun'];
+  return monthOrder.map(mo=>byMonth[mo]).filter(Boolean);
+}
+
+// ══ MOST RECENT WINDOW helper ══
+function mostRecent(groupData){
+  const g=groupData['All Students']||Object.values(groupData)[0]||[];
+  return g.length>0?g[g.length-1].w:'—';
+}
+
+// ══ RENDER ACADIENCE ══
+function renderAcad(grp){
+  const rows=ACAD[grp]||[];
+  if(!rows.length) return;
+  const L=rows.map(r=>r.w);
+
+  mkChart('acadStack',{type:'bar',data:{labels:L,datasets:[
+    {label:'Above',data:rows.map(r=>r.ab),backgroundColor:C.green,borderRadius:3,borderSkipped:false},
+    {label:'At',   data:rows.map(r=>r.at),backgroundColor:C.blue, borderRadius:3,borderSkipped:false},
+    {label:'Below',data:rows.map(r=>r.bl),backgroundColor:C.amber,borderRadius:3,borderSkipped:false},
+    {label:'Well Below',data:rows.map(r=>r.wb),backgroundColor:C.rose,borderRadius:3,borderSkipped:false},
+  ]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},datalabels:STACK_LBL,
+      tooltip:{...TT_BASE,callbacks:{
+        title:i=>i[0].label,
+        label:ctx=>{const n=['Above Benchmark','At Benchmark','Below Benchmark','Well Below'];return ` ${n[ctx.datasetIndex]}: ${ctx.parsed.y}%`;},
+        afterBody:i=>{const r=rows[i[0].dataIndex];return['',`  ✅ On/Above Combined: ${r.ab+r.at}%`,`  ⚠️  Below Combined: ${r.bl+r.wb}%`];},
+        footer:()=>`Subgroup: ${grp}`,
+      }}},
+    scales:{x:{stacked:true,grid:{color:G},ticks:{maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{callback:v=>v+'%'}}}}});
+
+  const wins=(ACAD['All Students']||rows).map(r=>r.w);
+  const pal=[C.teal,C.amber,C.purple,C.rose,C.blue];
+  mkChart('acadLine',{type:'line',data:{labels:wins,datasets:Object.keys(ACAD).map((g,i)=>({
+    label:g,data:ACAD[g].map(r=>r.ab+r.at),
+    borderColor:pal[i%pal.length],backgroundColor:'transparent',
+    tension:.4,pointRadius:5,borderWidth:g===grp?3:1.5,pointBackgroundColor:pal[i%pal.length],
+  }))},options:{responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'bottom',labels:{font:{size:10}}},
+      datalabels:{...{display:ctx=>ctx.dataset.label===grp,color:ctx=>ctx.dataset.borderColor,font:{family:"'IBM Plex Mono',monospace",size:8.5,weight:'600'},formatter:v=>v+'%',anchor:'top',align:'top',offset:4,backgroundColor:'rgba(11,13,19,0.7)',borderRadius:3,padding:{top:2,bottom:2,left:4,right:4}}},
+      tooltip:{...TT_BASE,callbacks:{title:i=>i[0].label,label:ctx=>` ${ctx.dataset.label}: ${ctx.parsed.y}% on/above`,afterLabel:ctx=>{const all=ACAD['All Students']?.find(r=>r.w===ctx.label);const av=all?all.ab+all.at:null;if(ctx.dataset.label!=='All Students'&&av){const g=ctx.parsed.y-av;return ` Gap vs All: ${g>=0?'+':''}${g} pts`;}return '';},},}},
+    scales:{x:{grid:{color:G},ticks:{maxRotation:45,font:{size:9}}},y:{grid:{color:G},min:0,max:100,ticks:{callback:v=>v+'%'}}}}});
+
+  document.getElementById('acad-sub').textContent=`${grp} · All Windows`;
+
+  // equity table
+  const latest=mostRecent(ACAD);
+  document.getElementById('acad-tbl-sub').textContent=latest;
+  const allR=ACAD['All Students']?.find(r=>r.w===latest);
+  const allOA=allR?allR.ab+allR.at:0;
+  const tb=document.getElementById('acadTbl'); tb.innerHTML='';
+  Object.keys(ACAD).forEach(g=>{
+    const r=ACAD[g].find(x=>x.w===latest);
+    if(!r) return;
+    const oa=r.ab+r.at; const gap=oa-allOA;
+    tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.ab>=35?'pg':r.ab>=25?'pa':'pr'}">${r.ab}%</span></td><td class="dm">${r.at}%</td><td class="dm">${r.bl}%</td><td><span class="dp ${r.wb<=30?'pg':r.wb<=45?'pa':'pr'}">${r.wb}%</span></td><td><strong class="dm">${oa}%</strong></td><td><span class="dp ${gap>=0?'pg':gap>=-15?'pa':'pr'}">${gap>=0?'+':''}${gap} pts</span></td></tr>`;
+  });
+}
+
+// ══ RENDER iREADY READING ══
+function renderRead(grp){
+  const rows=READ[grp]||[];
+  if(!rows.length) return;
+  const L=rows.map(r=>r.w);
+  mkChart('readStack',{type:'bar',data:{labels:L,datasets:[
+    {label:'Mid/Above',data:rows.map(r=>r.m),backgroundColor:C.green, borderRadius:3,borderSkipped:false},
+    {label:'Early On', data:rows.map(r=>r.e),backgroundColor:C.blue,  borderRadius:3,borderSkipped:false},
+    {label:'1 Below',  data:rows.map(r=>r.o),backgroundColor:C.amber, borderRadius:3,borderSkipped:false},
+    {label:'2 Below',  data:rows.map(r=>r.t),backgroundColor:C.rose,  borderRadius:3,borderSkipped:false},
+    {label:'3+ Below', data:rows.map(r=>r.th),backgroundColor:C.purple,borderRadius:3,borderSkipped:false},
+  ]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},datalabels:STACK_LBL,
+      tooltip:{...TT_BASE,callbacks:{
+        title:i=>i[0].label,
+        label:ctx=>{const n=['Mid/Above GL','Early On GL','1 Level Below','2 Levels Below','3+ Levels Below'];const r=rows[ctx.dataIndex];const v=[r.m,r.e,r.o,r.t,r.th];return ` ${n[ctx.datasetIndex]}: ${v[ctx.datasetIndex]}%`;},
+        afterBody:i=>{const r=rows[i[0].dataIndex];return['',`  ✅ On-Track (Mid+Early): ${r.m+r.e}%`,`  🔴 3+ Below: ${r.th}%`];},
+        footer:()=>`Subgroup: ${grp}`,
+      }}},
+    scales:{x:{stacked:true,grid:{color:G},ticks:{maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{callback:v=>v+'%'}}}}});
+
+  const groups=Object.keys(READ);
+  const latest=mostRecent(READ);
+  const prev=READ['All Students']?.find(r=>r.w.startsWith('BOY'))?.w;
+  mkChart('readGroup',{type:'bar',data:{labels:groups,datasets:[
+    {label:`BOY (latest)`,data:groups.map(g=>READ[g]?.find(r=>r.w.includes('BOY 25'))?.m||0),backgroundColor:'rgba(79,142,247,0.35)',borderRadius:6},
+    {label:`MOY (latest)`,data:groups.map(g=>READ[g]?.find(r=>r.w===latest)?.m||0),backgroundColor:C.blue,borderRadius:6},
+  ]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom'},datalabels:BAR_LBL,
+      tooltip:{...TT_BASE,callbacks:{title:i=>i[0].label+' — Mid/Above GL',label:ctx=>` ${ctx.dataset.label}: ${ctx.parsed.y}%`,afterBody:i=>{const g=i[0].label;const b=READ[g]?.find(r=>r.w.includes('BOY 25'))?.m||0;const m=READ[g]?.find(r=>r.w===latest)?.m||0;return['',` Within-year gain: +${m-b} pts`];},}}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:G},ticks:{callback:v=>v+'%'}}}}});
+
+  document.getElementById('read-sub').textContent=`${grp} · All Windows`;
+  document.getElementById('read-tbl-sub').textContent=latest;
+  const tb=document.getElementById('readTbl'); tb.innerHTML='';
+  groups.forEach(g=>{
+    const r=READ[g]?.find(x=>x.w===latest);
+    if(!r) return;
+    const ot=r.m+r.e;
+    tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.m>=20?'pg':r.m>=10?'pa':'pr'}">${r.m}%</span></td><td class="dm">${r.e}%</td><td class="dm">${r.o}%</td><td class="dm">${r.t}%</td><td><span class="dp ${r.th<=25?'pg':r.th<=45?'pa':'pr'}">${r.th}%</span></td><td><strong class="dm">${ot}%</strong></td></tr>`;
+  });
+}
+
+// ══ RENDER MATH ══
+function renderMath(grp){
+  const rows=MATH[grp]||[];
+  if(!rows.length) return;
+  const L=rows.map(r=>r.w);
+  mkChart('mathStack',{type:'bar',data:{labels:L,datasets:[
+    {label:'Mid/Above',data:rows.map(r=>r.m),backgroundColor:C.green, borderRadius:3,borderSkipped:false},
+    {label:'Early On', data:rows.map(r=>r.e),backgroundColor:C.blue,  borderRadius:3,borderSkipped:false},
+    {label:'1 Below',  data:rows.map(r=>r.o),backgroundColor:C.amber, borderRadius:3,borderSkipped:false},
+    {label:'2 Below',  data:rows.map(r=>r.t),backgroundColor:C.rose,  borderRadius:3,borderSkipped:false},
+    {label:'3+ Below', data:rows.map(r=>r.th),backgroundColor:C.purple,borderRadius:3,borderSkipped:false},
+  ]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},datalabels:STACK_LBL,
+      tooltip:{...TT_BASE,callbacks:{
+        title:i=>i[0].label,
+        label:ctx=>{const n=['Mid/Above GL','Early On GL','1 Level Below','2 Levels Below','3+ Levels Below'];const r=rows[ctx.dataIndex];const v=[r.m,r.e,r.o,r.t,r.th];return ` ${n[ctx.datasetIndex]}: ${v[ctx.datasetIndex]}%`;},
+        afterBody:i=>{const r=rows[i[0].dataIndex];return['',`  ✅ On-Track: ${r.m+r.e}%`,`  🔴 3+ Below: ${r.th}%`];},
+        footer:()=>`Subgroup: ${grp}`,
+      }}},
+    scales:{x:{stacked:true,grid:{color:G},ticks:{maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{callback:v=>v+'%'}}}}});
+
+  const groups=Object.keys(MATH);
+  mkChart('mathYoY',{type:'bar',data:{labels:groups,datasets:[
+    {label:'EOY 2023-24',data:groups.map(g=>MATH[g]?.find(r=>r.w==='EOY 23-24')?.m||0),backgroundColor:'rgba(245,158,11,0.35)',borderRadius:6},
+    {label:'EOY 2024-25',data:groups.map(g=>MATH[g]?.find(r=>r.w==='EOY 24-25')?.m||0),backgroundColor:C.amber,borderRadius:6},
+  ]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{position:'bottom'},datalabels:BAR_LBL,
+      tooltip:{...TT_BASE,callbacks:{title:i=>i[0].label+' — Mid/Above GL (EOY)',label:ctx=>` ${ctx.dataset.label}: ${ctx.parsed.y}%`,afterBody:i=>{const g=i[0].label;const e23=MATH[g]?.find(r=>r.w==='EOY 23-24')?.m||0;const e24=MATH[g]?.find(r=>r.w==='EOY 24-25')?.m||0;return['',` YoY gain: +${e24-e23} pts`];},}}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:G},ticks:{callback:v=>v+'%'}}}}});
+
+  const latest=mostRecent(MATH);
+  document.getElementById('math-sub').textContent=`${grp} · All Windows`;
+  document.getElementById('math-tbl-sub').textContent=latest;
+  const tb=document.getElementById('mathTbl'); tb.innerHTML='';
+  groups.forEach(g=>{
+    const r=MATH[g]?.find(x=>x.w===latest);
+    if(!r) return;
+    const ot=r.m+r.e;
+    tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.m>=20?'pg':r.m>=10?'pa':'pr'}">${r.m}%</span></td><td class="dm">${r.e}%</td><td class="dm">${r.o}%</td><td class="dm">${r.t}%</td><td><span class="dp ${r.th<=25?'pg':r.th<=45?'pa':'pr'}">${r.th}%</span></td><td><strong class="dm">${ot}%</strong></td></tr>`;
+  });
+}
+
+// ══ RENDER CA ══
+function renderCA(){
+  const years=[...new Set(CA_DATA.flatMap(r=>Object.keys(r).filter(k=>k!=='month')))].sort();
+  const colors=[C.cyan,C.purple,C.amber,C.rose,C.blue,C.teal];
+  const months=CA_DATA.map(r=>r.month);
+
+  // Year avg cards
+  const cc=document.getElementById('caCards'); cc.innerHTML='';
+  years.forEach((yr,i)=>{
+    const vals=CA_DATA.map(r=>r[yr]).filter(v=>v!=null&&!isNaN(v));
+    if(!vals.length) return;
+    const avg=(vals.reduce((a,b)=>a+b,0)/vals.length).toFixed(1);
+    const pv=i>0?CA_DATA.map(r=>r[years[i-1]]).filter(v=>v!=null&&!isNaN(v)):null;
+    const pa=pv&&pv.length?(pv.reduce((a,b)=>a+b,0)/pv.length).toFixed(1):null;
+    const delta=pa?(avg-pa).toFixed(1):null;
+    const col=avg>20?'var(--rose)':avg>16?'var(--amber)':'var(--teal)';
+    const trCol=delta===null?'var(--text3)':delta<0?'var(--teal)':'var(--rose)';
+    cc.innerHTML+=`<div class="cac"><div class="cac-yr">${yr}</div><div class="cac-val" style="color:${col}">${avg}%</div><div class="cac-tr" style="color:${trCol}">${delta===null?'Baseline':delta<0?'▼ '+Math.abs(delta)+'pts':'▲ '+Math.abs(delta)+'pts'}</div></div>`;
+  });
+
+  mkChart('caLine',{type:'line',data:{labels:months,datasets:years.map((yr,i)=>({
+    label:yr,data:CA_DATA.map(r=>r[yr]??null),borderColor:colors[i%colors.length],backgroundColor:'transparent',
+    tension:.4,pointRadius:5,spanGaps:false,
+    borderWidth:i===years.length-1?3:i===years.length-2?2.5:1.5,
+    borderDash:i===0?[5,3]:[],pointBackgroundColor:colors[i%colors.length],
+  }))},options:{responsive:true,maintainAspectRatio:false,
+    interaction:{mode:'index',intersect:false},
+    plugins:{legend:{position:'bottom',labels:{font:{size:10}}},
+      datalabels:{display:ctx=>{const yr=ctx.dataset.label;return(yr===years[years.length-1]||yr===years[years.length-2])&&ctx.dataset.data[ctx.dataIndex]!=null;},color:ctx=>ctx.dataset.borderColor,font:{family:"'IBM Plex Mono',monospace",size:8,weight:'600'},formatter:v=>v!=null?v+'%':'',anchor:'top',align:'top',offset:3,backgroundColor:'rgba(11,13,19,0.75)',borderRadius:3,padding:{top:1,bottom:1,left:3,right:3}},
+      tooltip:{...TT_BASE,footerColor:'#fb7185',callbacks:{title:i=>`${i[0].label} — CA YTD Rate`,label:ctx=>ctx.parsed.y!=null?` ${ctx.dataset.label}: ${ctx.parsed.y}%`:` ${ctx.dataset.label}: n/a`,footer:()=>'Goal: 4% reduction for ELL, SWD, Hispanic, Black'}}},
+    scales:{x:{grid:{color:G}},y:{grid:{color:G},min:8,ticks:{callback:v=>v+'%'}}}}});
+
+  const latestYr=years[years.length-1];
+  const sepRow=CA_DATA.find(r=>r.month==='Sep');
+  const sepVals=years.map(yr=>sepRow?sepRow[yr]??null:null);
+  mkChart('caSep',{type:'bar',data:{labels:years,datasets:[{
+    label:'Sep YTD Rate',data:sepVals,
+    backgroundColor:sepVals.map(v=>v==null?'transparent':v>17?'rgba(251,113,133,.7)':v>14?'rgba(245,158,11,.7)':'rgba(52,212,176,.7)'),
+    borderRadius:8,
+  }]},options:{responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},
+      datalabels:{display:ctx=>ctx.dataset.data[ctx.dataIndex]!=null,color:'rgba(255,255,255,.9)',font:{family:"'IBM Plex Mono',monospace",size:10,weight:'700'},formatter:v=>v!=null?v+'%':'',anchor:'center',align:'center'},
+      tooltip:{...TT_BASE,footerColor:'#fb7185',callbacks:{title:i=>`${i[0].label} — September YTD`,label:ctx=>` Rate: ${ctx.parsed.y}%`,afterLabel:ctx=>{const v=ctx.parsed.y;return ` Status: ${v>17?'⚠️ Above threshold':v>14?'🟡 Moderate':'✅ Below target'}`;},footer:()=>'4% reduction goal vs prior year'}}},
+    scales:{x:{grid:{display:false}},y:{grid:{color:G},min:8,ticks:{callback:v=>v+'%'}}}}});
+
+  // Full table — build dynamic columns
+  const tbl=document.getElementById('caTblWrap');
+  let html=`<thead><tr><th>Month</th>${years.map(y=>`<th>${y}</th>`).join('')}<th>vs Prior Year</th></tr></thead><tbody>`;
+  CA_DATA.forEach(row=>{
+    const curr=row[latestYr]; const prev=row[years[years.length-2]];
+    const trend=curr!=null&&prev!=null?`<span class="dp ${curr<prev?'pg':curr>prev?'pr':'pb'}">${curr<prev?'▼ '+(prev-curr).toFixed(1)+'pts':curr>prev?'▲ '+(curr-prev).toFixed(1)+'pts':'—'}</span>`:'<span style="color:var(--text3);font-size:.7rem">Pending</span>';
+    html+=`<tr><td class="dn">${row.month}</td>${years.map(y=>`<td class="dm">${row[y]!=null?row[y]+'%':'—'}</td>`).join('')}<td>${trend}</td></tr>`;
+  });
+  html+='</tbody>';
+  tbl.innerHTML=html;
+}
+
+// ══ RENDER SEL (placeholder if empty) ══
+function renderSEL(){
+  const el=document.getElementById('selContent');
+  if(!SEL_ROWS.length||Object.keys(SEL_ROWS[0]).every(k=>!SEL_ROWS[0][k])){
+    el.innerHTML=`<div class="coming-soon"><div class="cs-icon">💛</div><div class="cs-title">SEL Data Coming Soon</div><div class="cs-desc">Priority 2 data (District Student Survey, MindUP Moments outcomes) will be displayed here once added to your Google Sheet. This section will automatically populate when data is available.</div><span class="cs-tag">⏳ Awaiting data in Google Sheets tab</span></div>`;
+  } else {
+    el.innerHTML=`<div class="card"><div class="ch"><div class="ct">SEL Survey Results</div></div><p style="color:var(--text2);font-size:.85rem;line-height:1.7">${SEL_ROWS.length} records loaded. Chart will render based on your column structure.</p></div>`;
+  }
+}
+
+// ══ HERO KPI updaters ══
+function updateHeroKPIs(){
+  // Acadience — latest All Students on/above
+  const aLatest=mostRecent(ACAD);
+  const aRow=ACAD['All Students']?.find(r=>r.w===aLatest);
+  if(aRow) document.getElementById('hkpi-acad').textContent=(aRow.ab+aRow.at)+'%';
+  document.getElementById('hkpi-window').textContent=aLatest||'MOY 25-26';
+
+  // Reading — latest Mid/Above
+  const rLatest=mostRecent(READ);
+  const rRow=READ['All Students']?.find(r=>r.w===rLatest);
+  if(rRow) document.getElementById('hkpi-read').textContent=(rRow.m+rRow.e)+'%';
+
+  // CA — most recent available month
+  const caYears=CA_DATA.length?[...new Set(CA_DATA.flatMap(r=>Object.keys(r).filter(k=>k!=='month')))].sort():[];
+  const latestYr=caYears[caYears.length-1];
+  if(latestYr){
+    const lastWithData=[...CA_DATA].reverse().find(r=>r[latestYr]!=null);
+    if(lastWithData) document.getElementById('hkpi-ca').textContent=lastWithData[latestYr]+'%';
+  }
+}
+
+// ══ GOAL PROGRESS TRACKER ══
+function renderTargets(){
+  const container=document.getElementById('targetRow');
+  container.innerHTML='';
+  const baseline='BOY 23-24';
+  const targets=[
+    {label:'P1: All Students Reading',tc:'var(--p1)',grp:'All Students',data:ACAD,goal:5,calc:r=>r.ab+r.at,note:'Acadience On/Above · +5pt goal'},
+    {label:'P1: Hispanic Reading',tc:'var(--amber)',grp:'Hispanics',data:ACAD,goal:10,calc:r=>r.ab+r.at,note:'Acadience On/Above · +10pt goal'},
+    {label:'P3: All Students Math',tc:'var(--p3)',grp:'All Students',data:MATH,goal:5,calc:r=>r.m+r.e,note:'iReady Math On-Track · +5pt goal'},
+    {label:'P3: Hispanic Math',tc:'var(--orange)',grp:'Hispanics',data:MATH,goal:10,calc:r=>r.m+r.e,note:'iReady Math On-Track · +10pt goal'},
+  ];
+  targets.forEach(t=>{
+    const baseRow=t.data[t.grp]?.find(r=>r.w===baseline);
+    const latest=mostRecent(t.data);
+    const curRow=t.data[t.grp]?.find(r=>r.w===latest);
+    if(!baseRow||!curRow){container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}"><div class="tc-label">${t.label}</div><div class="tc-target-txt">Baseline data loading…</div></div>`;return;}
+    const base=t.calc(baseRow), cur=t.calc(curRow), goal=base+t.goal;
+    const gained=cur-base;
+    const progress=Math.min(Math.max((gained/t.goal)*100,0),100);
+    const onTrack=gained>=t.goal*.5;
+    container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}"><div class="tc-label">${t.label}</div><div class="tc-current" style="color:${t.tc}">${cur}%</div><div class="tc-target-txt">Baseline: ${base}% → Target: ${goal}%</div><div class="tc-bar-wrap"><div class="tc-bar-bg"><div class="tc-bar-fill" data-w="${progress}" style="background:${t.tc};width:0%"></div></div><div class="tc-pct">${Math.round(progress)}%</div></div><div class="tc-vals"><span>+${gained} pts gained</span><span style="color:${onTrack?'var(--green)':'var(--amber)'}">${onTrack?'On Track ✓':'Watch ⚠'}</span></div><div class="tc-note">${t.note}</div></div>`;
+  });
+  setTimeout(()=>{document.querySelectorAll('.tc-bar-fill').forEach(b=>{b.style.width=b.dataset.w+'%';});},400);
+}
+
+// ══ INSIGHT CARDS ══
+function buildInsights(containerId,data,type){
+  const el=document.getElementById(containerId);
+  const latest=mostRecent(data);
+  const allRow=data['All Students']?.find(r=>r.w===latest);
+  if(!allRow){el.innerHTML='';return;}
+
+  if(type==='acad'){
+    const oa=allRow.ab+allRow.at;
+    const ell=data['ELL']?.find(r=>r.w===latest);
+    const swd=data['SWD']?.find(r=>r.w===latest);
+    el.innerHTML=`
+      <div class="ins" style="--ic:var(--teal)"><div class="il">All Students · On/Above (${latest})</div><div class="iv">${oa}%</div><div class="id">Above+At benchmark combined. Tracking toward June 2026 +5% goal.</div></div>
+      <div class="ins" style="--ic:var(--rose)"><div class="il">ELL · Well Below (${latest})</div><div class="iv">${ell?ell.wb+'%':'—'}</div><div class="id">Highest well-below rate. NYSESLAT proficiency advancement is the ELL-specific metric.</div></div>
+      <div class="ins" style="--ic:var(--amber)"><div class="il">SWD · Well Below (${latest})</div><div class="iv">${swd?swd.wb+'%':'—'}</div><div class="id">Tracking toward 10% improvement goal for SWD subgroup.</div></div>`;
+  } else if(type==='read'||type==='math'){
+    const ot=type==='read'?allRow.m+allRow.e:allRow.m+allRow.e;
+    const ell=data['ELL']?.find(r=>r.w===latest);
+    const blk=data['Black']?.find(r=>r.w===latest);
+    const blkBoy=data['Black']?.find(r=>r.w.includes('BOY 25'));
+    const blkGain=blk&&blkBoy?blk.m-blkBoy.m:null;
+    const col=type==='read'?'var(--blue)':'var(--amber)';
+    el.innerHTML=`
+      <div class="ins" style="--ic:${col}"><div class="il">All Students · On-Track (${latest})</div><div class="iv">${ot}%</div><div class="id">Mid/Above + Early On Grade Level combined.</div></div>
+      <div class="ins" style="--ic:var(--rose)"><div class="il">ELL · 3+ Levels Below (${latest})</div><div class="iv">${ell?ell.th+'%':'—'}</div><div class="id">Largest concentration of students significantly below grade level.</div></div>
+      <div class="ins" style="--ic:var(--purple)"><div class="il">Black Students · Within-Year Gain</div><div class="iv">${blkGain!=null?(blkGain>=0?'+':'')+blkGain+' pts':'—'}</div><div class="id">Mid/Above GL change from BOY to ${latest}.</div></div>`;
+  }
+}
+
+// ══ FILTER HANDLERS ══
+function setGroup(type,grp,btn){
+  btn.closest('.filter-strip').querySelectorAll('.fb').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  if(type==='acad') renderAcad(grp);
+  else if(type==='read') renderRead(grp);
+  else if(type==='math') renderMath(grp);
+}
+
+// ══ NAV ══
+function navTo(id,btn){
+  document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
+  if(btn){document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));btn.classList.add('active');}
+}
+
+// ══ REFRESH ══
+function hardRefresh(){location.reload();}
+
+// ══════════════════════════════════════════════
+//  MAIN INIT — fetch all sheets, then render
+// ══════════════════════════════════════════════
+async function init(){
+  ldProgress(5,'Connecting to Google Sheets…');
+
+  try {
+    // Acadience
+    ldStep('ls-acad','active'); ldProgress(10,'Loading Acadience data…');
+    const acadRows=await fetchCSV(URLS.acad,'Acadience');
+    ACAD=parseAcad(acadRows);
+    ldStep('ls-acad','done'); ldProgress(25,'Acadience ✓');
+
+    // iReady Reading
+    ldStep('ls-read','active'); ldProgress(30,'Loading iReady Reading…');
+    const readRows=await fetchCSV(URLS.read,'iReady Reading');
+    READ=parseIReady(readRows);
+    ldStep('ls-read','done'); ldProgress(45,'iReady Reading ✓');
+
+    // iReady Math
+    ldStep('ls-math','active'); ldProgress(50,'Loading iReady Math…');
+    const mathRows=await fetchCSV(URLS.math,'iReady Math');
+    MATH=parseIReady(mathRows);
+    ldStep('ls-math','done'); ldProgress(65,'iReady Math ✓');
+
+    // CA
+    ldStep('ls-ca','active'); ldProgress(70,'Loading Absenteeism data…');
+    const caRows=await fetchCSV(URLS.ca,'Chronic Absenteeism');
+    CA_DATA=parseCA(caRows);
+    ldStep('ls-ca','done'); ldProgress(85,'Absenteeism ✓');
+
+    // SEL
+    ldStep('ls-sel','active'); ldProgress(90,'Checking SEL tab…');
+    try {
+      const selRows=await fetchCSV(URLS.sel,'SEL');
+      SEL_ROWS=selRows;
+    } catch(e){ SEL_ROWS=[]; }
+    ldStep('ls-sel','done'); ldProgress(98,'Almost ready…');
+
+    // Render everything
+    updateHeroKPIs();
+    renderAcad('All Students');
+    buildInsights('acadInsights',ACAD,'acad');
+    renderRead('All Students');
+    buildInsights('readInsights',READ,'read');
+    renderMath('All Students');
+    buildInsights('mathInsights',MATH,'math');
+    renderCA();
+    renderSEL();
+    renderTargets();
+
+    // Timestamps
+    const now=new Date().toLocaleString();
+    document.getElementById('last-updated').textContent='Updated: '+now;
+    document.getElementById('ft-updated').textContent='Last updated: '+now+' · ';
+
+    ldProgress(100,'Ready!');
+    setTimeout(ldHide, 600);
+
+  } catch(err){
+    document.getElementById('ldStatus').textContent='⚠️ ' + err.message;
+    console.error(err);
+    // Show a visible error banner on the page too
+    document.getElementById('app').classList.add('visible');
+    document.querySelector('.page').insertAdjacentHTML('afterbegin',
+      '<div style="background:rgba(251,113,133,.1);border:1px solid rgba(251,113,133,.4);border-radius:14px;padding:1.25rem 1.5rem;margin:1rem 0;font-family:var(--ff-m);font-size:.8rem;color:#fb7185;line-height:1.7">' +
+      '⚠️ <strong>Could not load live data from Google Sheets.</strong><br>' +
+      'Most likely cause: the Sheet tabs need to be published to the web as CSV.<br>' +
+      'Go to <strong>File → Share → Publish to the web</strong> in your Google Sheet, select each tab, choose CSV, and click Publish.' +
+      '</div>'
+    );
+    setTimeout(ldHide, 2500);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+
+
+</body></html>
