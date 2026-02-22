@@ -119,12 +119,12 @@ h1 .acc{color:var(--teal);}
 .cep-metric .dot{width:5px;height:5px;border-radius:50%;}
 
 /* ── TARGET TRACKER ── */
-.target-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:3rem;}
-@media(max-width:1000px){.target-row{grid-template-columns:1fr 1fr;}} @media(max-width:700px){.target-row{grid-template-columns:1fr;}}
+.target-row{display:grid;grid-template-columns:repeat(5,1fr);gap:.85rem;margin-bottom:3rem;}
+@media(max-width:1200px){.target-row{grid-template-columns:repeat(3,1fr);}} @media(max-width:800px){.target-row{grid-template-columns:repeat(2,1fr);}} @media(max-width:500px){.target-row{grid-template-columns:1fr;}}
 @media(max-width:600px){.target-row{grid-template-columns:1fr;}}
 .target-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1.4rem;border-top:2px solid var(--tc,var(--teal));}
 .tc-label{font-family:var(--ff-m);font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.7rem;}
-.tc-current{font-family:var(--ff-h);font-size:1.6rem;font-weight:700;color:var(--text);line-height:1;margin-bottom:.3rem;}
+.tc-current{font-family:var(--ff-h);font-size:1.4rem;font-weight:700;color:var(--text);line-height:1;margin-bottom:.3rem;}
 .tc-target-txt{font-size:.72rem;color:var(--text2);}
 .tc-bar-wrap{display:flex;align-items:center;gap:.75rem;margin-top:.75rem;margin-bottom:.5rem;}
 .tc-bar-bg{flex:1;height:8px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden;}
@@ -370,7 +370,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 
 <!-- ── GOAL TRACKER ── -->
 <div class="anim d3" style="margin-bottom:3rem;">
-  <div class="cep-heading">Goal Progress Tracker — P1 &amp; P3 · vs Baseline (BOY 23-24)</div>
+  <div class="cep-heading">Goal Progress Tracker — All Subgroups · vs Baseline EOY 2024–25</div>
   <div class="target-row" id="targetRow"></div>
 </div>
 
@@ -634,7 +634,8 @@ let acadWinFilter='ALL', readWinFilter='ALL', mathWinFilter='ALL';
 function parseAcad(rows){
   const out={};
   rows.forEach(r=>{
-    const sg  = r['Subgroup']||r['subgroup']||Object.values(r)[1];
+    const sgRaw = r['Subgroup']||r['subgroup']||Object.values(r)[1];
+    const sg = sgRaw==='ENL'?'ELL':sgRaw; // normalise ENL→ELL
     const win = r['Academic Year/Window']||Object.values(r)[0];
     if(!sg||!win) return;
     if(!out[sg]) out[sg]=[];
@@ -649,7 +650,7 @@ function parseAcad(rows){
     if(yrMatch){
       // New format "2023-24 BOY" → convert year "2023-24" → "23-24"
       const fullYr = yrMatch[1]; // "2023-24"
-      const shortYr = fullYr.slice(2,4)+'-'+fullYr.slice(7,9); // "23-24"
+      const shortYr = fullYr.slice(2,4)+'-'+fullYr.slice(-2); // "23-24"
       wShort = yrMatch[2].toUpperCase()+' '+shortYr; // "BOY 23-24"
     } else {
       // Old long format already had BOY/MOY/EOY substituted, still has full year
@@ -673,7 +674,8 @@ function parseAcad(rows){
 function parseIReady(rows){
   const out={};
   rows.forEach(r=>{
-    const sg  = r['Subgroup']||r['subgroup']||Object.values(r)[1];
+    const sgRaw = r['Subgroup']||r['subgroup']||Object.values(r)[1];
+    const sg = sgRaw==='ENL'?'ELL':sgRaw; // normalise ENL→ELL
     const win = r['Academic Year/Window']||Object.values(r)[0];
     if(!sg||!win) return;
     if(!out[sg]) out[sg]=[];
@@ -688,7 +690,7 @@ function parseIReady(rows){
     if(yrMatch){
       // New format "2023-24 BOY" → convert year "2023-24" → "23-24"
       const fullYr = yrMatch[1]; // "2023-24"
-      const shortYr = fullYr.slice(2,4)+'-'+fullYr.slice(7,9); // "23-24"
+      const shortYr = fullYr.slice(2,4)+'-'+fullYr.slice(-2); // "23-24"
       wShort = yrMatch[2].toUpperCase()+' '+shortYr; // "BOY 23-24"
     } else {
       // Old long format already had BOY/MOY/EOY substituted, still has full year
@@ -792,15 +794,20 @@ function renderAcad(grp){
     scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#c8cfe0',maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
 
   // Trend line — filtered by window type, all subgroups
+  // Use a shared label set so all datasets are same length
   const trendRows = filterByWin(ACAD['All Students']||allRows, acadWinFilter);
   const wins = trendRows.map(r=>r.w);
   const pal  = [C.teal,C.amber,C.purple,C.rose,C.blue];
-  mkChart('acadLine',{type:'line',data:{labels:wins,datasets:Object.keys(ACAD).map((g,i)=>({
-    label:g,
-    data:filterByWin(ACAD[g],acadWinFilter).map(r=>r.ab+r.at),
-    borderColor:pal[i%pal.length],backgroundColor:'transparent',
-    tension:.4,pointRadius:5,borderWidth:g===grp?3:1.5,pointBackgroundColor:pal[i%pal.length],
-  }))},options:{responsive:true,maintainAspectRatio:false,
+  mkChart('acadLine',{type:'line',data:{labels:wins,datasets:Object.keys(ACAD).map((g,i)=>{
+    // Map each label to its value — null if that window missing for this subgroup
+    const dataMap = Object.fromEntries(filterByWin(ACAD[g],acadWinFilter).map(r=>[r.w,r.ab+r.at]));
+    return {
+      label:g,
+      data:wins.map(w=>dataMap[w]??null),
+      borderColor:pal[i%pal.length],backgroundColor:'transparent',
+      spanGaps:false,tension:.4,pointRadius:5,borderWidth:g===grp?3:1.5,pointBackgroundColor:pal[i%pal.length],
+    };
+  })},options:{responsive:true,maintainAspectRatio:false,
     interaction:{mode:'index',intersect:false},
     plugins:{
       legend:{position:'bottom',labels:{color:'#c8cfe0',font:{size:10}}},
@@ -829,8 +836,8 @@ function renderAcad(grp){
   Object.keys(ACAD).forEach(g=>{
     const r=ACAD[g].find(x=>x.w===latest); if(!r) return;
     const oa=r.ab+r.at, gap=oa-allOA;
-    // Baseline = EOY 24-25
-    const base=ACAD[g]?.find(x=>x.w==='EOY 24-25');
+    // Baseline = EOY 24-25 (the normalised key after slice fix)
+    const base=ACAD[g]?.find(x=>x.w==='EOY 24-25'||x.w==='EOY 24-5'||x.w==='EOY 2024-25');
     const baseOA=base?base.ab+base.at:null;
     const chg=baseOA!=null?oa-baseOA:null;
     tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.ab>=35?'pg':r.ab>=25?'pa':'pr'}">${r.ab}%</span></td><td class="dm">${r.at}%</td><td class="dm">${r.bl}%</td><td><span class="dp ${r.wb<=30?'pg':r.wb<=45?'pa':'pr'}">${r.wb}%</span></td><td><strong class="dm">${oa}%</strong></td><td><span class="dp ${gap>=0?'pg':gap>=-15?'pa':'pr'}">${gap>=0?'+':''}${gap}pts</span></td><td><span class="dp ${chg==null?'pb':chg>=0?'pg':'pr'}">${chg==null?'—':(chg>=0?'+':'')+chg+'pts'}</span></td></tr>`;
@@ -904,7 +911,7 @@ function renderRead(grp){
   groups.forEach(g=>{
     const r=READ[g]?.find(x=>x.w===latest); if(!r) return;
     const ot=r.m+r.e;
-    const base=READ[g]?.find(x=>x.w==='EOY 24-25');
+    const base=READ[g]?.find(x=>x.w==='EOY 24-25'||x.w==='EOY 24-5'||x.w==='EOY 2024-25');
     const baseOT=base?base.m+base.e:null;
     const chg=baseOT!=null?ot-baseOT:null;
     tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.m>=20?'pg':r.m>=10?'pa':'pr'}">${r.m}%</span></td><td class="dm">${r.e}%</td><td class="dm">${r.o}%</td><td class="dm">${r.t}%</td><td><span class="dp ${r.th<=25?'pg':r.th<=45?'pa':'pr'}">${r.th}%</span></td><td><strong class="dm">${ot}%</strong></td><td><span class="dp ${chg==null?'pb':chg>=0?'pg':'pr'}">${chg==null?'—':(chg>=0?'+':'')+chg+'pts'}</span></td></tr>`;
@@ -978,7 +985,7 @@ function renderMath(grp){
   groups.forEach(g=>{
     const r=MATH[g]?.find(x=>x.w===latest); if(!r) return;
     const ot=r.m+r.e;
-    const base=MATH[g]?.find(x=>x.w==='EOY 24-25');
+    const base=MATH[g]?.find(x=>x.w==='EOY 24-25'||x.w==='EOY 24-5'||x.w==='EOY 2024-25');
     const baseOT=base?base.m+base.e:null;
     const chg=baseOT!=null?ot-baseOT:null;
     tb.innerHTML+=`<tr><td class="dn">${g}</td><td><span class="dp ${r.m>=20?'pg':r.m>=10?'pa':'pr'}">${r.m}%</span></td><td class="dm">${r.e}%</td><td class="dm">${r.o}%</td><td class="dm">${r.t}%</td><td><span class="dp ${r.th<=25?'pg':r.th<=45?'pa':'pr'}">${r.th}%</span></td><td><strong class="dm">${ot}%</strong></td><td><span class="dp ${chg==null?'pb':chg>=0?'pg':'pr'}">${chg==null?'—':(chg>=0?'+':'')+chg+'pts'}</span></td></tr>`;
@@ -1083,35 +1090,59 @@ function renderCA(){
 // ══ GOAL TRACKER — baseline = EOY 24-25 ══
 function renderTargets(){
   const container=document.getElementById('targetRow'); container.innerHTML='';
+  let currentSection = '';
   const baselineWin='EOY 24-25';
-  const targets=[
-    {label:'P1: All Students · Acadience K–2',  tc:'var(--p1)',   grp:'All Students',data:ACAD,goal:5, calc:r=>r.ab+r.at,metric:'On/Above Benchmark'},
-    {label:'P1: Hispanic · Acadience K–2',      tc:'var(--amber)',grp:'Hispanics',   data:ACAD,goal:10,calc:r=>r.ab+r.at,metric:'On/Above Benchmark'},
-    {label:'P3: All Students · iReady Math',    tc:'var(--p3)',   grp:'All Students',data:MATH,goal:5, calc:r=>r.m+r.e,  metric:'Mid/Above + Early On GL'},
-    {label:'P3: Hispanic · iReady Math',        tc:'var(--orange)',grp:'Hispanics',  data:MATH,goal:10,calc:r=>r.m+r.e,  metric:'Mid/Above + Early On GL'},
-    {label:'P1: All Students · iReady Reading', tc:'var(--teal)', grp:'All Students',data:READ,goal:5, calc:r=>r.m+r.e,  metric:'Mid/Above + Early On GL'},
-    {label:'P1: Hispanic · iReady Reading',     tc:'var(--blue)', grp:'Hispanics',   data:READ,goal:10,calc:r=>r.m+r.e,  metric:'Mid/Above + Early On GL'},
+  // Goals by subgroup: All=+5pts, Hispanic/Black/ELL/SWD=+10pts
+  const GOAL_BY_GRP = {'All Students':5,'Hispanics':10,'Black':10,'ELL':10,'SWD':10};
+  const SUBGROUPS   = ['All Students','Hispanics','Black','ELL','SWD'];
+  const METRICS = [
+    {section:'P1 · Acadience K–2 · On/Above Benchmark',       tc:'var(--p1)',    data:ACAD, calc:r=>r.ab+r.at},
+    {section:'P1 · iReady Reading · Mid/Above + Early On GL', tc:'var(--teal)',  data:READ, calc:r=>r.m+r.e},
+    {section:'P3 · iReady Math · Mid/Above + Early On GL',    tc:'var(--blue)',  data:MATH, calc:r=>r.m+r.e},
   ];
+  // Build flat targets array: 3 metrics × 5 subgroups = 15 cards
+  const targets = [];
+  METRICS.forEach(met=>{
+    SUBGROUPS.forEach(sg=>{
+      const grpKey = sg; // key in data object
+      targets.push({
+        label: sg==='All Students'?'All Students':sg==='Hispanics'?'Hispanic':sg,
+        section: met.section, tc: met.tc, grp: grpKey,
+        data: met.data, goal: GOAL_BY_GRP[sg], calc: met.calc,
+        metric: met.section.split(' · ').slice(1).join(' · '),
+      });
+    });
+  });
   targets.forEach(t=>{
-    const baseRow=t.data[t.grp]?.find(r=>r.w===baselineWin);
+    // Insert section heading when section changes
+    if(t.section !== currentSection){
+      currentSection = t.section;
+      container.innerHTML += `<div style="grid-column:1/-1;padding:.6rem 0 .25rem;border-top:1px solid var(--border);margin-top:.5rem">
+        <span style="font-family:var(--ff-m);font-size:.65rem;color:var(--text2);text-transform:uppercase;letter-spacing:.1em">${t.section}</span>
+      </div>`;
+    }
+    const baseRow=t.data[t.grp]?.find(r=>r.w===baselineWin||r.w==='EOY 24-5'||r.w==='EOY 2024-25');
     const latest=mostRecent(t.data);
     const curRow=t.data[t.grp]?.find(r=>r.w===latest);
     if(!baseRow||!curRow){
-      container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}"><div class="tc-label">${t.label}</div><div class="tc-target-txt">Baseline (EOY 24-25) not yet in Sheet</div></div>`;
+      container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}">
+        <div class="tc-label">${t.label}</div>
+        <div class="tc-current" style="color:var(--text3);font-size:1rem">—</div>
+        <div class="tc-target-txt" style="color:var(--text3)">No EOY 24-25 data in Sheet for this subgroup</div>
+      </div>`;
       return;
     }
     const base=t.calc(baseRow), cur=t.calc(curRow), goal=base+t.goal;
-    const gained=cur-base;
+    const gained=+(cur-base).toFixed(1);
     const progress=Math.min(Math.max((gained/t.goal)*100,0),100);
     const onTrack=gained>=t.goal*.5;
+    const statusCol=onTrack?'var(--green)':'var(--amber)';
     container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}">
       <div class="tc-label">${t.label}</div>
-      <div style="font-family:var(--ff-m);font-size:.6rem;color:var(--text3);margin-bottom:.4rem">${t.metric}</div>
       <div class="tc-current" style="color:${t.tc}">${cur}%</div>
-      <div class="tc-target-txt">EOY 24-25 baseline: <strong>${base}%</strong> + ${t.goal}pts = Target <strong>${goal}%</strong></div>
+      <div class="tc-target-txt">Baseline: <strong>${base}%</strong> + ${t.goal}pts → Target: <strong>${goal}%</strong></div>
       <div class="tc-bar-wrap"><div class="tc-bar-bg"><div class="tc-bar-fill" data-w="${progress}" style="background:${t.tc};width:0%"></div></div><div class="tc-pct">${Math.round(progress)}%</div></div>
-      <div class="tc-vals"><span>+${gained} pts gained</span><span style="color:${onTrack?'var(--green)':'var(--amber)'}">${onTrack?'On Track ✓':'Watch ⚠'}</span></div>
-      <div class="tc-note">${t.note}</div>
+      <div class="tc-vals"><span style="font-family:var(--ff-m);font-size:.67rem">${gained>=0?'+':''}${gained} pts vs ${latest}</span><span style="color:${statusCol};font-family:var(--ff-m);font-size:.67rem">${onTrack?'On Track ✓':'Watch ⚠'}</span></div>
     </div>`;
   });
   setTimeout(()=>{ document.querySelectorAll('.tc-bar-fill').forEach(b=>{ b.style.width=b.dataset.w+'%'; }); },400);
