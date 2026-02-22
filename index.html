@@ -119,8 +119,8 @@ h1 .acc{color:var(--teal);}
 .cep-metric .dot{width:5px;height:5px;border-radius:50%;}
 
 /* ── TARGET TRACKER ── */
-.target-row{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:3rem;}
-@media(max-width:1000px){.target-row{grid-template-columns:1fr 1fr;}}
+.target-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:3rem;}
+@media(max-width:1000px){.target-row{grid-template-columns:1fr 1fr;}} @media(max-width:700px){.target-row{grid-template-columns:1fr;}}
 @media(max-width:600px){.target-row{grid-template-columns:1fr;}}
 .target-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1.4rem;border-top:2px solid var(--tc,var(--teal));}
 .tc-label{font-family:var(--ff-m);font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.7rem;}
@@ -403,14 +403,14 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <button class="fb" onclick="setGroup('acad','SWD',this)">SWD</button>
   </div>
   <div class="g21 anim d2" style="margin-bottom:1rem">
-    <div class="card"><div class="ch"><div><div class="ct">Benchmark Distribution Over Time</div><div class="cs" id="acad-sub">All Students · All Windows</div></div><span class="tag tt">Stacked %</span></div>
+    <div class="card"><div class="ch"><div><div class="ct">Acadience K–2 · Benchmark Distribution</div><div class="cs" id="acad-sub">All Students · All Windows</div></div><span class="tag tt">Stacked %</span></div>
       <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Above</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>At</div><div class="si"><div class="sd" style="background:#f59e0b"></div>Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>Well Below</div></div>
       <div class="cw h280"><canvas id="acadStack"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct">On/Above Benchmark Trend</div><div class="cs" id="acad-line-sub">All subgroups · All Windows</div></div><span class="tag tb">Trend</span></div>
+    <div class="card"><div class="ch"><div><div class="ct">Acadience K–2 · On/Above Trend</div><div class="cs" id="acad-line-sub">All subgroups · All Windows</div></div><span class="tag tb">Trend</span></div>
       <div class="cw h300"><canvas id="acadLine"></canvas></div></div>
   </div>
   <div class="card anim d3">
-    <div class="ch"><div><div class="ct">Equity Gap · Most Recent Window</div><div class="cs" id="acad-tbl-sub">MOY 2025–26</div></div><span class="tag tr">Gap Analysis</span></div>
+    <div class="ch"><div><div class="ct">Acadience K–2 · Equity Snapshot</div><div class="cs" id="acad-tbl-sub">MOY 2025–26</div></div><span class="tag tr">Gap Analysis</span></div>
     <table class="dt"><thead><tr><th>Subgroup</th><th>Above</th><th>At</th><th>Below</th><th>Well Below</th><th>On/Above Total</th><th>Gap vs All</th><th>vs EOY 24-25</th></tr></thead><tbody id="acadTbl"></tbody></table>
   </div>
 
@@ -437,14 +437,14 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <button class="fb" onclick="setGroup('read','SWD',this)">SWD</button>
   </div>
   <div class="g2 anim d2" style="margin-bottom:1rem">
-    <div class="card"><div class="ch"><div><div class="ct">Reading Grade-Level Distribution</div><div class="cs" id="read-sub">All Students · All Windows</div></div><span class="tag tt">Stacked %</span></div>
+    <div class="card"><div class="ch"><div><div class="ct">iReady Reading · Grade-Level Distribution</div><div class="cs" id="read-sub">All Students · All Windows</div></div><span class="tag tt">Stacked %</span></div>
       <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Mid/Above GL</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>Early On GL</div><div class="si"><div class="sd" style="background:#f59e0b"></div>1 Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>2 Below</div><div class="si"><div class="sd" style="background:#a78bfa"></div>3+ Below</div></div>
       <div class="cw h280"><canvas id="readStack"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct" id="readGroupTitle">Mid/Above GL · Year-over-Year</div><div class="cs" id="readGroupSub">Current window vs prior year</div></div><span class="tag tb">Comparison</span></div>
+    <div class="card"><div class="ch"><div><div class="ct" id="readGroupTitle">iReady Reading · Mid/Above GL · Year-over-Year</div><div class="cs" id="readGroupSub">Current window vs prior year</div></div><span class="tag tb">Comparison</span></div>
       <div class="cw h280"><canvas id="readGroup"></canvas></div></div>
   </div>
   <div class="card anim d3">
-    <div class="ch"><div><div class="ct">Reading Equity Snapshot · Most Recent Window</div><div class="cs" id="read-tbl-sub">MOY 2025–26</div></div><span class="tag tr">Gap Analysis</span></div>
+    <div class="ch"><div><div class="ct">iReady Reading · Equity Snapshot</div><div class="cs" id="read-tbl-sub">MOY 2025–26</div></div><span class="tag tr">Gap Analysis</span></div>
     <table class="dt"><thead><tr><th>Subgroup</th><th>Mid/Above GL</th><th>Early On GL</th><th>1 Below</th><th>2 Below</th><th>3+ Below</th><th>On-Track Total</th><th>vs EOY 24-25</th></tr></thead><tbody id="readTbl"></tbody></table>
   </div>
 </section>
@@ -478,14 +478,14 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <button class="fb" onclick="setGroup('math','SWD',this)">SWD</button>
   </div>
   <div class="g2 anim d2" style="margin-bottom:1rem">
-    <div class="card"><div class="ch"><div><div class="ct">Math Grade-Level Distribution</div><div class="cs" id="math-sub">All Students · All Windows</div></div><span class="tag ta">Stacked %</span></div>
+    <div class="card"><div class="ch"><div><div class="ct">iReady Math · Grade-Level Distribution</div><div class="cs" id="math-sub">All Students · All Windows</div></div><span class="tag ta">Stacked %</span></div>
       <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Mid/Above GL</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>Early On GL</div><div class="si"><div class="sd" style="background:#f59e0b"></div>1 Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>2 Below</div><div class="si"><div class="sd" style="background:#a78bfa"></div>3+ Below</div></div>
       <div class="cw h280"><canvas id="mathStack"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct" id="mathYoYTitle">Mid/Above GL · Year-over-Year</div><div class="cs" id="mathYoYSub">Current window vs prior year</div></div><span class="tag tb">YoY</span></div>
+    <div class="card"><div class="ch"><div><div class="ct" id="mathYoYTitle">iReady Math · Mid/Above GL · Year-over-Year</div><div class="cs" id="mathYoYSub">Current window vs prior year</div></div><span class="tag tb">YoY</span></div>
       <div class="cw h280"><canvas id="mathYoY"></canvas></div></div>
   </div>
   <div class="card anim d3">
-    <div class="ch"><div><div class="ct">Math Equity Snapshot · Most Recent Window</div><div class="cs" id="math-tbl-sub">MOY 2025–26</div></div><span class="tag ta">Gap Analysis</span></div>
+    <div class="ch"><div><div class="ct">iReady Math · Equity Snapshot</div><div class="cs" id="math-tbl-sub">MOY 2025–26</div></div><span class="tag ta">Gap Analysis</span></div>
     <table class="dt"><thead><tr><th>Subgroup</th><th>Mid/Above GL</th><th>Early On GL</th><th>1 Below</th><th>2 Below</th><th>3+ Below</th><th>On-Track Total</th><th>vs EOY 24-25</th></tr></thead><tbody id="mathTbl"></tbody></table>
   </div>
 </section>
@@ -504,11 +504,11 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   </div>
   <div class="ca-grid anim d1" id="caCards"></div>
   <div class="g2 anim d2" style="margin-bottom:1rem">
-    <div class="card"><div class="ch"><div><div class="ct">Monthly YTD Rate — All Years</div><div class="cs">September through June</div></div><span class="tag tr">Multi-Year</span></div><div class="cw h320"><canvas id="caLine"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct">September Back-to-School Rate</div><div class="cs">Year-over-year BOY snapshot</div></div><span class="tag ta">YoY BOY</span></div><div class="cw h320"><canvas id="caSep"></canvas></div></div>
+    <div class="card"><div class="ch"><div><div class="ct">Chronic Absenteeism · Monthly YTD Rate</div><div class="cs">September through June</div></div><span class="tag tr">Multi-Year</span></div><div class="cw h320"><canvas id="caLine"></canvas></div></div>
+    <div class="card"><div class="ch"><div><div class="ct">Chronic Absenteeism · September YTD Rate</div><div class="cs">Year-over-year BOY snapshot</div></div><span class="tag ta">YoY BOY</span></div><div class="cw h320"><canvas id="caSep"></canvas></div></div>
   </div>
   <div class="card anim d3">
-    <div class="ch"><div><div class="ct">Monthly Detail — All Years</div><div class="cs">YTD chronic absenteeism rate</div></div><span class="tag tb">Full View</span></div>
+    <div class="ch"><div><div class="ct">Chronic Absenteeism · Monthly Detail</div><div class="cs">YTD chronic absenteeism rate</div></div><span class="tag tb">Full View</span></div>
     <div style="overflow-x:auto"><table class="dt" id="caTblWrap"></table></div>
   </div>
 </section>
@@ -638,10 +638,28 @@ function parseAcad(rows){
     const win = r['Academic Year/Window']||Object.values(r)[0];
     if(!sg||!win) return;
     if(!out[sg]) out[sg]=[];
-    const wShort = win
+    // Supports both old format ("2023-24 Beginning of Year Performance")
+    // and new format ("2023-24 BOY")
+    // Output normalised to "BOY 23-24" so winType()="BOY", winYear()="23-24"
+    let wShort = win
       .replace('Beginning of Year Performance','BOY').replace('Middle of Year Performance','MOY')
-      .replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY')
-      .replace('2023-24 ','23-24 ').replace('2024-25 ','24-25 ').replace('2025-26 ','25-26 ').trim();
+      .replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY').trim();
+    // Now handle both "2023-24 BOY" (new) and "BOY 23-24" (already normalised)
+    const yrMatch = wShort.match(/^(\d{4}-\d{2})\s+(BOY|MOY|EOY)$/i);
+    if(yrMatch){
+      // New format "2023-24 BOY" → convert year "2023-24" → "23-24"
+      const fullYr = yrMatch[1]; // "2023-24"
+      const shortYr = fullYr.slice(2,4)+'-'+fullYr.slice(7,9); // "23-24"
+      wShort = yrMatch[2].toUpperCase()+' '+shortYr; // "BOY 23-24"
+    } else {
+      // Old long format already had BOY/MOY/EOY substituted, still has full year
+      wShort = wShort
+        .replace('2023-24 ','23-24 ').replace('2024-25 ','24-25 ').replace('2025-26 ','25-26 ')
+        .replace('2026-27 ','26-27 ').trim();
+      // If still in "23-24 BOY" format, flip to "BOY 23-24"
+      const flip = wShort.match(/^(\d{2}-\d{2})\s+(BOY|MOY|EOY)$/i);
+      if(flip) wShort = flip[2].toUpperCase()+' '+flip[1];
+    }
     const ab = pct(r['above benchmark']||r['Above Benchmark']||0);
     const at = pct(r['at benchmark']||r['At Benchmark']||0);
     const bl = pct(r['below benchmark']||r['Below Benchmark']||0);
@@ -659,10 +677,28 @@ function parseIReady(rows){
     const win = r['Academic Year/Window']||Object.values(r)[0];
     if(!sg||!win) return;
     if(!out[sg]) out[sg]=[];
-    const wShort = win
+    // Supports both old format ("2023-24 Beginning of Year Performance")
+    // and new format ("2023-24 BOY")
+    // Output normalised to "BOY 23-24" so winType()="BOY", winYear()="23-24"
+    let wShort = win
       .replace('Beginning of Year Performance','BOY').replace('Middle of Year Performance','MOY')
-      .replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY')
-      .replace('2023-24 ','23-24 ').replace('2024-25 ','24-25 ').replace('2025-26 ','25-26 ').trim();
+      .replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY').trim();
+    // Now handle both "2023-24 BOY" (new) and "BOY 23-24" (already normalised)
+    const yrMatch = wShort.match(/^(\d{4}-\d{2})\s+(BOY|MOY|EOY)$/i);
+    if(yrMatch){
+      // New format "2023-24 BOY" → convert year "2023-24" → "23-24"
+      const fullYr = yrMatch[1]; // "2023-24"
+      const shortYr = fullYr.slice(2,4)+'-'+fullYr.slice(7,9); // "23-24"
+      wShort = yrMatch[2].toUpperCase()+' '+shortYr; // "BOY 23-24"
+    } else {
+      // Old long format already had BOY/MOY/EOY substituted, still has full year
+      wShort = wShort
+        .replace('2023-24 ','23-24 ').replace('2024-25 ','24-25 ').replace('2025-26 ','25-26 ')
+        .replace('2026-27 ','26-27 ').trim();
+      // If still in "23-24 BOY" format, flip to "BOY 23-24"
+      const flip = wShort.match(/^(\d{2}-\d{2})\s+(BOY|MOY|EOY)$/i);
+      if(flip) wShort = flip[2].toUpperCase()+' '+flip[1];
+    }
     const keys = Object.keys(r);
     const m  = pct(r['Mid or Above Grade Level']||r['mid or above grade level']||r[keys[3]]||0);
     const e  = pct(r['Early On Grade Level']||r['early on grade level']||r[keys[4]]||0);
@@ -846,18 +882,22 @@ function renderRead(grp){
   ]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{position:'bottom',labels:{color:'#c8cfe0'}},datalabels:BAR_LBL,
       tooltip:{...TT_BASE,callbacks:{
-        title:i=>i[0].label+' — Mid/Above GL ('+yw+')',
+        title:i=>i[0].label+' — iReady Reading Mid/Above GL',
         label:ctx=>' '+ctx.dataset.label+': '+ctx.parsed.y+'%',
         afterBody:i=>{
           const g=i[0].label;
           const prev=READ[g]?.find(r=>r.w===prevYrW)?.m||0;
           const cur=READ[g]?.find(r=>r.w===curYrW)?.m||0;
-          return ['', ' YoY change: '+(cur>=prev?'+':'')+(cur-prev)+' pts'];
+          const diff=cur-prev;
+          return ['',' YoY ('+prevYrW+' → '+curYrW+'): '+(diff>=0?'+':'')+diff+' pts'];
         },
       }}},
     scales:{x:{grid:{display:false},ticks:{color:'#c8cfe0'}},y:{grid:{color:G},ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
 
   document.getElementById('read-sub').textContent=grp+' · '+(readWinFilter==='ALL'?'All Windows':readWinFilter+' windows only');
+  if(document.getElementById('readGroupSub')){
+    document.getElementById('readGroupSub').textContent='iReady Reading · '+(curYrW||'Current')+' vs '+(prevYrW||'Prior Year')+' · Mid/Above Grade Level';
+  }
   const latest=mostRecent(READ);
   document.getElementById('read-tbl-sub').textContent=latest;
   const tb=document.getElementById('readTbl'); tb.innerHTML='';
@@ -916,19 +956,23 @@ function renderMath(grp){
   ]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{position:'bottom',labels:{color:'#c8cfe0'}},datalabels:BAR_LBL,
       tooltip:{...TT_BASE,callbacks:{
-        title:i=>i[0].label+' — Mid/Above GL ('+yw+')',
+        title:i=>i[0].label+' — iReady Math Mid/Above GL',
         label:ctx=>' '+ctx.dataset.label+': '+ctx.parsed.y+'%',
         afterBody:i=>{
           const g=i[0].label;
           const prev=MATH[g]?.find(r=>r.w===prevYrW)?.m||0;
           const cur=MATH[g]?.find(r=>r.w===curYrW)?.m||0;
-          return ['',' YoY change: '+(cur>=prev?'+':'')+(cur-prev)+' pts'];
+          const diff=cur-prev;
+          return ['',' YoY ('+prevYrW+' → '+curYrW+'): '+(diff>=0?'+':'')+diff+' pts'];
         },
       }}},
     scales:{x:{grid:{display:false},ticks:{color:'#c8cfe0'}},y:{grid:{color:G},ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
 
   const latest=mostRecent(MATH);
   document.getElementById('math-sub').textContent=grp+' · '+(mathWinFilter==='ALL'?'All Windows':mathWinFilter+' windows only');
+  if(document.getElementById('mathYoYSub')){
+    document.getElementById('mathYoYSub').textContent='iReady Math · '+(curYrW||'Current')+' vs '+(prevYrW||'Prior Year')+' · Mid/Above Grade Level';
+  }
   document.getElementById('math-tbl-sub').textContent=latest;
   const tb=document.getElementById('mathTbl'); tb.innerHTML='';
   groups.forEach(g=>{
@@ -1041,10 +1085,12 @@ function renderTargets(){
   const container=document.getElementById('targetRow'); container.innerHTML='';
   const baselineWin='EOY 24-25';
   const targets=[
-    {label:'P1: All Students Reading',tc:'var(--p1)',grp:'All Students',data:ACAD,goal:5,calc:r=>r.ab+r.at,note:'Acadience On/Above · baseline EOY 24-25 · +5pt goal'},
-    {label:'P1: Hispanic Reading',    tc:'var(--amber)',grp:'Hispanics',data:ACAD,goal:10,calc:r=>r.ab+r.at,note:'Acadience On/Above · baseline EOY 24-25 · +10pt goal'},
-    {label:'P3: All Students Math',   tc:'var(--p3)',grp:'All Students',data:MATH,goal:5,calc:r=>r.m+r.e,note:'iReady Math On-Track · baseline EOY 24-25 · +5pt goal'},
-    {label:'P3: Hispanic Math',       tc:'var(--orange)',grp:'Hispanics',data:MATH,goal:10,calc:r=>r.m+r.e,note:'iReady Math On-Track · baseline EOY 24-25 · +10pt goal'},
+    {label:'P1: All Students · Acadience K–2',  tc:'var(--p1)',   grp:'All Students',data:ACAD,goal:5, calc:r=>r.ab+r.at,metric:'On/Above Benchmark'},
+    {label:'P1: Hispanic · Acadience K–2',      tc:'var(--amber)',grp:'Hispanics',   data:ACAD,goal:10,calc:r=>r.ab+r.at,metric:'On/Above Benchmark'},
+    {label:'P3: All Students · iReady Math',    tc:'var(--p3)',   grp:'All Students',data:MATH,goal:5, calc:r=>r.m+r.e,  metric:'Mid/Above + Early On GL'},
+    {label:'P3: Hispanic · iReady Math',        tc:'var(--orange)',grp:'Hispanics',  data:MATH,goal:10,calc:r=>r.m+r.e,  metric:'Mid/Above + Early On GL'},
+    {label:'P1: All Students · iReady Reading', tc:'var(--teal)', grp:'All Students',data:READ,goal:5, calc:r=>r.m+r.e,  metric:'Mid/Above + Early On GL'},
+    {label:'P1: Hispanic · iReady Reading',     tc:'var(--blue)', grp:'Hispanics',   data:READ,goal:10,calc:r=>r.m+r.e,  metric:'Mid/Above + Early On GL'},
   ];
   targets.forEach(t=>{
     const baseRow=t.data[t.grp]?.find(r=>r.w===baselineWin);
@@ -1060,8 +1106,9 @@ function renderTargets(){
     const onTrack=gained>=t.goal*.5;
     container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}">
       <div class="tc-label">${t.label}</div>
+      <div style="font-family:var(--ff-m);font-size:.6rem;color:var(--text3);margin-bottom:.4rem">${t.metric}</div>
       <div class="tc-current" style="color:${t.tc}">${cur}%</div>
-      <div class="tc-target-txt">Baseline (EOY 24-25): ${base}%  →  Target: ${goal}%</div>
+      <div class="tc-target-txt">EOY 24-25 baseline: <strong>${base}%</strong> + ${t.goal}pts = Target <strong>${goal}%</strong></div>
       <div class="tc-bar-wrap"><div class="tc-bar-bg"><div class="tc-bar-fill" data-w="${progress}" style="background:${t.tc};width:0%"></div></div><div class="tc-pct">${Math.round(progress)}%</div></div>
       <div class="tc-vals"><span>+${gained} pts gained</span><span style="color:${onTrack?'var(--green)':'var(--amber)'}">${onTrack?'On Track ✓':'Watch ⚠'}</span></div>
       <div class="tc-note">${t.note}</div>
