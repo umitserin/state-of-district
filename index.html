@@ -72,8 +72,11 @@ nav{position:sticky;top:0;z-index:100;background:rgba(11,13,19,.92);backdrop-fil
 .nav-brand{font-family:var(--ff-h);font-size:.9rem;font-weight:800;color:var(--text);white-space:nowrap;display:flex;align-items:center;gap:.5rem;}
 .nav-pulse{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
-.nav-links{display:flex;gap:.15rem;overflow-x:auto;flex:1;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
-.nav-link{display:flex;align-items:center;gap:.35rem;padding:.35rem .85rem;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--ff-m);font-size:.68rem;letter-spacing:.04em;cursor:pointer;transition:all .18s;white-space:nowrap;}
+.nav-links{display:flex;gap:.1rem;overflow-x:auto;flex:1;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:.1rem 0;}
+.nav-link{display:flex;align-items:center;gap:.3rem;padding:.3rem .7rem;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--ff-m);font-size:.64rem;letter-spacing:.03em;cursor:pointer;transition:all .18s;white-space:nowrap;position:relative;}
+/* Tooltip on hover — shows full priority name */
+.nav-link::after{content:attr(title);position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(16,20,32,.97);color:var(--text);font-size:.6rem;white-space:nowrap;padding:.35rem .65rem;border-radius:7px;border:1px solid var(--border);pointer-events:none;opacity:0;transition:opacity .18s;z-index:200;max-width:260px;white-space:normal;text-align:center;line-height:1.4;}
+.nav-link:hover::after{opacity:1;}
 .nav-link .nl-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 .nav-link:hover,.nav-link.active{background:rgba(255,255,255,.06);color:var(--text);}
 .nav-right{margin-left:auto;display:flex;align-items:center;gap:.75rem;flex-shrink:0;}
@@ -86,7 +89,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(11,13,19,.92);backdrop-fil
 .page{max-width:1440px;margin:0 auto;padding:0 2rem 5rem;}
 
 /* ── HERO ── */
-.hero{padding:3.5rem 0 2.5rem;border-bottom:1px solid var(--border);margin-bottom:3rem;}
+.hero{padding:3.5rem 0 2.5rem;border-bottom:1px solid var(--border);margin-bottom:3rem;scroll-margin-top:64px;}
 .hero-top{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:end;margin-bottom:2.5rem;}
 @media(max-width:900px){.hero-top{grid-template-columns:1fr;}}
 .hero-eye{font-family:var(--ff-m);font-size:.68rem;color:var(--teal);letter-spacing:.2em;text-transform:uppercase;display:flex;align-items:center;gap:.6rem;margin-bottom:.9rem;}
@@ -134,7 +137,7 @@ h1 .acc{color:var(--teal);}
 .tc-note{font-family:var(--ff-m);font-size:.6rem;color:var(--text3);margin-top:.4rem;}
 
 /* ── SECTION ── */
-.section{margin-bottom:4rem;}
+.section{margin-bottom:4rem;scroll-margin-top:64px;}
 .sec-head{display:flex;align-items:center;gap:1rem;padding-bottom:1rem;border-bottom:1px solid var(--border);margin-bottom:1.75rem;}
 .sec-icon{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;}
 .sec-titles{flex:1;}
@@ -386,16 +389,35 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 <nav>
   <div class="nav-inner">
     <div class="nav-brand"><span class="nav-pulse"></span>D25 · State of the District</div>
-    <div class="nav-links">
-      <button class="nav-link active" onclick="navTo('cep',this)"><span class="nl-dot" style="background:var(--teal)"></span>CEP Goals</button>
-      <button class="nav-link" onclick="navTo('p1',this)"><span class="nl-dot" style="background:var(--p1)"></span>P1 · Literacy</button>
-      <button class="nav-link" onclick="navTo('p3',this)"><span class="nl-dot" style="background:var(--p3)"></span>P3 · Math</button>
-      <button class="nav-link" onclick="navTo('ca-section',this)"><span class="nl-dot" style="background:var(--ca)"></span>Absenteeism</button>
-      <button class="nav-link" onclick="navTo('sel-section',this)"><span class="nl-dot" style="background:var(--p2)"></span>P2 · SEL</button>
+    <div class="nav-links" id="navLinks">
+      <button class="nav-link active" data-section="cep" onclick="navTo('cep',this)" title="CEP Goals &amp; Progress Monitoring">
+        <span class="nl-dot" style="background:var(--teal)"></span>CEP Goals
+      </button>
+      <button class="nav-link" data-section="cep-progress" onclick="navTo('cep-progress',this)" title="Progress Monitoring Dashboard">
+        <span class="nl-dot" style="background:var(--purple)"></span>Progress
+      </button>
+      <button class="nav-link" data-section="p1" onclick="navTo('p1',this)" title="Priority 1 · All Students Learn to Read Well">
+        <span class="nl-dot" style="background:var(--p1)"></span>P1 · Reading
+      </button>
+      <button class="nav-link" data-section="p2" onclick="navTo('p2',this)" title="Priority 2 · All Students Are Physically and Emotionally Safe">
+        <span class="nl-dot" style="background:var(--p2)"></span>P2 · SEL
+      </button>
+      <button class="nav-link" data-section="p3" onclick="navTo('p3',this)" title="Priority 3 · All Students Receive a High Quality Academic Experience">
+        <span class="nl-dot" style="background:var(--p3)"></span>P3 · Math
+      </button>
+      <button class="nav-link" data-section="p4" onclick="navTo('p4',this)" title="Priority 4 · All Students Graduate College &amp; Career Ready">
+        <span class="nl-dot" style="background:var(--p4)"></span>P4 · Graduation
+      </button>
+      <button class="nav-link" data-section="p5" onclick="navTo('p5',this)" title="Priority 5 · All Districts &amp; Schools Are More Inclusive for Families">
+        <span class="nl-dot" style="background:var(--p5)"></span>P5 · Families
+      </button>
+      <button class="nav-link" data-section="ca-section" onclick="navTo('ca-section',this)" title="Chronic Absenteeism">
+        <span class="nl-dot" style="background:var(--ca)"></span>Absenteeism
+      </button>
     </div>
     <div class="nav-right">
       <div id="last-updated"></div>
-      <div class="live-badge"><span class="nav-pulse" style="background:var(--teal)"></span>Live · Google Sheets</div>
+      <div class="live-badge"><span class="nav-pulse" style="background:var(--teal)"></span>Live</div>
     </div>
   </div>
 </nav>
@@ -437,8 +459,14 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 </div>
 
 <!-- ── CEP PRIORITIES ── -->
-<section class="cep-section anim d2" id="cep">
-  <div class="cep-heading">2025–26 CEP Strategic Priorities</div>
+<section class="cep-section anim d2" id="cep" style="scroll-margin-top:64px">
+  <div id="cep-goals" style="scroll-margin-top:64px"></div>
+  <div class="cep-heading">2025–26 CEP · Five Strategic Priorities</div>
+  <p style="font-family:var(--ff-b);font-size:.85rem;color:var(--text2);max-width:860px;line-height:1.75;margin-bottom:1.5rem">
+    District 25's Comprehensive Education Plan is organized around five interconnected priorities.
+    Click any priority card to jump to its live data dashboard. The tracker below monitors progress
+    toward measurable annual goals for each priority.
+  </p>
   <div class="cep-grid">
     <div class="cep-card" style="--cc:var(--p1)" onclick="navTo('p1',null)">
       <div class="cep-top"><div class="cep-num">● Priority 1</div><div class="cep-title">All Students Learn to Read Well</div></div>
@@ -447,7 +475,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
         <div class="cep-metrics"><span class="cep-metric"><span class="dot" style="background:var(--p1)"></span>Acadience K–2</span><span class="cep-metric"><span class="dot" style="background:var(--p1)"></span>iReady Reading 3–8</span><span class="cep-metric"><span class="dot" style="background:var(--p1)"></span>NYS Assessments</span></div>
       </div>
     </div>
-    <div class="cep-card" style="--cc:var(--p2)" onclick="navTo('sel-section',null)">
+    <div class="cep-card" style="--cc:var(--p2)" onclick="navTo('p2',null)">
       <div class="cep-top"><div class="cep-num">● Priority 2</div><div class="cep-title">All Students Are Physically and Emotionally Safe</div></div>
       <div class="cep-body">
         <div class="cep-goal">By June 2026: <strong>+10% increase</strong> in student-to-student relationships and students reporting MindUP curriculum helps manage emotions, stay focused, and make better choices.</div>
@@ -463,14 +491,14 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     </div>
   </div>
   <div class="cep-grid" style="margin-top:1rem">
-    <div class="cep-card" style="--cc:var(--p4)">
+    <div class="cep-card" style="--cc:var(--p4);cursor:pointer" onclick="navTo('p4',null)">
       <div class="cep-top"><div class="cep-num">● Priority 4</div><div class="cep-title">College, Career Ready &amp; Economic Security</div></div>
       <div class="cep-body">
         <div class="cep-goal">By June 2026: All learners in <strong>Project Soapbox</strong> + one Take Action Project. 8th graders earn 1 pt toward <strong>Seal for Civic Readiness</strong>. <strong>+10%</strong> Save for College activated accounts.</div>
         <div class="cep-metrics"><span class="cep-metric"><span class="dot" style="background:var(--p4)"></span>Project Soapbox</span><span class="cep-metric"><span class="dot" style="background:var(--p4)"></span>Civic Readiness Seal</span><span class="cep-metric"><span class="dot" style="background:var(--p4)"></span>Save for College</span></div>
       </div>
     </div>
-    <div class="cep-card" style="--cc:var(--p5)">
+    <div class="cep-card" style="--cc:var(--p5);cursor:pointer" onclick="navTo('p5',null)">
       <div class="cep-top"><div class="cep-num">● Priority 5</div><div class="cep-title">Inclusive &amp; Responsive for Families</div></div>
       <div class="cep-body">
         <div class="cep-goal">By June 2026: Monthly/quarterly family engagement events. <strong>+5% positive responses</strong> on NYC School Survey related to family engagement and communication.</div>
@@ -489,7 +517,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 
 <!-- ── GOAL TRACKER ── -->
 <div class="anim d3" style="margin-bottom:3rem;">
-  <div class="cep-heading">Goal Progress Tracker — All Subgroups · vs Baseline EOY 2024–25</div>
+  <div id="cep-progress" style="scroll-margin-top:64px"></div>
+  <div class="cep-heading">Goal Progress Tracker — All Subgroups · Baseline: EOY 24-25 → MOY Checkpoint → EOY Target</div>
   <div class="target-row" id="targetRow"></div>
 </div>
 
@@ -497,7 +526,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 <section class="section" id="p1">
   <div class="sec-head">
     <div class="sec-icon" style="background:rgba(52,212,176,.1)">📚</div>
-    <div class="sec-titles"><div class="sec-title" style="color:var(--p1)">Priority 1 · Acadience Reading K–2</div><div class="sec-sub">Live from Google Sheets · All subgroups · 2023–24 through 2025–26</div></div>
+    <div class="sec-titles"><div class="sec-title" style="color:var(--p1)">Priority 1 · Acadience Reading K–2</div><div class="sec-sub">All Students Learn to Read Well · Live from Google Sheets · 2023–24 through 2025–26</div></div>
     <span class="sec-badge tt">K–2 · 5 Subgroups</span>
   </div>
   <div class="goal-banner">
@@ -536,7 +565,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   <!-- iReady Reading subsection -->
   <div class="sec-head" style="margin-top:2.5rem">
     <div class="sec-icon" style="background:rgba(52,212,176,.1)">📖</div>
-    <div class="sec-titles"><div class="sec-title" style="color:var(--p1)">Priority 1 · iReady Reading Gr 3–8</div><div class="sec-sub">Live from Google Sheets · Grade-level performance bands</div></div>
+    <div class="sec-titles"><div class="sec-title" style="color:var(--p1)">Priority 1 · iReady Reading Gr 3–8</div><div class="sec-sub">All Students Receive a High Quality Academic Experience · Live from Google Sheets · Grade-level performance bands</div></div>
     <span class="sec-badge tt">Gr 3–8 · 5 Levels</span>
   </div>
   <div class="ins-row anim d1" id="readInsights"></div>
@@ -572,7 +601,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 <section class="section" id="p3">
   <div class="sec-head">
     <div class="sec-icon" style="background:rgba(79,142,247,.1)">🔢</div>
-    <div class="sec-titles"><div class="sec-title" style="color:var(--p3)">Priority 3 · iReady Mathematics Gr 3–8</div><div class="sec-sub">Live from Google Sheets · Grade-level performance bands</div></div>
+    <div class="sec-titles"><div class="sec-title" style="color:var(--p3)">Priority 3 · iReady Mathematics Gr 3–8</div><div class="sec-sub">All Students Receive a High Quality Academic Experience · Live from Google Sheets · Grade-level performance bands</div></div>
     <span class="sec-badge tb">Gr 3–8 · 5 Levels</span>
   </div>
   <div class="goal-banner" style="background:linear-gradient(135deg,rgba(79,142,247,.07),rgba(167,139,250,.05));border-color:rgba(79,142,247,.2)">
@@ -610,10 +639,47 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 </section>
 
 <!-- ════════ CHRONIC ABSENTEEISM ════════ -->
+<!-- ════════ P4 ════════ -->
+<section class="section" id="p4">
+  <div class="sec-head">
+    <div class="sec-icon" style="background:rgba(167,139,250,.1)">🎓</div>
+    <div class="sec-titles">
+      <div class="sec-title" style="color:var(--p4)">Priority 4 · College &amp; Career Ready</div>
+      <div class="sec-sub">All students graduate college and career ready with a strong plan and pathway to economic security</div>
+    </div>
+    <span class="sec-badge" style="background:rgba(167,139,250,.1);color:var(--p4);border-color:rgba(167,139,250,.25)">Coming Soon</span>
+  </div>
+  <div class="coming-soon">
+    <div class="cs-icon">🎓</div>
+    <div class="cs-title">Priority 4 Data Coming Soon</div>
+    <div class="cs-desc">Graduation rates, Regents performance, and college/career readiness indicators will appear here once added to your Google Sheet.</div>
+    <span class="cs-tag">⏳ Awaiting data</span>
+  </div>
+</section>
+
+<!-- ════════ P5 ════════ -->
+<section class="section" id="p5">
+  <div class="sec-head">
+    <div class="sec-icon" style="background:rgba(251,146,60,.1)">👨‍👩‍👧</div>
+    <div class="sec-titles">
+      <div class="sec-title" style="color:var(--p5)">Priority 5 · Family &amp; Community Engagement</div>
+      <div class="sec-sub">All districts and schools are more inclusive and responsive for parents and families, including having more families choose NYC Public Schools</div>
+    </div>
+    <span class="sec-badge" style="background:rgba(251,146,60,.1);color:var(--p5);border-color:rgba(251,146,60,.25)">Coming Soon</span>
+  </div>
+  <div class="coming-soon">
+    <div class="cs-icon">👨‍👩‍👧</div>
+    <div class="cs-title">Priority 5 Data Coming Soon</div>
+    <div class="cs-desc">Family engagement survey results, school choice data, and community partnership metrics will appear here once added to your Google Sheet.</div>
+    <span class="cs-tag">⏳ Awaiting data</span>
+  </div>
+</section>
+
+<!-- ════════ ABSENTEEISM ════════ -->
 <section class="section" id="ca-section">
   <div class="sec-head">
     <div class="sec-icon" style="background:rgba(251,113,133,.1)">📅</div>
-    <div class="sec-titles"><div class="sec-title" style="color:var(--ca)">Chronic Absenteeism</div><div class="sec-sub">Live from Google Sheets · YTD monthly rates by school year</div></div>
+    <div class="sec-titles"><div class="sec-title" style="color:var(--ca)">Chronic Absenteeism</div><div class="sec-sub">Supporting All Priorities · Live from Google Sheets · YTD monthly rates by school year</div></div>
     <span class="sec-badge tr">Multi-Year</span>
   </div>
   <div class="goal-banner" style="background:linear-gradient(135deg,rgba(251,113,133,.07),rgba(245,158,11,.05));border-color:rgba(251,113,133,.2)">
@@ -633,7 +699,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 </section>
 
 <!-- ════════ SEL / P2 ════════ -->
-<section class="section" id="sel-section">
+<section class="section" id="p2">
   <div class="sec-head">
     <div class="sec-icon" style="background:rgba(245,158,11,.1)">💛</div>
     <div class="sec-titles"><div class="sec-title" style="color:var(--p2)">Priority 2 · Social-Emotional Learning</div><div class="sec-sub">Live from Google Sheets · District Student Survey &amp; MindUP data</div></div>
@@ -1274,65 +1340,171 @@ function renderCA(){
   tbl.innerHTML=html+'</tbody>';
 }
 
-// ══ GOAL TRACKER — baseline = EOY 24-25 ══
+// ══ GOAL TRACKER — baseline = EOY 24-25, mid-year checkpoints ══
 function renderTargets(){
   const container=document.getElementById('targetRow'); container.innerHTML='';
   let currentSection = '';
-  const baselineWin='EOY 24-25';
-  // Goals by subgroup: All=+5pts, Hispanic/Black/ELL/SWD=+10pts
+
+  // ── Window context ──
+  // BOY: full goal by EOY. MOY: half-goal checkpoint. EOY: full goal.
+  const isMOY = CUR_WIN === 'MOY';
+  const isBOY = CUR_WIN === 'BOY';
+
+  // ── Baseline ──
+  const baselineWin = 'EOY 24-25';
+
+  // ── Goals by subgroup ──
   const GOAL_BY_GRP = {'All Students':5,'Hispanics':10,'Black':10,'ELL':10,'SWD':10};
   const SUBGROUPS   = ['All Students','Hispanics','Black','ELL','SWD'];
   const METRICS = [
-    {section:'P1 · Acadience K–2 · On/Above Benchmark',       tc:'var(--p1)',    data:ACAD, calc:r=>r.ab+r.at},
-    {section:'P1 · iReady Reading · Mid/Above + Early On GL', tc:'var(--teal)',  data:READ, calc:r=>r.m+r.e},
-    {section:'P3 · iReady Math · Mid/Above + Early On GL',    tc:'var(--blue)',  data:MATH, calc:r=>r.m+r.e},
+    {section:'P1 · Acadience K–2 · On/Above Benchmark',       tc:'var(--p1)',   data:ACAD, calc:r=>r.ab+r.at},
+    {section:'P1 · iReady Reading · Mid/Above + Early On GL', tc:'var(--teal)', data:READ, calc:r=>r.m+r.e},
+    {section:'P3 · iReady Math · Mid/Above + Early On GL',    tc:'var(--blue)', data:MATH, calc:r=>r.m+r.e},
   ];
-  // Build flat targets array: 3 metrics × 5 subgroups = 15 cards
+
+  // ── Period label for the header banner ──
+  const periodLabel = isMOY ? 'Mid-Year Checkpoint (MOY)' : isBOY ? 'Beginning of Year' : 'End of Year';
+  const periodNote  = isMOY
+    ? 'Mid-year target = baseline + ½ of annual goal. Full target due June 2026.'
+    : isBOY
+    ? 'Early-year snapshot. Full annual targets due June 2026.'
+    : 'End-of-year targets. Full annual goals.';
+
+  // Period banner across full width
+  container.innerHTML = `<div style="grid-column:1/-1;background:rgba(245,158,11,${isMOY?'.08':'.04'});border:1px solid rgba(245,158,11,${isMOY?'.3':'.12'});border-radius:12px;padding:.85rem 1.2rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.9rem">
+    <div style="font-size:1.3rem">${isMOY?'🎯':isBOY?'🌱':'🏁'}</div>
+    <div>
+      <div style="font-family:var(--ff-h);font-size:.9rem;font-weight:800;color:var(--amber)">${periodLabel}</div>
+      <div style="font-family:var(--ff-m);font-size:.65rem;color:var(--text2);margin-top:.2rem">${periodNote}</div>
+    </div>
+    <div style="margin-left:auto;font-family:var(--ff-m);font-size:.62rem;color:var(--text3);text-align:right">Annual goal window<br>Sep 2025 – Jun 2026</div>
+  </div>`;
+
+  // ── Build targets array ──
   const targets = [];
   METRICS.forEach(met=>{
     SUBGROUPS.forEach(sg=>{
-      const grpKey = sg; // key in data object
       targets.push({
-        label: sg==='All Students'?'All Students':sg==='Hispanics'?'Hispanic':sg,
-        section: met.section, tc: met.tc, grp: grpKey,
-        data: met.data, goal: GOAL_BY_GRP[sg], calc: met.calc,
-        metric: met.section.split(' · ').slice(1).join(' · '),
+        label:   sg==='Hispanics'?'Hispanic':sg,
+        section: met.section, tc: met.tc, grp: sg,
+        data:    met.data, annualGoal: GOAL_BY_GRP[sg], calc: met.calc,
       });
     });
   });
+
   targets.forEach(t=>{
-    // Insert section heading when section changes
+    // Section header
     if(t.section !== currentSection){
       currentSection = t.section;
-      container.innerHTML += `<div style="grid-column:1/-1;padding:.6rem 0 .25rem;border-top:1px solid var(--border);margin-top:.5rem">
-        <span style="font-family:var(--ff-m);font-size:.65rem;color:var(--text2);text-transform:uppercase;letter-spacing:.1em">${t.section}</span>
+      container.innerHTML += `<div style="grid-column:1/-1;padding:.6rem 0 .2rem;border-top:1px solid var(--border);margin-top:.6rem">
+        <span style="font-family:var(--ff-m);font-size:.63rem;color:var(--text2);text-transform:uppercase;letter-spacing:.1em">${t.section}</span>
       </div>`;
     }
-    const baseRow=t.data[t.grp]?.find(r=>r.w===baselineWin||r.w==='EOY 24-5'||r.w==='EOY 2024-25');
-    const latest=mostRecent(t.data);
-    const curRow=t.data[t.grp]?.find(r=>r.w===latest);
+
+    // ── Data ──
+    const baseRow = t.data[t.grp]?.find(r=>r.w===baselineWin||r.w==='EOY 24-5'||r.w==='EOY 2024-25');
+    const latest  = mostRecent(t.data);
+    const curRow  = t.data[t.grp]?.find(r=>r.w===latest);
+
     if(!baseRow||!curRow){
       container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}">
         <div class="tc-label">${t.label}</div>
-        <div class="tc-current" style="color:var(--text3);font-size:1rem">—</div>
-        <div class="tc-target-txt" style="color:var(--text3)">No EOY 24-25 data in Sheet for this subgroup</div>
+        <div style="font-family:var(--ff-m);font-size:.7rem;color:var(--text3);margin-top:.3rem">No EOY 24-25 baseline in Sheet</div>
       </div>`;
       return;
     }
-    const base=t.calc(baseRow), cur=t.calc(curRow), goal=base+t.goal;
-    const gained=+(cur-base).toFixed(1);
-    const progress=Math.min(Math.max((gained/t.goal)*100,0),100);
-    const onTrack=gained>=t.goal*.5;
-    const statusCol=onTrack?'var(--green)':'var(--amber)';
+
+    const base       = +t.calc(baseRow).toFixed(1);
+    const cur        = +t.calc(curRow).toFixed(1);
+    const annualGoal = t.annualGoal;
+    const eoyTarget  = +(base + annualGoal).toFixed(1);       // full year target
+    const moyTarget  = +(base + annualGoal/2).toFixed(1);     // mid-year checkpoint = baseline + half goal
+
+    // What are we tracking against RIGHT NOW?
+    const activeTarget = isMOY ? moyTarget : eoyTarget;
+    const activeGoalPts = isMOY ? annualGoal/2 : annualGoal;
+
+    const gained   = +(cur - base).toFixed(1);
+    const needed   = +(activeTarget - cur).toFixed(1);        // pts still needed
+    // Progress bar: % of the ACTIVE target achieved (from baseline)
+    const progress = Math.min(Math.max((gained / activeGoalPts)*100, 0), 100);
+
+    // Status: on track if at or above active checkpoint
+    const onTrack  = cur >= activeTarget;
+    const ahead    = cur > activeTarget;
+    const statusCol = ahead ? 'var(--green)' : onTrack ? 'var(--teal)' : 'var(--amber)';
+    const statusLbl = ahead ? 'Ahead ✦' : onTrack ? 'On Track ✓' : 'Watch ⚠';
+
+    // Progress bar segments: show baseline→moy checkpoint→eoy target markers
+    // Bar fills from 0→gained relative to annual goal span
+    const barPctOfAnnual = Math.min(Math.max((gained / annualGoal)*100, 0), 100);
+    const moyMarkerPct   = 50; // MOY checkpoint is always at 50% of bar
+    const cursorColor    = onTrack ? 'var(--green)' : 'var(--amber)';
+
     container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}">
+
+      <!-- Subgroup label -->
       <div class="tc-label">${t.label}</div>
+
+      <!-- Current value — large -->
       <div class="tc-current" style="color:${t.tc}">${cur}%</div>
-      <div class="tc-target-txt">Baseline: <strong>${base}%</strong> + ${t.goal}pts → Target: <strong>${goal}%</strong></div>
-      <div class="tc-bar-wrap"><div class="tc-bar-bg"><div class="tc-bar-fill" data-w="${progress}" style="background:${t.tc};width:0%"></div></div><div class="tc-pct">${Math.round(progress)}%</div></div>
-      <div class="tc-vals"><span style="font-family:var(--ff-m);font-size:.67rem">${gained>=0?'+':''}${gained} pts vs ${latest}</span><span style="color:${statusCol};font-family:var(--ff-m);font-size:.67rem">${onTrack?'On Track ✓':'Watch ⚠'}</span></div>
+
+      <!-- Three-tier milestone row -->
+      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:.15rem;margin:.5rem 0 .25rem;text-align:center">
+        <div>
+          <div style="font-family:var(--ff-m);font-size:.55rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">Baseline</div>
+          <div style="font-family:var(--ff-h);font-size:.9rem;color:var(--text2)">${base}%</div>
+          <div style="font-family:var(--ff-m);font-size:.5rem;color:var(--text3)">EOY 24-25</div>
+        </div>
+        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 .3rem">
+          <div style="width:1px;flex:1;background:var(--border)"></div>
+        </div>
+        <div>
+          ${isMOY ? `
+          <div style="font-family:var(--ff-m);font-size:.55rem;color:var(--amber);text-transform:uppercase;letter-spacing:.06em">MOY Target ★</div>
+          <div style="font-family:var(--ff-h);font-size:.9rem;color:var(--amber)">${moyTarget}%</div>
+          <div style="font-family:var(--ff-m);font-size:.5rem;color:var(--text3)">+${annualGoal/2}pts checkpoint</div>
+          ` : `
+          <div style="font-family:var(--ff-m);font-size:.55rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">EOY Target</div>
+          <div style="font-family:var(--ff-h);font-size:.9rem;color:var(--text2)">${eoyTarget}%</div>
+          <div style="font-family:var(--ff-m);font-size:.5rem;color:var(--text3)">+${annualGoal}pts by Jun 2026</div>
+          `}
+        </div>
+      </div>
+
+      <!-- Progress bar — full width, markers for MOY & EOY -->
+      <div style="position:relative;margin:.55rem 0 .3rem">
+        <!-- Track -->
+        <div style="height:7px;background:rgba(255,255,255,.07);border-radius:100px;overflow:visible;position:relative">
+          <!-- Fill -->
+          <div class="tc-bar-fill" data-w="${barPctOfAnnual}" style="height:100%;width:0%;background:${t.tc};border-radius:100px;transition:width .8s cubic-bezier(.4,0,.2,1)"></div>
+          <!-- MOY marker line -->
+          <div style="position:absolute;top:-3px;bottom:-3px;left:${moyMarkerPct}%;width:2px;background:var(--amber);border-radius:2px" title="MOY checkpoint"></div>
+          <!-- EOY end cap -->
+          <div style="position:absolute;top:-3px;bottom:-3px;right:0;width:2px;background:rgba(255,255,255,.25);border-radius:2px" title="EOY target"></div>
+        </div>
+        <!-- Labels under bar -->
+        <div style="display:flex;justify-content:space-between;margin-top:.3rem">
+          <span style="font-family:var(--ff-m);font-size:.5rem;color:var(--text3)">Base ${base}%</span>
+          <span style="font-family:var(--ff-m);font-size:.5rem;color:var(--amber)">MOY ${moyTarget}%</span>
+          <span style="font-family:var(--ff-m);font-size:.5rem;color:var(--text3)">EOY ${eoyTarget}%</span>
+        </div>
+      </div>
+
+      <!-- Status row -->
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.35rem">
+        <span style="font-family:var(--ff-m);font-size:.65rem;color:var(--text2)">${gained>=0?'+':''}${gained} pts gained</span>
+        <span style="font-family:var(--ff-m);font-size:.65rem;font-weight:700;color:${statusCol}">${statusLbl}</span>
+      </div>
+
+      <!-- Needed to hit active checkpoint -->
+      ${needed>0 ? `<div style="font-family:var(--ff-m);font-size:.58rem;color:var(--text3);margin-top:.2rem">Need +${needed}pts to reach ${isMOY?'MOY':'EOY'} target</div>` : `<div style="font-family:var(--ff-m);font-size:.58rem;color:var(--green);margin-top:.2rem">✓ ${isMOY?'MOY checkpoint':'EOY target'} reached${ahead?' — '+Math.abs(needed)+'pts ahead':''}</div>`}
+
     </div>`;
   });
-  setTimeout(()=>{ document.querySelectorAll('.tc-bar-fill').forEach(b=>{ b.style.width=b.dataset.w+'%'; }); },400);
+
+  // Animate bars
+  setTimeout(()=>{ document.querySelectorAll('.tc-bar-fill').forEach(b=>{ b.style.width=b.dataset.w+'%'; }); }, 400);
 }
 
 // ══ HERO KPIs ══
@@ -1585,9 +1757,52 @@ function setGroup(type,grp,btn){
   else if(type==='math') renderMath(grp);
 }
 
-function navTo(id,btn){
-  document.getElementById(id)?.scrollIntoView({behavior:'smooth',block:'start'});
-  if(btn){document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));btn.classList.add('active');}
+function navTo(id, btn){
+  const el = document.getElementById(id);
+  if(!el) return;
+  // Offset for sticky nav height (54px)
+  const top = el.getBoundingClientRect().top + window.scrollY - 58;
+  window.scrollTo({top, behavior:'smooth'});
+  if(btn){
+    document.querySelectorAll('.nav-link').forEach(l=>l.classList.remove('active'));
+    btn.classList.add('active');
+  }
+}
+
+// ── Scroll-spy: highlight nav item as sections scroll into view ──
+function initScrollSpy(){
+  const sectionIds = ['cep','cep-progress','p1','p2','p3','p4','p5','ca-section'];
+  const navBtns    = document.querySelectorAll('.nav-link[data-section]');
+
+  // Map section → button
+  const btnMap = {};
+  navBtns.forEach(b => { btnMap[b.dataset.section] = b; }); btnMap['cep'] = btnMap['cep'] || document.querySelector('[data-section="cep"]');
+
+  const observer = new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        const id = entry.target.id;
+        // Activate matching nav button
+        navBtns.forEach(b=>b.classList.remove('active'));
+        if(btnMap[id]) btnMap[id].classList.add('active');
+        // Scroll nav so active item is visible (for mobile)
+        if(btnMap[id]){
+          btnMap[id].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
+        }
+      }
+    });
+  },{
+    rootMargin:'-58px 0px -55% 0px', // trigger when section top enters top 45% of viewport
+    threshold: 0
+  });
+
+  sectionIds.forEach(id=>{
+    const el = document.getElementById(id);
+    if(el) observer.observe(el);
+  });
+  // Also observe the cep-progress div (it's inside the cep section)
+  const cpEl = document.getElementById('cep-progress');
+  if(cpEl) observer.observe(cpEl);
 }
 function hardRefresh(){ location.reload(); }
 
@@ -1632,7 +1847,7 @@ async function init(){
     document.getElementById('last-updated').textContent = 'Updated: '+now;
     document.getElementById('ft-updated').textContent   = 'Last updated: '+now+' · ';
     ldProgress(100,'Ready!');
-    setTimeout(ldHide, 600);
+    setTimeout(()=>{ ldHide(); initScrollSpy(); }, 600);
 
   } catch(err){
     document.getElementById('ldStatus').textContent = '⚠️ '+err.message;
