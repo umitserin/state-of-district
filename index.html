@@ -10,28 +10,28 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Lora:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:     #0b0d13;
-  --bg2:    #10131c;
-  --card:   #161b27;
-  --card2:  #1c2233;
-  --border: rgba(255,255,255,0.07);
-  --b2:     rgba(255,255,255,0.13);
-  --text:   #e8eaf2;
-  --text2:  #8f98b3;
-  --text3:  #4e5670;
-  --p1: #34d4b0;
-  --p2: #f59e0b;
-  --p3: #4f8ef7;
-  --p4: #a78bfa;
-  --p5: #fb923c;
-  --ca: #fb7185;
-  --green:  #4ade80;
-  --rose:   #fb7185;
-  --amber:  #f59e0b;
-  --blue:   #4f8ef7;
-  --purple: #a78bfa;
-  --teal:   #34d4b0;
-  --orange: #fb923c;
+  --bg:     #f0f4f8;
+  --bg2:    #e8eef5;
+  --card:   #ffffff;
+  --card2:  #f8fafc;
+  --border: rgba(30,41,59,0.10);
+  --b2:     rgba(30,41,59,0.18);
+  --text:   #0f172a;
+  --text2:  #475569;
+  --text3:  #94a3b8;
+  --p1: #0891b2;
+  --p2: #d97706;
+  --p3: #2563eb;
+  --p4: #7c3aed;
+  --p5: #ea580c;
+  --ca: #e11d48;
+  --green:  #16a34a;
+  --rose:   #e11d48;
+  --amber:  #d97706;
+  --blue:   #2563eb;
+  --purple: #7c3aed;
+  --teal:   #0891b2;
+  --orange: #ea580c;
   --ff-h: 'Syne', sans-serif;
   --ff-b: 'Lora', serif;
   --ff-m: 'IBM Plex Mono', monospace;
@@ -43,9 +43,9 @@ body{background:var(--bg);color:var(--text);font-family:var(--ff-b);min-height:1
 body::before{
   content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
   background:
-    radial-gradient(ellipse 80% 50% at 10% 0%,rgba(52,212,176,.06) 0%,transparent 55%),
-    radial-gradient(ellipse 60% 40% at 90% 100%,rgba(79,142,247,.05) 0%,transparent 55%),
-    radial-gradient(ellipse 50% 50% at 50% 50%,rgba(167,139,250,.03) 0%,transparent 60%);
+    radial-gradient(ellipse 80% 50% at 10% 0%,rgba(8,145,178,.04) 0%,transparent 55%),
+    radial-gradient(ellipse 60% 40% at 90% 100%,rgba(37,99,235,.04) 0%,transparent 55%),
+    radial-gradient(ellipse 50% 50% at 50% 50%,rgba(124,58,237,.02) 0%,transparent 60%);
 }
 
 /* ── LOADER ── */
@@ -125,7 +125,7 @@ h1 .acc{color:var(--teal);}
 .target-row{display:grid;grid-template-columns:repeat(5,1fr);gap:.85rem;margin-bottom:3rem;}
 @media(max-width:1200px){.target-row{grid-template-columns:repeat(3,1fr);}} @media(max-width:800px){.target-row{grid-template-columns:repeat(2,1fr);}} @media(max-width:500px){.target-row{grid-template-columns:1fr;}}
 @media(max-width:600px){.target-row{grid-template-columns:1fr;}}
-.target-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1.4rem;border-top:2px solid var(--tc,var(--teal));transition:transform .15s,box-shadow .15s;cursor:zoom-in;}
+.target-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1.4rem;border-top:3px solid var(--tc,var(--teal));transition:transform .15s,box-shadow .15s;cursor:zoom-in;box-shadow:0 1px 4px rgba(0,0,0,.06);}
 .tc-label{font-family:var(--ff-m);font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.7rem;}
 .tc-current{font-family:var(--ff-h);font-size:1.4rem;font-weight:700;color:var(--text);line-height:1;margin-bottom:.3rem;}
 .target-card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.35);}
@@ -183,7 +183,7 @@ h1 .acc{color:var(--teal);}
 .tag{font-family:var(--ff-m);font-size:.62rem;padding:.2rem .55rem;border-radius:5px;font-weight:500;white-space:nowrap;flex-shrink:0;}
 .tg{background:rgba(74,222,128,.1);color:var(--green);border:1px solid rgba(74,222,128,.2);}
 .tb{background:rgba(79,142,247,.1);color:var(--blue);border:1px solid rgba(79,142,247,.2);}
-.ta{background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2);}
+.ta{background:rgba(217,119,6,.1);color:var(--amber);border:1px solid rgba(217,119,6,.2);}
 .tr{background:rgba(251,113,133,.1);color:var(--rose);border:1px solid rgba(251,113,133,.2);}
 .tp{background:rgba(167,139,250,.1);color:var(--purple);border:1px solid rgba(167,139,250,.2);}
 .tt{background:rgba(52,212,176,.1);color:var(--teal);border:1px solid rgba(52,212,176,.2);}
@@ -211,7 +211,7 @@ h1 .acc{color:var(--teal);}
 .dm{font-family:var(--ff-m);font-size:.75rem;}
 .dp{display:inline-block;padding:.14rem .5rem;border-radius:100px;font-family:var(--ff-m);font-size:.65rem;font-weight:500;}
 .pg{background:rgba(74,222,128,.1);color:var(--green);}
-.pa{background:rgba(245,158,11,.1);color:var(--amber);}
+.pa{background:rgba(217,119,6,.1);color:var(--amber);}
 .pr{background:rgba(251,113,133,.1);color:var(--rose);}
 .pb{background:rgba(79,142,247,.1);color:var(--blue);}
 
@@ -232,7 +232,7 @@ h1 .acc{color:var(--teal);}
 .cs-icon{font-size:3rem;margin-bottom:1rem;}
 .cs-title{font-family:var(--ff-h);font-size:1.5rem;font-weight:700;margin-bottom:.75rem;color:var(--text2);}
 .cs-desc{font-size:.85rem;color:var(--text3);max-width:400px;margin:0 auto;line-height:1.7;}
-.cs-tag{display:inline-block;margin-top:1rem;font-family:var(--ff-m);font-size:.68rem;padding:.3rem .8rem;border-radius:6px;background:rgba(245,158,11,.1);color:var(--amber);border:1px solid rgba(245,158,11,.2);}
+.cs-tag{display:inline-block;margin-top:1rem;font-family:var(--ff-m);font-size:.68rem;padding:.3rem .8rem;border-radius:6px;background:rgba(217,119,6,.1);color:var(--amber);border:1px solid rgba(217,119,6,.2);}
 
 /* ── ERROR STATE ── */
 .fetch-error{background:rgba(251,113,133,.06);border:1px solid rgba(251,113,133,.2);border-radius:var(--r2);padding:1.5rem;margin-bottom:1rem;font-family:var(--ff-m);font-size:.75rem;color:var(--rose);}
@@ -367,7 +367,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   .dt th,.dt td{ padding:.45rem .55rem; }
 }
 
-@media print{nav{display:none;}body{background:#fff;color:#000;}}
+@media print{nav{display:none;}body,nav,footer{background:#fff!important;}body{color:#000!important;}.card,.target-card,.cep-card,.ins{box-shadow:none!important;border:1px solid #e2e8f0!important;}}
 </style>
 </head>
 <body>
@@ -702,7 +702,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 <!-- ════════ SEL / P2 ════════ -->
 <section class="section" id="p2">
   <div class="sec-head">
-    <div class="sec-icon" style="background:rgba(245,158,11,.1)">💛</div>
+    <div class="sec-icon" style="background:rgba(217,119,6,.1)">💛</div>
     <div class="sec-titles"><div class="sec-title" style="color:var(--p2)">Priority 2 · Social-Emotional Learning</div><div class="sec-sub">Live from Google Sheets · District Student Survey &amp; MindUP data</div></div>
     <span class="sec-badge ta">BOY · MOY · Live</span>
   </div>
@@ -735,19 +735,19 @@ const URLS = {
 
 // ══ CHART.JS SETUP ══
 Chart.register(ChartDataLabels);
-Chart.defaults.color = '#c8cfe0';  // ← brighter default text
+Chart.defaults.color = '#475569';  // ← brighter default text
 Chart.defaults.font.family = "'IBM Plex Mono',monospace";
 Chart.defaults.font.size = 11;
 Chart.defaults.plugins.legend.labels.boxWidth = 8;
 Chart.defaults.plugins.legend.labels.usePointStyle = true;
 Chart.defaults.plugins.legend.labels.padding = 14;
 Chart.defaults.plugins.datalabels.display = false;
-const G = 'rgba(255,255,255,0.05)';
-const C = {green:'#4ade80',blue:'#4f8ef7',amber:'#f59e0b',rose:'#fb7185',purple:'#a78bfa',teal:'#34d4b0',orange:'#fb923c',cyan:'#22d3ee'};
+const G = 'rgba(15,23,42,0.07)';
+const C = {green:'#16a34a',blue:'#2563eb',amber:'#d97706',rose:'#e11d48',purple:'#7c3aed',teal:'#0891b2',orange:'#ea580c',cyan:'#0284c7'};
 
 const STACK_LBL = {display:ctx=>ctx.dataset.data[ctx.dataIndex]>=8,color:'rgba(0,0,0,0.8)',font:{family:"'IBM Plex Mono',monospace",size:9,weight:'600'},formatter:v=>v+'%',anchor:'center',align:'center',padding:0,textShadowBlur:3,textShadowColor:'rgba(0,0,0,0.5)'};
-const BAR_LBL   = {display:ctx=>ctx.dataset.data[ctx.dataIndex]>0,color:'#e8eaf2',font:{family:"'IBM Plex Mono',monospace",size:9,weight:'600'},formatter:v=>v+'%',anchor:'end',align:'end',offset:2};
-const TT_BASE   = {backgroundColor:'rgba(16,20,32,0.97)',titleColor:'#e8eaf2',bodyColor:'#b0b8d0',borderColor:'rgba(255,255,255,0.12)',borderWidth:1,padding:12,cornerRadius:10,titleFont:{size:11,weight:'700'},footerFont:{size:9}};
+const BAR_LBL   = {display:ctx=>ctx.dataset.data[ctx.dataIndex]>0,color:'#1e293b',font:{family:"'IBM Plex Mono',monospace",size:9,weight:'600'},formatter:v=>v+'%',anchor:'end',align:'end',offset:2};
+const TT_BASE   = {backgroundColor:'rgba(15,23,42,0.95)',titleColor:'#f8fafc',bodyColor:'#94a3b8',borderColor:'rgba(255,255,255,0.12)',borderWidth:1,padding:12,cornerRadius:10,titleFont:{size:11,weight:'700'},footerFont:{size:9}};
 
 let ci = {};
 function mkChart(id, cfg){ if(ci[id]) ci[id].destroy(); ci[id] = new Chart(document.getElementById(id), cfg); }
@@ -1034,7 +1034,7 @@ function renderAcad(grp){
         },
         footer:()=>'Subgroup: '+grp,
       }}},
-    scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#c8cfe0',maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
+    scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#475569',maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
   // Trend line — filtered by window type, all subgroups
   // Use a shared label set so all datasets are same length
@@ -1053,8 +1053,8 @@ function renderAcad(grp){
   })},options:{responsive:true,maintainAspectRatio:false,
     interaction:{mode:'index',intersect:false},
     plugins:{
-      legend:{position:'bottom',labels:{color:'#c8cfe0',font:{size:10}}},
-      datalabels:{display:ctx=>ctx.dataset.label===grp,color:ctx=>ctx.dataset.borderColor,font:{family:"'IBM Plex Mono',monospace",size:8.5,weight:'600'},formatter:v=>v+'%',anchor:'top',align:'top',offset:4,backgroundColor:'rgba(11,13,19,0.7)',borderRadius:3,padding:{top:2,bottom:2,left:4,right:4}},
+      legend:{position:'bottom',labels:{color:'#475569',font:{size:10}}},
+      datalabels:{display:ctx=>ctx.dataset.label===grp,color:ctx=>ctx.dataset.borderColor,font:{family:"'IBM Plex Mono',monospace",size:8.5,weight:'700'},formatter:v=>v+'%',anchor:'top',align:'top',offset:4,backgroundColor:'rgba(255,255,255,0.85)',borderRadius:3,padding:{top:2,bottom:2,left:4,right:4}},
       tooltip:{...TT_BASE,callbacks:{
         title:i=>i[0].label,
         label:ctx=>' '+ctx.dataset.label+': '+ctx.parsed.y+'% on/above',
@@ -1066,7 +1066,7 @@ function renderAcad(grp){
         },
       }},
     },
-    scales:{x:{grid:{color:G},ticks:{color:'#c8cfe0',maxRotation:45,font:{size:9}}},y:{grid:{color:G},min:0,max:100,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
+    scales:{x:{grid:{color:G},ticks:{color:'#475569',maxRotation:45,font:{size:9}}},y:{grid:{color:G},min:0,max:100,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
   document.getElementById('acad-sub').textContent=grp+' · '+(acadWinFilter==='ALL'?'All Windows':acadWinFilter+' windows only');
 
@@ -1121,7 +1121,7 @@ function renderRead(grp){
         },
         footer:()=>'Subgroup: '+grp,
       }}},
-    scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#c8cfe0',maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
+    scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#475569',maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
   // Dynamic YoY comparison chart
   const yw      = yoyWinFull();
@@ -1129,10 +1129,10 @@ function renderRead(grp){
   const curYrW  = groups.length?READ[groups[0]]?.filter(r=>winType(r.w)===yw).slice(-1)[0]?.w:null;
   const prevYrW = curYrW?winType(curYrW)+' '+prevYear(winYear(curYrW)):null;
   mkChart('readGroup',{type:'bar',data:{labels:groups,datasets:[
-    {label:prevYrW||'Prior Year '+yw,data:groups.map(g=>READ[g]?.find(r=>r.w===prevYrW)?.m||READ[g]?.find(r=>winType(r.w)===yw&&r.w!==curYrW)?.m||0),backgroundColor:'rgba(79,142,247,0.3)',borderRadius:6},
+    {label:prevYrW||'Prior Year '+yw,data:groups.map(g=>READ[g]?.find(r=>r.w===prevYrW)?.m||READ[g]?.find(r=>winType(r.w)===yw&&r.w!==curYrW)?.m||0),backgroundColor:'rgba(37,99,235,0.15)',borderRadius:6},
     {label:curYrW||'Current '+yw,   data:groups.map(g=>READ[g]?.find(r=>r.w===curYrW)?.m||0),backgroundColor:C.blue,borderRadius:6},
   ]},options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{position:'bottom',labels:{color:'#c8cfe0'}},datalabels:BAR_LBL,
+    plugins:{legend:{position:'bottom',labels:{color:'#475569'}},datalabels:BAR_LBL,
       tooltip:{...TT_BASE,callbacks:{
         title:i=>i[0].label+' — iReady Reading Mid/Above GL',
         label:ctx=>' '+ctx.dataset.label+': '+ctx.parsed.y+'%',
@@ -1144,7 +1144,7 @@ function renderRead(grp){
           return ['',' YoY ('+prevYrW+' → '+curYrW+'): '+(diff>=0?'+':'')+diff+' pts'];
         },
       }}},
-    scales:{x:{grid:{display:false},ticks:{color:'#c8cfe0'}},y:{grid:{color:G},ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
+    scales:{x:{grid:{display:false},ticks:{color:'#475569'}},y:{grid:{color:G},ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
   document.getElementById('read-sub').textContent=grp+' · '+(readWinFilter==='ALL'?'All Windows':readWinFilter+' windows only');
   if(document.getElementById('readGroupSub')){
@@ -1196,7 +1196,7 @@ function renderMath(grp){
         },
         footer:()=>'Subgroup: '+grp,
       }}},
-    scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#c8cfe0',maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
+    scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#475569',maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
   // Dynamic YoY
   const yw=yoyWinFull();
@@ -1204,10 +1204,10 @@ function renderMath(grp){
   const curYrW=groups.length?MATH[groups[0]]?.filter(r=>winType(r.w)===yw).slice(-1)[0]?.w:null;
   const prevYrW=curYrW?winType(curYrW)+' '+prevYear(winYear(curYrW)):null;
   mkChart('mathYoY',{type:'bar',data:{labels:groups,datasets:[
-    {label:prevYrW||'Prior Year '+yw,data:groups.map(g=>MATH[g]?.find(r=>r.w===prevYrW)?.m||MATH[g]?.find(r=>winType(r.w)===yw&&r.w!==curYrW)?.m||0),backgroundColor:'rgba(245,158,11,0.3)',borderRadius:6},
+    {label:prevYrW||'Prior Year '+yw,data:groups.map(g=>MATH[g]?.find(r=>r.w===prevYrW)?.m||MATH[g]?.find(r=>winType(r.w)===yw&&r.w!==curYrW)?.m||0),backgroundColor:'rgba(217,119,6,0.15)',borderRadius:6},
     {label:curYrW||'Current '+yw,    data:groups.map(g=>MATH[g]?.find(r=>r.w===curYrW)?.m||0),backgroundColor:C.amber,borderRadius:6},
   ]},options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{position:'bottom',labels:{color:'#c8cfe0'}},datalabels:BAR_LBL,
+    plugins:{legend:{position:'bottom',labels:{color:'#475569'}},datalabels:BAR_LBL,
       tooltip:{...TT_BASE,callbacks:{
         title:i=>i[0].label+' — iReady Math Mid/Above GL',
         label:ctx=>' '+ctx.dataset.label+': '+ctx.parsed.y+'%',
@@ -1219,7 +1219,7 @@ function renderMath(grp){
           return ['',' YoY ('+prevYrW+' → '+curYrW+'): '+(diff>=0?'+':'')+diff+' pts'];
         },
       }}},
-    scales:{x:{grid:{display:false},ticks:{color:'#c8cfe0'}},y:{grid:{color:G},ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
+    scales:{x:{grid:{display:false},ticks:{color:'#475569'}},y:{grid:{color:G},ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
   const latest=mostRecent(MATH);
   document.getElementById('math-sub').textContent=grp+' · '+(mathWinFilter==='ALL'?'All Windows':mathWinFilter+' windows only');
@@ -1275,16 +1275,16 @@ function renderCA(){
   }))},options:{responsive:true,maintainAspectRatio:false,
     interaction:{mode:'index',intersect:false},
     plugins:{
-      legend:{position:'bottom',labels:{color:'#c8cfe0',font:{size:10}}},
+      legend:{position:'bottom',labels:{color:'#475569',font:{size:10}}},
       datalabels:{
         display:ctx=>(ctx.dataset.label===years[years.length-1]||ctx.dataset.label===years[years.length-2])&&ctx.dataset.data[ctx.dataIndex]!=null,
         color:ctx=>ctx.dataset.borderColor,
         font:{family:"'IBM Plex Mono',monospace",size:8,weight:'600'},
         formatter:v=>v!=null?v+'%':'',
         anchor:'top',align:'top',offset:3,
-        backgroundColor:'rgba(11,13,19,0.75)',borderRadius:3,padding:{top:1,bottom:1,left:3,right:3},
+        backgroundColor:'rgba(255,255,255,0.85)',borderRadius:3,padding:{top:1,bottom:1,left:3,right:3},
       },
-      tooltip:{...TT_BASE,footerColor:'#fb7185',callbacks:{
+      tooltip:{...TT_BASE,footerColor:'#e11d48',callbacks:{
         title:i=>i[0].label+' — CA YTD Rate',
         label:ctx=>ctx.parsed.y!=null?' '+ctx.dataset.label+': '+ctx.parsed.y+'%':' '+ctx.dataset.label+': n/a',
         afterBody:items=>{
@@ -1300,7 +1300,7 @@ function renderCA(){
         footer:()=>'Goal: 4% reduction for ELL, SWD, Hispanic, Black',
       }},
     },
-    scales:{x:{grid:{color:G},ticks:{color:'#c8cfe0'}},y:{grid:{color:G},min:8,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
+    scales:{x:{grid:{color:G},ticks:{color:'#475569'}},y:{grid:{color:G},min:8,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
   // Current-month bar — find most recent month that has data for the latest year
   const latestYr=years[years.length-1];
@@ -1315,18 +1315,18 @@ function renderCA(){
   if(caYoYTitleEl) caYoYTitleEl.textContent = 'Chronic Absenteeism · '+curMonthName+' YTD Rate';
   mkChart('caSep',{type:'bar',data:{labels:years,datasets:[{
     label:curMonthName+' YTD Rate',data:sepVals,
-    backgroundColor:sepVals.map(v=>v==null?'transparent':v>17?'rgba(251,113,133,.7)':v>14?'rgba(245,158,11,.7)':'rgba(52,212,176,.7)'),
+    backgroundColor:sepVals.map(v=>v==null?'transparent':v>17?'rgba(225,29,72,.7)':v>14?'rgba(217,119,6,.7)':'rgba(8,145,178,.7)'),
     borderRadius:8,
   }]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},
       datalabels:{display:ctx=>ctx.dataset.data[ctx.dataIndex]!=null,color:'rgba(255,255,255,.9)',font:{family:"'IBM Plex Mono',monospace",size:10,weight:'700'},formatter:v=>v!=null?v+'%':'',anchor:'center',align:'center'},
-      tooltip:{...TT_BASE,footerColor:'#fb7185',callbacks:{
+      tooltip:{...TT_BASE,footerColor:'#e11d48',callbacks:{
         title:i=>i[0].label+' — '+curMonthName+' YTD',
         label:ctx=>' Rate: '+ctx.parsed.y+'%',
         afterLabel:ctx=>{const v=ctx.parsed.y;return ' Status: '+(v>17?'⚠️ Above threshold':v>14?'🟡 Moderate':'✅ Below target');},
         footer:()=>'4% reduction goal vs prior year',
       }}},
-    scales:{x:{grid:{display:false},ticks:{color:'#c8cfe0'}},y:{grid:{color:G},min:8,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
+    scales:{x:{grid:{display:false},ticks:{color:'#475569'}},y:{grid:{color:G},min:8,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
   // Table — 3 years
   const tbl=document.getElementById('caTblWrap');
@@ -1372,7 +1372,7 @@ function renderTargets(){
     : 'End-of-year targets. Full annual goals.';
 
   // Period banner across full width
-  container.innerHTML = `<div style="grid-column:1/-1;background:rgba(245,158,11,${isMOY?'.08':'.04'});border:1px solid rgba(245,158,11,${isMOY?'.3':'.12'});border-radius:12px;padding:.85rem 1.2rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.9rem">
+  container.innerHTML = `<div style="grid-column:1/-1;background:rgba(217,119,6,${isMOY?'.08':'.04'});border:1px solid rgba(217,119,6,${isMOY?'.3':'.12'});border-radius:12px;padding:.85rem 1.2rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.9rem">
     <div style="font-size:1.3rem">${isMOY?'🎯':isBOY?'🌱':'🏁'}</div>
     <div>
       <div style="font-family:var(--ff-h);font-size:.9rem;font-weight:800;color:var(--amber)">${periodLabel}</div>
@@ -1593,13 +1593,13 @@ function renderSEL(){
   const botDomain = domains.map(d=>({d,v:posScore(getRow(curWin,d))||0})).sort((a,b)=>a.v-b.v)[0];
 
   let html = `
-  <div class="goal-banner" style="background:linear-gradient(135deg,rgba(245,158,11,.07),rgba(251,188,5,.05));border-color:rgba(245,158,11,.2)">
+  <div class="goal-banner" style="background:linear-gradient(135deg,rgba(217,119,6,.06),rgba(217,119,6,.04));border-color:rgba(217,119,6,.2)">
     <div class="gb-icon">🎯</div>
     <div class="gb-text">
       <div class="gb-label" style="color:var(--p2)">Priority 2 Goal</div>
       <div class="gb-goal">By June 2026: <strong>+10% increase</strong> in student-to-student relationships and students reporting MindUP curriculum helps manage emotions, stay focused, and make better choices.</div>
     </div>
-    <div class="gb-target" style="background:rgba(245,158,11,.1);color:var(--amber);border-color:rgba(245,158,11,.25)">Target: June 2026</div>
+    <div class="gb-target" style="background:rgba(217,119,6,.1);color:var(--amber);border-color:rgba(245,158,11,.25)">Target: June 2026</div>
   </div>
 
   <div class="ins-row" style="margin-bottom:1.25rem">
@@ -1671,20 +1671,20 @@ function renderSEL(){
 
   mkChart('selBar',{type:'bar',data:{labels:barDomains,datasets:[
     {label:'Strongly Agree',data:saVals, backgroundColor:C.green, borderRadius:3,borderSkipped:false},
-    {label:'Agree',         data:aVals,  backgroundColor:'rgba(79,142,247,.7)', borderRadius:3,borderSkipped:false},
-    {label:'Neutral',       data:nVals,  backgroundColor:'rgba(245,158,11,.5)', borderRadius:3,borderSkipped:false},
-    {label:'Disagree',      data:dVals,  backgroundColor:'rgba(251,113,133,.5)', borderRadius:3,borderSkipped:false},
+    {label:'Agree',         data:aVals,  backgroundColor:'rgba(37,99,235,.7)', borderRadius:3,borderSkipped:false},
+    {label:'Neutral',       data:nVals,  backgroundColor:'rgba(217,119,6,.5)', borderRadius:3,borderSkipped:false},
+    {label:'Disagree',      data:dVals,  backgroundColor:'rgba(225,29,72,.45)', borderRadius:3,borderSkipped:false},
     {label:'Strongly Disagree',data:sdVals,backgroundColor:C.purple, borderRadius:3,borderSkipped:false},
   ]},options:{responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{position:'bottom',labels:{color:'#c8cfe0',font:{size:10}}},
+    plugins:{legend:{position:'bottom',labels:{color:'#475569',font:{size:10}}},
       datalabels:{...STACK_LBL},
       tooltip:{...TT_BASE,callbacks:{
         title:i=>'SEL: '+i[0].label,
         label:ctx=>{const n=['Strongly Agree','Agree','Neutral','Disagree','Strongly Disagree'];return ' '+n[ctx.datasetIndex]+': '+ctx.parsed.y+'%';},
         afterBody:i=>{const d=barDomains[i[0].dataIndex];const r=getRow(curWin,d);return r?['','  ✅ Positive (SA+A): '+(r.sa+r.a)+'%','  Concerns (D+SD): '+(r.d+r.sd)+'%']:[];},
       }}},
-    scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#c8cfe0',font:{size:9},maxRotation:35}},
-            y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
+    scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#475569',font:{size:9},maxRotation:35}},
+            y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
   // ── Line chart: Average positive score across all windows ──
   const lineWins = windows;
@@ -1692,12 +1692,12 @@ function renderSEL(){
   mkChart('selLine',{type:'line',data:{labels:lineWins,datasets:[{
     label:'Positive Responses (SA+A)',
     data:avgPositive,
-    borderColor:C.amber,backgroundColor:'rgba(245,158,11,.08)',
+    borderColor:C.amber,backgroundColor:'rgba(217,119,6,.06)',
     tension:.4,pointRadius:6,borderWidth:2.5,fill:true,
     pointBackgroundColor:C.amber,
   }]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},
-      datalabels:{display:true,color:C.amber,font:{family:"'IBM Plex Mono',monospace",size:9,weight:'600'},formatter:v=>v!=null?v+'%':'',anchor:'top',align:'top',offset:4,backgroundColor:'rgba(11,13,19,0.75)',borderRadius:3,padding:{top:2,bottom:2,left:4,right:4}},
+      datalabels:{display:true,color:C.amber,font:{family:"'IBM Plex Mono',monospace",size:9,weight:'700'},formatter:v=>v!=null?v+'%':'',anchor:'top',align:'top',offset:4,backgroundColor:'rgba(255,255,255,0.85)',borderRadius:3,padding:{top:2,bottom:2,left:4,right:4}},
       tooltip:{...TT_BASE,callbacks:{
         title:i=>'SEL Average · '+i[0].label,
         label:ctx=>' Positive (SA+A): '+ctx.parsed.y+'%',
@@ -1708,8 +1708,8 @@ function renderSEL(){
           return [];
         },
       }}},
-    scales:{x:{grid:{color:G},ticks:{color:'#c8cfe0',font:{size:9}}},
-            y:{grid:{color:G},min:50,max:100,ticks:{color:'#c8cfe0',callback:v=>v+'%'}}}}});
+    scales:{x:{grid:{color:G},ticks:{color:'#475569',font:{size:9}}},
+            y:{grid:{color:G},min:50,max:100,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
   // ── Table ──
   const tbody = document.getElementById('selTblBody'); if(!tbody) return;
