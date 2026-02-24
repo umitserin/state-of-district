@@ -125,9 +125,10 @@ h1 .acc{color:var(--teal);}
 .target-row{display:grid;grid-template-columns:repeat(5,1fr);gap:.85rem;margin-bottom:3rem;}
 @media(max-width:1200px){.target-row{grid-template-columns:repeat(3,1fr);}} @media(max-width:800px){.target-row{grid-template-columns:repeat(2,1fr);}} @media(max-width:500px){.target-row{grid-template-columns:1fr;}}
 @media(max-width:600px){.target-row{grid-template-columns:1fr;}}
-.target-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1.4rem;border-top:2px solid var(--tc,var(--teal));}
+.target-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1.4rem;border-top:2px solid var(--tc,var(--teal));transition:transform .15s,box-shadow .15s;cursor:zoom-in;}
 .tc-label{font-family:var(--ff-m);font-size:.62rem;color:var(--text3);text-transform:uppercase;letter-spacing:.1em;margin-bottom:.7rem;}
 .tc-current{font-family:var(--ff-h);font-size:1.4rem;font-weight:700;color:var(--text);line-height:1;margin-bottom:.3rem;}
+.target-card:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,.35);}
 .tc-target-txt{font-size:.72rem;color:var(--text2);}
 .tc-bar-wrap{display:flex;align-items:center;gap:.75rem;margin-top:.75rem;margin-bottom:.5rem;}
 .tc-bar-bg{flex:1;height:8px;background:rgba(255,255,255,.08);border-radius:100px;overflow:hidden;}
@@ -1407,7 +1408,7 @@ function renderTargets(){
     const curRow  = t.data[t.grp]?.find(r=>r.w===latest);
 
     if(!baseRow||!curRow){
-      container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}">
+      container.innerHTML+=`<div class="target-card" style="--tc:${t.tc};cursor:zoom-in" onclick="openCardZoom(this)">
         <div class="tc-label">${t.label}</div>
         <div style="font-family:var(--ff-m);font-size:.7rem;color:var(--text3);margin-top:.3rem">No EOY 24-25 baseline in Sheet</div>
       </div>`;
@@ -1441,7 +1442,7 @@ function renderTargets(){
     const moyMarkerPct   = 50; // MOY checkpoint is always at 50% of bar
     const cursorColor    = onTrack ? 'var(--green)' : 'var(--amber)';
 
-    container.innerHTML+=`<div class="target-card" style="--tc:${t.tc}">
+    container.innerHTML+=`<div class="target-card" style="--tc:${t.tc};cursor:zoom-in" onclick="openCardZoom(this)">
 
       <!-- Subgroup label -->
       <div class="tc-label">${t.label}</div>
@@ -1481,19 +1482,19 @@ function renderTargets(){
           <!-- MOY marker line -->
           <div style="position:absolute;top:-3px;bottom:-3px;left:${moyMarkerPct}%;width:2px;background:var(--amber);border-radius:2px" title="MOY checkpoint"></div>
           <!-- EOY end cap -->
-          <div style="position:absolute;top:-3px;bottom:-3px;right:0;width:2px;background:rgba(255,255,255,.25);border-radius:2px" title="EOY target"></div>
+          <div style="position:absolute;top:-3px;bottom:-3px;right:0;width:2px;background:#f87171;border-radius:2px;opacity:.7" title="EOY target"></div>
         </div>
         <!-- Labels under bar -->
         <div style="display:flex;justify-content:space-between;margin-top:.3rem">
           <span style="font-family:var(--ff-m);font-size:.5rem;color:var(--text3)">Base ${base}%</span>
           <span style="font-family:var(--ff-m);font-size:.5rem;color:var(--amber)">MOY ${moyTarget}%</span>
-          <span style="font-family:var(--ff-m);font-size:.5rem;color:var(--text3)">EOY ${eoyTarget}%</span>
+          <span style="font-family:var(--ff-m);font-size:.5rem;color:#f87171;font-weight:700">EOY ${eoyTarget}%</span>
         </div>
       </div>
 
       <!-- Status row -->
       <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.35rem">
-        <span style="font-family:var(--ff-m);font-size:.65rem;color:var(--text2)">${gained>=0?'+':''}${gained} pts gained</span>
+        <span style="font-family:var(--ff-m);font-size:.65rem;font-weight:700;color:${gained>=0?'var(--green)':'var(--rose)'}">${gained>=0?'+':''}${gained} pts gained</span>
         <span style="font-family:var(--ff-m);font-size:.65rem;font-weight:700;color:${statusCol}">${statusLbl}</span>
       </div>
 
@@ -1861,7 +1862,69 @@ async function init(){
     setTimeout(ldHide, 2500);
   }
 }
+
+// ══ CARD ZOOM MODAL ══
+function openCardZoom(card){
+  const overlay = document.getElementById('cardZoomOverlay');
+  const box     = document.getElementById('cardZoomContent');
+
+  // Clone the card content (not the card itself — its inner HTML)
+  box.innerHTML = card.innerHTML;
+
+  // Scale up text inside the clone
+  box.style.fontSize  = '1.1em';
+  box.style.lineHeight = '1.6';
+
+  // Make cloned tc-current bigger
+  const cur = box.querySelector('.tc-current');
+  if(cur){ cur.style.fontSize = '3rem'; cur.style.marginBottom = '1rem'; }
+
+  // Make cloned tc-label bigger and brighter
+  const lbl = box.querySelector('.tc-label');
+  if(lbl){ lbl.style.fontSize = '.85rem'; lbl.style.color = 'var(--text)'; lbl.style.marginBottom = '1.2rem'; }
+
+  // Scale bar labels
+  box.querySelectorAll('[style*=".5rem"]').forEach(el=>{
+    el.style.fontSize = '.72rem';
+  });
+
+  // Re-animate the progress bar fill
+  const fill = box.querySelector('.tc-bar-fill');
+  if(fill){
+    const targetW = fill.dataset.w;
+    fill.style.transition = 'none';
+    fill.style.width = '0%';
+    setTimeout(()=>{ fill.style.transition = 'width .9s cubic-bezier(.4,0,.2,1)'; fill.style.width = targetW + '%'; }, 60);
+  }
+
+  // Show modal
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+
+  // ESC key to close
+  document.addEventListener('keydown', _zoomEsc);
+}
+
+function closeCardZoom(){
+  document.getElementById('cardZoomOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', _zoomEsc);
+}
+
+function _zoomEsc(e){ if(e.key === 'Escape') closeCardZoom(); }
+
 document.addEventListener('DOMContentLoaded', init);
+
 </script>
+
+<!-- ── ZOOM MODAL ── -->
+<div id="cardZoomOverlay" onclick="closeCardZoom()" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem">
+  <div id="cardZoomBox" onclick="event.stopPropagation()" style="position:relative;background:var(--card2);border:1px solid var(--b2);border-radius:20px;padding:2.5rem 2.8rem;max-width:480px;width:100%;box-shadow:0 32px 80px rgba(0,0,0,.6)">
+    <button onclick="closeCardZoom()" style="position:absolute;top:.9rem;right:.9rem;background:rgba(255,255,255,.08);border:none;color:var(--text2);font-size:1.1rem;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">✕</button>
+    <div id="cardZoomContent" style="transform-origin:top left"></div>
+    <div style="margin-top:1.5rem;text-align:center;font-family:var(--ff-m);font-size:.6rem;color:var(--text3)">Click anywhere outside to close · ESC to dismiss</div>
+  </div>
+</div>
+
 </body>
 </html>
