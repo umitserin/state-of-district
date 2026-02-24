@@ -67,7 +67,7 @@ body::before{
 .ld-step-dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
 
 /* ── NAV ── */
-nav{position:sticky;top:0;z-index:100;background:rgba(11,13,19,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);box-shadow:0 1px 4px rgba(0,0,0,.08);}
 .nav-inner{max-width:1440px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;height:54px;gap:1.5rem;}
 .nav-brand{font-family:var(--ff-h);font-size:.9rem;font-weight:800;color:var(--text);white-space:nowrap;display:flex;align-items:center;gap:.5rem;}
 .nav-pulse{width:7px;height:7px;border-radius:50%;background:var(--teal);animation:pulse 2s infinite;}
@@ -75,7 +75,7 @@ nav{position:sticky;top:0;z-index:100;background:rgba(11,13,19,.92);backdrop-fil
 .nav-links{display:flex;gap:.1rem;overflow-x:auto;flex:1;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:.1rem 0;}
 .nav-link{display:flex;align-items:center;gap:.3rem;padding:.3rem .7rem;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--ff-m);font-size:.64rem;letter-spacing:.03em;cursor:pointer;transition:all .18s;white-space:nowrap;position:relative;}
 /* Tooltip on hover — shows full priority name */
-.nav-link::after{content:attr(title);position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(16,20,32,.97);color:var(--text);font-size:.6rem;white-space:nowrap;padding:.35rem .65rem;border-radius:7px;border:1px solid var(--border);pointer-events:none;opacity:0;transition:opacity .18s;z-index:200;max-width:260px;white-space:normal;text-align:center;line-height:1.4;}
+.nav-link::after{content:attr(title);position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(15,23,42,.95);color:#f8fafc;font-size:.6rem;white-space:nowrap;padding:.35rem .65rem;border-radius:7px;border:1px solid rgba(255,255,255,.1);pointer-events:none;opacity:0;transition:opacity .18s;z-index:200;max-width:260px;white-space:normal;text-align:center;line-height:1.4;}
 .nav-link:hover::after{opacity:1;}
 .nav-link .nl-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
 .nav-link:hover,.nav-link.active{background:rgba(255,255,255,.06);color:var(--text);}
@@ -747,7 +747,7 @@ const C = {green:'#16a34a',blue:'#2563eb',amber:'#d97706',rose:'#e11d48',purple:
 
 const STACK_LBL = {display:ctx=>ctx.dataset.data[ctx.dataIndex]>=8,color:'rgba(0,0,0,0.8)',font:{family:"'IBM Plex Mono',monospace",size:9,weight:'600'},formatter:v=>v+'%',anchor:'center',align:'center',padding:0,textShadowBlur:3,textShadowColor:'rgba(0,0,0,0.5)'};
 const BAR_LBL   = {display:ctx=>ctx.dataset.data[ctx.dataIndex]>0,color:'#1e293b',font:{family:"'IBM Plex Mono',monospace",size:9,weight:'600'},formatter:v=>v+'%',anchor:'end',align:'end',offset:2};
-const TT_BASE   = {backgroundColor:'rgba(15,23,42,0.95)',titleColor:'#f8fafc',bodyColor:'#94a3b8',borderColor:'rgba(255,255,255,0.12)',borderWidth:1,padding:12,cornerRadius:10,titleFont:{size:11,weight:'700'},footerFont:{size:9}};
+const TT_BASE   = {backgroundColor:'rgba(255,255,255,0.98)',titleColor:'#0f172a',bodyColor:'#475569',borderColor:'rgba(15,23,42,0.12)',borderWidth:1,padding:12,cornerRadius:10,titleFont:{size:11,weight:'700'},footerFont:{size:9}};
 
 let ci = {};
 function mkChart(id, cfg){ if(ci[id]) ci[id].destroy(); ci[id] = new Chart(document.getElementById(id), cfg); }
@@ -1284,7 +1284,7 @@ function renderCA(){
         anchor:'top',align:'top',offset:3,
         backgroundColor:'rgba(255,255,255,0.85)',borderRadius:3,padding:{top:1,bottom:1,left:3,right:3},
       },
-      tooltip:{...TT_BASE,footerColor:'#e11d48',callbacks:{
+      tooltip:{...TT_BASE,footerColor:'#be123c',callbacks:{
         title:i=>i[0].label+' — CA YTD Rate',
         label:ctx=>ctx.parsed.y!=null?' '+ctx.dataset.label+': '+ctx.parsed.y+'%':' '+ctx.dataset.label+': n/a',
         afterBody:items=>{
@@ -1320,7 +1320,7 @@ function renderCA(){
   }]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{display:false},
       datalabels:{display:ctx=>ctx.dataset.data[ctx.dataIndex]!=null,color:'rgba(255,255,255,.9)',font:{family:"'IBM Plex Mono',monospace",size:10,weight:'700'},formatter:v=>v!=null?v+'%':'',anchor:'center',align:'center'},
-      tooltip:{...TT_BASE,footerColor:'#e11d48',callbacks:{
+      tooltip:{...TT_BASE,footerColor:'#be123c',callbacks:{
         title:i=>i[0].label+' — '+curMonthName+' YTD',
         label:ctx=>' Rate: '+ctx.parsed.y+'%',
         afterLabel:ctx=>{const v=ctx.parsed.y;return ' Status: '+(v>17?'⚠️ Above threshold':v>14?'🟡 Moderate':'✅ Below target');},
