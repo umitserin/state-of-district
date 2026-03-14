@@ -74,7 +74,6 @@ nav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.95);backdrop-
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
 .nav-links{display:flex;gap:.1rem;overflow-x:auto;flex:1;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:.1rem 0;}
 .nav-link{display:flex;align-items:center;gap:.3rem;padding:.3rem .7rem;border-radius:8px;border:none;background:transparent;color:var(--text2);font-family:var(--ff-m);font-size:.64rem;letter-spacing:.03em;cursor:pointer;transition:all .18s;white-space:nowrap;position:relative;}
-/* Tooltip on hover — shows full priority name */
 .nav-link::after{content:attr(title);position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%);background:rgba(15,23,42,.95);color:#f8fafc;font-size:.6rem;white-space:nowrap;padding:.35rem .65rem;border-radius:7px;border:1px solid rgba(255,255,255,.1);pointer-events:none;opacity:0;transition:opacity .18s;z-index:200;max-width:260px;white-space:normal;text-align:center;line-height:1.4;}
 .nav-link:hover::after{opacity:1;}
 .nav-link .nl-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;}
@@ -160,13 +159,11 @@ h1 .acc{color:var(--teal);}
 .fb{padding:.28rem .85rem;border-radius:100px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:var(--ff-m);font-size:.68rem;cursor:pointer;transition:all .17s;}
 .fb:hover{border-color:var(--text2);color:var(--text);}
 .fb.active{background:rgba(255,255,255,.1);border-color:var(--b2);color:var(--text);}
-/* Window filter buttons */
 .win-filter-strip{display:flex;gap:.35rem;margin-bottom:.75rem;align-items:center;}
 .wfl{font-family:var(--ff-m);font-size:.62rem;color:var(--text3);margin-right:.2rem;}
 .wfb{padding:.22rem .7rem;border-radius:6px;border:1px solid var(--border);background:transparent;color:var(--text2);font-family:var(--ff-m);font-size:.65rem;cursor:pointer;transition:all .17s;}
 .wfb:hover{border-color:var(--text2);color:var(--text);}
 .wfb.active{background:rgba(255,255,255,.12);border-color:var(--b2);color:var(--text);font-weight:700;}
-/* Brighter small subtitles */
 .cs{font-family:var(--ff-m);font-size:.68rem;color:var(--text2) !important;margin-top:.2rem;}
 
 /* ── GRIDS ── */
@@ -250,22 +247,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 .d1{animation-delay:.05s}.d2{animation-delay:.1s}.d3{animation-delay:.15s}
 
 /* ══════════════════════════════════════════
-   MOBILE RESPONSIVE — full phone support
+   MOBILE RESPONSIVE
    ══════════════════════════════════════════ */
-
-/* ── Base mobile (≤640px) ── */
 @media(max-width:640px){
-  /* Page padding */
   .page{ padding:0 .9rem 4rem; }
-
-  /* Nav — collapse links, shrink brand */
   .nav-inner{ padding:0 .9rem; gap:.6rem; height:48px; }
   .nav-brand{ font-size:.75rem; }
-  .nav-links{ display:none; }          /* hide text links on phone */
+  .nav-links{ display:none; }
   #last-updated{ display:none; }
   .live-badge{ font-size:.58rem; padding:.2rem .5rem; }
-
-  /* Hero */
   .hero{ padding:1.8rem 0 1.4rem; margin-bottom:1.6rem; }
   .hero-top{ grid-template-columns:1fr; gap:1.4rem; }
   h1{ font-size:clamp(2rem,9vw,3rem); }
@@ -273,15 +263,9 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   .hero-kpis{ grid-template-columns:1fr 1fr; }
   .hkpi{ padding:1rem 1.1rem; }
   .hkpi-val{ font-size:1.5rem; }
-
-  /* Section headers */
   .sec-head{ flex-wrap:wrap; gap:.6rem; }
   .sec-badge{ display:none; }
-
-  /* Chart grids — all single column */
   .g2,.g21,.g3{ grid-template-columns:1fr !important; }
-
-  /* Chart heights — shorter on phone */
   .h400{ height:260px; }
   .h320{ height:240px; }
   .h280{ height:220px; }
@@ -289,66 +273,38 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   .h240{ height:190px; }
   .h200{ height:170px; }
   .h300{ height:220px; }
-
-  /* Chart canvas text — scale down */
   .cw canvas{ font-size:9px; }
-
-  /* Filter strips — wrap & smaller buttons */
   .filter-strip,.win-filter-strip{ gap:.25rem; flex-wrap:wrap; }
   .fb,.wfb{ font-size:.6rem; padding:.18rem .55rem; }
   .wfl{ font-size:.58rem; }
-
-  /* Cards */
   .card{ border-radius:10px; }
   .ch{ flex-wrap:wrap; gap:.4rem; }
   .ct{ font-size:.85rem; }
   .cs{ font-size:.6rem; }
-
-  /* Insight cards — single column */
   .ins-row{ grid-template-columns:1fr !important; }
   .ins{ padding:.9rem 1rem; }
   .iv{ font-size:1.4rem; }
-
-  /* Tables — horizontal scroll + compact */
   .dt{ font-size:.68rem; }
   .dt th,.dt td{ padding:.35rem .45rem; white-space:nowrap; }
   [style*="overflow-x:auto"]{ -webkit-overflow-scrolling:touch; }
-
-  /* KPI stats */
   .sl{ gap:.5rem; }
   .sl-item{ padding:.65rem .9rem; }
   .sl-val{ font-size:1.1rem; }
-
-  /* CEP cards */
   .cep-grid{ grid-template-columns:1fr !important; }
-
-  /* Goal tracker — single column */
   .target-row{ grid-template-columns:1fr !important; }
   .target-card{ padding:.9rem 1rem; }
   .tc-current{ font-size:1.2rem; }
-
-  /* CA cards */
   .ca-grid{ grid-template-columns:1fr 1fr !important; }
   .cac{ padding:.8rem .9rem; }
   .cac-val{ font-size:1.3rem; }
-
-  /* Window filter — wrap to 2 rows if needed */
   .win-filter-strip{ margin-bottom:.6rem; }
-
-  /* Section padding */
   .section{ margin-bottom:2.5rem; }
   .sec-head{ margin-bottom:1.2rem; }
-
-  /* Hero KPI grid — 2 cols on phone */
   .hero-kpis{ grid-template-columns:1fr 1fr; }
-
-  /* Footer */
   footer .ft{ font-size:.65rem; padding:.8rem 1rem; }
   footer .fb2{ padding:.6rem 1rem; gap:.5rem; }
   .btn{ font-size:.7rem; padding:.4rem .8rem; }
 }
-
-/* ── Tablet (641–900px) ── */
 @media(min-width:641px) and (max-width:900px){
   .page{ padding:0 1.25rem 4rem; }
   .nav-links{ gap:.05rem; }
@@ -360,13 +316,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   .ins-row{ grid-template-columns:1fr 1fr !important; }
   .hero-kpis{ grid-template-columns:1fr 1fr; }
 }
-
-/* ── Touch devices — improve tap targets ── */
 @media(hover:none) and (pointer:coarse){
   .fb,.wfb,.nav-link,.btn{ min-height:36px; display:inline-flex; align-items:center; }
   .dt th,.dt td{ padding:.45rem .55rem; }
 }
-
 @media print{nav{display:none;}body,nav,footer{background:#fff!important;}body{color:#000!important;}.card,.target-card,.cep-card,.ins{box-shadow:none!important;border:1px solid #e2e8f0!important;}}
 </style>
 </head>
@@ -519,7 +472,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 <!-- ── GOAL TRACKER ── -->
 <div class="anim d3" style="margin-bottom:3rem;">
   <div id="cep-progress" style="scroll-margin-top:64px"></div>
-  <div class="cep-heading">Goal Progress Tracker — All Subgroups · Baseline: EOY 24-25 → MOY Checkpoint → EOY Target</div>
+  <div class="cep-heading">Goal Progress Tracker — Baseline: Same Window Prior Year + Goal Increment → 2025–26 Target</div>
   <div class="target-row" id="targetRow"></div>
 </div>
 
@@ -639,7 +592,6 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   </div>
 </section>
 
-<!-- ════════ CHRONIC ABSENTEEISM ════════ -->
 <!-- ════════ P4 ════════ -->
 <section class="section" id="p4">
   <div class="sec-head">
@@ -735,7 +687,7 @@ const URLS = {
 
 // ══ CHART.JS SETUP ══
 Chart.register(ChartDataLabels);
-Chart.defaults.color = '#475569';  // ← brighter default text
+Chart.defaults.color = '#475569';
 Chart.defaults.font.family = "'IBM Plex Mono',monospace";
 Chart.defaults.font.size = 11;
 Chart.defaults.plugins.legend.labels.boxWidth = 8;
@@ -752,16 +704,14 @@ const TT_BASE   = {backgroundColor:'rgba(255,255,255,0.98)',titleColor:'#0f172a'
 let ci = {};
 function mkChart(id, cfg){ if(ci[id]) ci[id].destroy(); ci[id] = new Chart(document.getElementById(id), cfg); }
 
-// ══ DETERMINE CURRENT WINDOW from today's date ══
-// BOY = Oct–Dec, MOY = Jan–Mar, EOY = May–Jun  (Apr = transitional → MOY)
+// ══ DETERMINE CURRENT WINDOW ══
 function currentWindow(){
-  // BOY = Sep 5 – Dec 31  |  MOY = Jan 1 – Apr 30  |  EOY = May 1 – Sep 4
   const now = new Date();
-  const mo  = now.getMonth() + 1; // 1=Jan … 12=Dec
+  const mo  = now.getMonth() + 1;
   const day = now.getDate();
-  if(mo >= 1  && mo <= 4)                  return 'MOY'; // Jan–Apr
-  if(mo >= 5  && (mo < 9 || (mo===9 && day<=4))) return 'EOY'; // May 1–Sep 4
-  return 'BOY';                                            // Sep 5–Dec 31
+  if(mo >= 1  && mo <= 4)                              return 'MOY';
+  if(mo >= 5  && (mo < 9 || (mo===9 && day<=4)))      return 'EOY';
+  return 'BOY';
 }
 const CUR_WIN = currentWindow();
 
@@ -794,7 +744,7 @@ function splitCSVLine(line){
 }
 function pct(v){ return parseFloat(String(v).replace('%',''))||0; }
 
-// ══ FETCH — 4 strategies, CORS-resilient ══
+// ══ FETCH ══
 async function fetchCSV(url, label){
   const t = '&t=' + Date.now();
   const proxies = [
@@ -824,29 +774,22 @@ function parseAcad(rows){
   const out={};
   rows.forEach(r=>{
     const sgRaw = r['Subgroup']||r['subgroup']||Object.values(r)[1];
-    const sg = sgRaw==='ENL'?'ELL':sgRaw; // normalise ENL→ELL
+    const sg = sgRaw==='ENL'?'ELL':sgRaw;
     const win = r['Academic Year/Window']||Object.values(r)[0];
     if(!sg||!win) return;
     if(!out[sg]) out[sg]=[];
-    // Supports both old format ("2023-24 Beginning of Year Performance")
-    // and new format ("2023-24 BOY")
-    // Output normalised to "BOY 23-24" so winType()="BOY", winYear()="23-24"
     let wShort = win
       .replace('Beginning of Year Performance','BOY').replace('Middle of Year Performance','MOY')
       .replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY').trim();
-    // Now handle both "2023-24 BOY" (new) and "BOY 23-24" (already normalised)
     const yrMatch = wShort.match(/^(\d{4}-\d{2})\s+(BOY|MOY|EOY)$/i);
     if(yrMatch){
-      // New format "2023-24 BOY" → convert year "2023-24" → "23-24"
-      const fullYr = yrMatch[1]; // "2023-24"
-      const shortYr = fullYr.slice(2,4)+'-'+fullYr.slice(-2); // "23-24"
-      wShort = yrMatch[2].toUpperCase()+' '+shortYr; // "BOY 23-24"
+      const fullYr = yrMatch[1];
+      const shortYr = fullYr.slice(2,4)+'-'+fullYr.slice(-2);
+      wShort = yrMatch[2].toUpperCase()+' '+shortYr;
     } else {
-      // Old long format already had BOY/MOY/EOY substituted, still has full year
       wShort = wShort
         .replace('2023-24 ','23-24 ').replace('2024-25 ','24-25 ').replace('2025-26 ','25-26 ')
         .replace('2026-27 ','26-27 ').trim();
-      // If still in "23-24 BOY" format, flip to "BOY 23-24"
       const flip = wShort.match(/^(\d{2}-\d{2})\s+(BOY|MOY|EOY)$/i);
       if(flip) wShort = flip[2].toUpperCase()+' '+flip[1];
     }
@@ -864,29 +807,22 @@ function parseIReady(rows){
   const out={};
   rows.forEach(r=>{
     const sgRaw = r['Subgroup']||r['subgroup']||Object.values(r)[1];
-    const sg = sgRaw==='ENL'?'ELL':sgRaw; // normalise ENL→ELL
+    const sg = sgRaw==='ENL'?'ELL':sgRaw;
     const win = r['Academic Year/Window']||Object.values(r)[0];
     if(!sg||!win) return;
     if(!out[sg]) out[sg]=[];
-    // Supports both old format ("2023-24 Beginning of Year Performance")
-    // and new format ("2023-24 BOY")
-    // Output normalised to "BOY 23-24" so winType()="BOY", winYear()="23-24"
     let wShort = win
       .replace('Beginning of Year Performance','BOY').replace('Middle of Year Performance','MOY')
       .replace('End of Year Perfromance','EOY').replace('End of Year Performance','EOY').trim();
-    // Now handle both "2023-24 BOY" (new) and "BOY 23-24" (already normalised)
     const yrMatch = wShort.match(/^(\d{4}-\d{2})\s+(BOY|MOY|EOY)$/i);
     if(yrMatch){
-      // New format "2023-24 BOY" → convert year "2023-24" → "23-24"
-      const fullYr = yrMatch[1]; // "2023-24"
-      const shortYr = fullYr.slice(2,4)+'-'+fullYr.slice(-2); // "23-24"
-      wShort = yrMatch[2].toUpperCase()+' '+shortYr; // "BOY 23-24"
+      const fullYr = yrMatch[1];
+      const shortYr = fullYr.slice(2,4)+'-'+fullYr.slice(-2);
+      wShort = yrMatch[2].toUpperCase()+' '+shortYr;
     } else {
-      // Old long format already had BOY/MOY/EOY substituted, still has full year
       wShort = wShort
         .replace('2023-24 ','23-24 ').replace('2024-25 ','24-25 ').replace('2025-26 ','25-26 ')
         .replace('2026-27 ','26-27 ').trim();
-      // If still in "23-24 BOY" format, flip to "BOY 23-24"
       const flip = wShort.match(/^(\d{2}-\d{2})\s+(BOY|MOY|EOY)$/i);
       if(flip) wShort = flip[2].toUpperCase()+' '+flip[1];
     }
@@ -918,48 +854,29 @@ function parseCA(rows){
 
 // ══ PARSE SEL ══
 function parseSEL(rows){
-  // Robustly handles any column name variant the Sheet might export
-  // Domain column may be "Domain: Overall", "Domain", "domain" etc.
-  // Window column may be "Year/Window", "Window" etc.
-  // Also handles positional fallback
   const out = [];
   if(!rows.length) return out;
-
-  // Debug: log first row keys to console so we can see exact column names
   console.log('[SEL] Column keys:', Object.keys(rows[0]));
   console.log('[SEL] First row:', rows[0]);
-
   rows.forEach(r=>{
     const keys = Object.keys(r);
-    // Window: first column
     const win = r['Year/Window']||r['year/window']||r['Window']||r['window']||r[keys[0]]||'';
-    // Domain: second column — try many variants
     const domain = r['Domain: Overall']||r['Domain']||r['domain']||r['Domain: overall']||r[keys[1]]||'';
     if(!win.trim()||!domain.trim()) return;
-
-    // Normalise window: "2025-26 BOY" → "BOY 25-26"
     let wShort = win.trim();
     const yrMatch = wShort.match(/^(\d{4}-\d{2})\s+(BOY|MOY|EOY)$/i);
     if(yrMatch){
       const shortYr = yrMatch[1].slice(2,4)+'-'+yrMatch[1].slice(-2);
-      wShort = yrMatch[2].toUpperCase()+' '+shortYr; // "BOY 25-26"
+      wShort = yrMatch[2].toUpperCase()+' '+shortYr;
     }
-
-    // Response columns — named lookup first, then smart positional
-    // Actual sheet columns: SA, Agree, Fall (skip), Neutral, Disagree, Strongly Disagree
     const sa = pct(r['Strongly Agree']||r['strongly agree']||0) || pct(r[keys[2]]||0);
     const a  = pct(r['Agree']||r['agree']||0)                   || pct(r[keys[3]]||0);
-    // Find Neutral, Disagree, SD by name first; positional skips the "Fall" column (index 4)
     const n  = pct(r['Neutral']||r['neutral']||0)               || pct(r[keys[5]]||0);
     const d  = pct(r['Disagree']||r['disagree']||0)             || pct(r[keys[6]]||0);
     const sd = pct(r['Strongly Disagree']||r['strongly disagree']||0) || pct(r[keys[7]]||0);
-
-    // Only push if we got meaningful data
-    if(sa+a+n+d+sd < 5) return; // skip empty/header rows
-
+    if(sa+a+n+d+sd < 5) return;
     out.push({ w:wShort, domain:domain.trim(), sa, a, n, d, sd });
   });
-
   console.log('[SEL] Parsed', out.length, 'rows. Windows:', [...new Set(out.map(r=>r.w))]);
   return out;
 }
@@ -968,39 +885,253 @@ function parseSEL(rows){
 function mostRecent(groupData){
   const g = groupData['All Students']||Object.values(groupData)[0]||[];
   if(!g.length) return '—';
-  // Prefer the most recent window that matches the current reporting period (BOY/MOY/EOY)
-  // e.g. in February (MOY), show MOY 25-26 not EOY 24-25
   const matching = g.filter(r=>winType(r.w)===CUR_WIN);
   if(matching.length) return matching[matching.length-1].w;
-  // Fallback: most recent window of any type
   return g[g.length-1].w;
 }
-// Get the window type (BOY/MOY/EOY) from a short label like "MOY 25-26"
 function winType(w){ return w.split(' ')[0]; }
-// Get the school year from a short label like "MOY 25-26" → "25-26"
 function winYear(w){ return w.split(' ')[1]||''; }
-// Filter rows by window type
 function filterByWin(rows, winFilter){
   if(winFilter==='ALL') return rows;
   return rows.filter(r=>winType(r.w)===winFilter);
 }
-// Previous school year label e.g. "25-26" → "24-25"
 function prevYear(yr){
   const [a,b]=yr.split('-');
   return (parseInt(a)-1)+'-'+(parseInt(b)-1);
 }
-// Find same-window row from prior year for YoY tooltip
 function priorYearRow(data, grp, currentW){
   const type=winType(currentW), yr=winYear(currentW), prev=prevYear(yr);
   return data[grp]?.find(r=>winType(r.w)===type && winYear(r.w)===prev);
 }
+function yoyWinFull(){ return CUR_WIN; }
 
-// ══ DYNAMIC YoY WINDOW — based on current calendar date ══
-// Returns the window label to use for YoY comparison (e.g. "BOY", "MOY", "EOY")
-function yoyWindowLabel(){
-  return CUR_WIN; // BOY/MOY/EOY determined at load time
+
+// ══════════════════════════════════════════════════════════════
+//  RENDER GOAL PROGRESS TRACKER
+//
+//  Logic: For each subgroup + metric + window (BOY/MOY/EOY),
+//    baseline = same window PRIOR year (e.g. BOY 24-25)
+//    target   = baseline + annualGoal  (5 for All Students, 10 for others)
+//    current  = same window CURRENT year (e.g. BOY 25-26)
+//    progress = how far current is from baseline toward target
+//
+//  The tracker shows whichever window is most relevant right now
+//  (CUR_WIN = BOY / MOY / EOY based on today's date).
+// ══════════════════════════════════════════════════════════════
+function renderTargets(){
+  const container = document.getElementById('targetRow');
+  container.innerHTML = '';
+
+  // ── Goal increments by subgroup ──
+  const GOAL_BY_GRP = {
+    'All Students': 5,
+    'Hispanics':   10,
+    'Black':       10,
+    'ELL':         10,
+    'SWD':         10,
+  };
+  const SUBGROUPS = ['All Students','Hispanics','Black','ELL','SWD'];
+
+  // ── Current window being tracked ──
+  const curWinType = CUR_WIN; // 'BOY' | 'MOY' | 'EOY'
+
+  // ── Find the current-year window label and prior-year window label ──
+  // We look across all data to find what labels exist for the current window type
+  function findWindowPair(dataStore) {
+    const allGroup = dataStore['All Students'] || Object.values(dataStore)[0] || [];
+    // All windows of the current type, sorted by year
+    const ofType = allGroup
+      .filter(r => winType(r.w) === curWinType)
+      .sort((a,b) => winYear(a.w).localeCompare(winYear(b.w)));
+    if (ofType.length < 1) return { curW: null, prevW: null };
+    const curW  = ofType[ofType.length - 1].w;                   // e.g. "BOY 25-26"
+    const prevW = curWinType + ' ' + prevYear(winYear(curW));     // e.g. "BOY 24-25"
+    const prevExists = allGroup.some(r => r.w === prevW);
+    return { curW, prevW: prevExists ? prevW : null };
+  }
+
+  // ── Metrics config ──
+  const METRICS = [
+    {
+      section: 'P1 · Acadience K–2 · On/Above Benchmark',
+      tc: 'var(--p1)',
+      data: ACAD,
+      calc: r => r.ab + r.at,
+      label: 'On/Above',
+    },
+    {
+      section: 'P1 · iReady Reading · On-Track (Mid/Above + Early On GL)',
+      tc: 'var(--teal)',
+      data: READ,
+      calc: r => r.m + r.e,
+      label: 'On-Track',
+    },
+    {
+      section: 'P3 · iReady Math · On-Track (Mid/Above + Early On GL)',
+      tc: 'var(--blue)',
+      data: MATH,
+      calc: r => r.m + r.e,
+      label: 'On-Track',
+    },
+  ];
+
+  // ── Period banner ──
+  const periodLabel = {BOY:'Beginning of Year (BOY)', MOY:'Middle of Year (MOY)', EOY:'End of Year (EOY)'}[curWinType];
+  const periodIcon  = {BOY:'🌱', MOY:'🎯', EOY:'🏁'}[curWinType];
+  const periodNote  = `Baseline = same window prior year. Target = baseline + goal increment. Progress bar shows how close current ${curWinType} is to the ${curWinType} target.`;
+
+  container.innerHTML = `<div style="grid-column:1/-1;background:rgba(8,145,178,.06);border:1px solid rgba(8,145,178,.2);border-radius:12px;padding:.85rem 1.2rem;margin-bottom:.5rem;display:flex;align-items:flex-start;gap:.9rem;flex-wrap:wrap">
+    <div style="font-size:1.4rem">${periodIcon}</div>
+    <div style="flex:1;min-width:200px">
+      <div style="font-family:var(--ff-h);font-size:.95rem;font-weight:800;color:var(--teal)">Tracking: ${periodLabel}</div>
+      <div style="font-family:var(--ff-m);font-size:.63rem;color:var(--text2);margin-top:.25rem;line-height:1.5">${periodNote}</div>
+    </div>
+    <div style="font-family:var(--ff-m);font-size:.6rem;color:var(--text3);text-align:right;align-self:center">
+      All Students: +5 pts goal<br>Hispanic, Black, ELL, SWD: +10 pts goal
+    </div>
+  </div>`;
+
+  // ── Build cards ──
+  let currentSection = '';
+
+  METRICS.forEach(met => {
+    const { curW, prevW } = findWindowPair(met.data);
+
+    // Section header
+    if (met.section !== currentSection) {
+      currentSection = met.section;
+      container.innerHTML += `<div style="grid-column:1/-1;padding:.7rem 0 .2rem;border-top:1px solid var(--border);margin-top:.5rem">
+        <span style="font-family:var(--ff-m);font-size:.63rem;color:var(--text2);text-transform:uppercase;letter-spacing:.1em">${met.section}</span>
+        ${curW ? `<span style="font-family:var(--ff-m);font-size:.58rem;color:var(--text3);margin-left:.75rem">${prevW||'no prior'} → <strong style="color:var(--text)">${curW}</strong></span>` : ''}
+      </div>`;
+    }
+
+    SUBGROUPS.forEach(sg => {
+      const annualGoal = GOAL_BY_GRP[sg];
+      const displayName = sg === 'Hispanics' ? 'Hispanic' : sg;
+
+      // No current window data at all
+      if (!curW) {
+        container.innerHTML += `<div class="target-card" style="--tc:${met.tc}">
+          <div class="tc-label">${displayName}</div>
+          <div style="font-family:var(--ff-m);font-size:.68rem;color:var(--text3);margin-top:.4rem">No ${curWinType} 25-26 data yet</div>
+        </div>`;
+        return;
+      }
+
+      const curRow  = met.data[sg]?.find(r => r.w === curW);
+      const prevRow = prevW ? met.data[sg]?.find(r => r.w === prevW) : null;
+
+      // No current-year row for this subgroup
+      if (!curRow) {
+        container.innerHTML += `<div class="target-card" style="--tc:${met.tc}">
+          <div class="tc-label">${displayName}</div>
+          <div style="font-family:var(--ff-m);font-size:.68rem;color:var(--text3);margin-top:.4rem">No data for ${curW}</div>
+        </div>`;
+        return;
+      }
+
+      const cur = +met.calc(curRow).toFixed(1);
+
+      // ── If no prior-year baseline: show current value, no progress bar ──
+      if (!prevRow) {
+        container.innerHTML += `<div class="target-card" style="--tc:${met.tc}">
+          <div class="tc-label">${displayName}</div>
+          <div class="tc-current" style="color:${met.tc}">${cur}%</div>
+          <div style="font-family:var(--ff-m);font-size:.65rem;color:var(--text3);margin-top:.5rem">
+            ${met.label}: ${cur}%<br>
+            <span style="color:var(--amber)">No prior ${curWinType} baseline found</span><br>
+            Target = ${cur + annualGoal}% (+${annualGoal} pts needed)
+          </div>
+        </div>`;
+        return;
+      }
+
+      const base   = +met.calc(prevRow).toFixed(1);  // prior-year same window
+      const target = +(base + annualGoal).toFixed(1); // target for this window
+      const gained = +(cur - base).toFixed(1);         // change from baseline
+      const needed = +(target - cur).toFixed(1);        // pts still needed
+
+      // Progress: how far from baseline toward target (capped 0–100%)
+      const progressPct = annualGoal > 0
+        ? Math.min(Math.max((gained / annualGoal) * 100, 0), 100)
+        : 0;
+
+      const onTrack = cur >= target;
+      const ahead   = cur > target;
+      const statusCol = ahead  ? 'var(--green)'
+                      : onTrack ? 'var(--teal)'
+                      : gained >= 0 ? 'var(--amber)'
+                      : 'var(--rose)';
+      const statusLbl = ahead   ? '✦ Ahead'
+                      : onTrack ? '✓ On Target'
+                      : gained >= 0 ? '⚠ Progress'
+                      : '▼ Below';
+
+      container.innerHTML += `<div class="target-card" style="--tc:${met.tc}" onclick="openCardZoom(this)">
+
+        <!-- Subgroup label + window -->
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.5rem">
+          <div class="tc-label" style="margin-bottom:0">${displayName}</div>
+          <span style="font-family:var(--ff-m);font-size:.55rem;color:var(--text3)">${curWinType}</span>
+        </div>
+
+        <!-- Current value -->
+        <div class="tc-current" style="color:${met.tc}">${cur}%</div>
+
+        <!-- Baseline → Target row -->
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:.1rem;margin:.55rem 0 .3rem;align-items:center">
+          <div style="text-align:left">
+            <div style="font-family:var(--ff-m);font-size:.5rem;color:var(--text3);text-transform:uppercase;letter-spacing:.05em">Baseline</div>
+            <div style="font-family:var(--ff-h);font-size:.95rem;color:var(--text2)">${base}%</div>
+            <div style="font-family:var(--ff-m);font-size:.48rem;color:var(--text3)">${prevW}</div>
+          </div>
+          <div style="font-family:var(--ff-m);font-size:.7rem;color:var(--border);padding:0 .2rem">→</div>
+          <div style="text-align:right">
+            <div style="font-family:var(--ff-m);font-size:.5rem;color:var(--teal);text-transform:uppercase;letter-spacing:.05em">Target</div>
+            <div style="font-family:var(--ff-h);font-size:.95rem;color:var(--teal)">${target}%</div>
+            <div style="font-family:var(--ff-m);font-size:.48rem;color:var(--text3)">+${annualGoal}pts · ${curW}</div>
+          </div>
+        </div>
+
+        <!-- Progress bar -->
+        <div style="margin:.4rem 0 .25rem">
+          <div style="height:8px;background:rgba(15,23,42,.07);border-radius:100px;overflow:hidden;position:relative">
+            <div class="tc-bar-fill" data-w="${progressPct.toFixed(1)}"
+                 style="height:100%;width:0%;border-radius:100px;background:${met.tc};transition:width 1s cubic-bezier(.4,0,.2,1)"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;margin-top:.25rem">
+            <span style="font-family:var(--ff-m);font-size:.5rem;color:var(--text3)">${base}% (prior ${curWinType})</span>
+            <span style="font-family:var(--ff-m);font-size:.5rem;color:var(--teal);font-weight:700">${target}% (goal)</span>
+          </div>
+        </div>
+
+        <!-- Status row -->
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.3rem;padding-top:.3rem;border-top:1px solid var(--border)">
+          <span style="font-family:var(--ff-m);font-size:.63rem;font-weight:700;color:${gained>=0?'var(--green)':'var(--rose)'}">
+            ${gained>=0?'+':''}${gained} pts
+          </span>
+          <span style="font-family:var(--ff-m);font-size:.63rem;font-weight:700;color:${statusCol}">${statusLbl}</span>
+        </div>
+
+        <!-- Needed message -->
+        ${needed > 0
+          ? `<div style="font-family:var(--ff-m);font-size:.57rem;color:var(--text3);margin-top:.2rem">Need +${needed} pts to reach ${curWinType} target</div>`
+          : `<div style="font-family:var(--ff-m);font-size:.57rem;color:var(--green);margin-top:.2rem">✓ Target met${ahead?' — '+Math.abs(needed)+'pts ahead':''}</div>`
+        }
+
+      </div>`;
+    });
+  });
+
+  // Animate bars after a short delay
+  setTimeout(() => {
+    document.querySelectorAll('.tc-bar-fill').forEach(b => {
+      b.style.width = b.dataset.w + '%';
+    });
+  }, 400);
 }
-function yoyWinFull(){ return {BOY:'BOY',MOY:'MOY',EOY:'EOY'}[CUR_WIN]; }
+
 
 // ══ RENDER ACADIENCE ══
 function renderAcad(grp){
@@ -1036,13 +1167,10 @@ function renderAcad(grp){
       }}},
     scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#475569',maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
-  // Trend line — filtered by window type, all subgroups
-  // Use a shared label set so all datasets are same length
   const trendRows = filterByWin(ACAD['All Students']||allRows, acadWinFilter);
   const wins = trendRows.map(r=>r.w);
   const pal  = [C.teal,C.amber,C.purple,C.rose,C.blue];
   mkChart('acadLine',{type:'line',data:{labels:wins,datasets:Object.keys(ACAD).map((g,i)=>{
-    // Map each label to its value — null if that window missing for this subgroup
     const dataMap = Object.fromEntries(filterByWin(ACAD[g],acadWinFilter).map(r=>[r.w,r.ab+r.at]));
     return {
       label:g,
@@ -1070,7 +1198,6 @@ function renderAcad(grp){
 
   document.getElementById('acad-sub').textContent=grp+' · '+(acadWinFilter==='ALL'?'All Windows':acadWinFilter+' windows only');
 
-  // Equity table — most recent window
   const latest = mostRecent(ACAD);
   const acadPriorW = priorYearRow(ACAD,'All Students',latest);
   document.getElementById('acad-tbl-sub').textContent=latest+(acadPriorW?' vs '+acadPriorW.w+' (YoY)':'');
@@ -1080,7 +1207,6 @@ function renderAcad(grp){
   Object.keys(ACAD).forEach(g=>{
     const r=ACAD[g].find(x=>x.w===latest); if(!r) return;
     const oa=r.ab+r.at, gap=oa-allOA;
-    // Compare vs same window prior year (e.g. MOY 25-26 vs MOY 24-25)
     const base=priorYearRow(ACAD,g,latest);
     const baseOA=base?base.ab+base.at:null;
     const chg=baseOA!=null?oa-baseOA:null;
@@ -1123,7 +1249,6 @@ function renderRead(grp){
       }}},
     scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#475569',maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
-  // Dynamic YoY comparison chart
   const yw      = yoyWinFull();
   const groups  = Object.keys(READ);
   const curYrW  = groups.length?READ[groups[0]]?.filter(r=>winType(r.w)===yw).slice(-1)[0]?.w:null;
@@ -1198,7 +1323,6 @@ function renderMath(grp){
       }}},
     scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#475569',maxRotation:45,font:{size:9}}},y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
-  // Dynamic YoY
   const yw=yoyWinFull();
   const groups=Object.keys(MATH);
   const curYrW=groups.length?MATH[groups[0]]?.filter(r=>winType(r.w)===yw).slice(-1)[0]?.w:null;
@@ -1239,17 +1363,14 @@ function renderMath(grp){
   });
 }
 
-// ══ RENDER CA — last 3 years only ══
+// ══ RENDER CA ══
 function renderCA(){
   let allYears = [...new Set(CA_DATA.flatMap(r=>Object.keys(r).filter(k=>k!=='month')))].sort();
-  // Keep only last 3 years
   const years = allYears.slice(-3);
-  const colors = [C.amber, C.blue, C.teal]; // prior-prior, prior, current
+  const colors = [C.amber, C.blue, C.teal];
   const months = CA_DATA.map(r=>r.month);
 
-  // Year avg cards (3 years)
   const cc=document.getElementById('caCards'); cc.innerHTML='';
-  // Override grid to 3 columns
   cc.style.gridTemplateColumns='repeat(3,1fr)';
   years.forEach((yr,i)=>{
     const vals=CA_DATA.map(r=>r[yr]).filter(v=>v!=null&&!isNaN(v));
@@ -1302,13 +1423,11 @@ function renderCA(){
     },
     scales:{x:{grid:{color:G},ticks:{color:'#475569'}},y:{grid:{color:G},min:8,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
-  // Current-month bar — find most recent month that has data for the latest year
   const latestYr=years[years.length-1];
   const monthsWithData = CA_DATA.filter(r=>r[latestYr]!=null);
   const curMonthRow = monthsWithData.length ? monthsWithData[monthsWithData.length-1] : CA_DATA.find(r=>r.month==='Sep');
   const curMonthName = curMonthRow ? curMonthRow.month : 'Sep';
   const sepVals=years.map(yr=>curMonthRow?curMonthRow[yr]??null:null);
-  // Update chart card subtitle
   const caYoYSubEl = document.getElementById('ca-yoy-sub');
   if(caYoYSubEl) caYoYSubEl.textContent = curMonthName+' YTD · year-over-year comparison';
   const caYoYTitleEl = document.getElementById('ca-yoy-title');
@@ -1328,7 +1447,6 @@ function renderCA(){
       }}},
     scales:{x:{grid:{display:false},ticks:{color:'#475569'}},y:{grid:{color:G},min:8,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
-  // Table — 3 years
   const tbl=document.getElementById('caTblWrap');
   let html=`<thead><tr><th>Month</th>${years.map(y=>`<th>${y}</th>`).join('')}<th>vs Prior Year</th></tr></thead><tbody>`;
   CA_DATA.forEach(row=>{
@@ -1339,173 +1457,6 @@ function renderCA(){
     html+=`<tr><td class="dn">${row.month}</td>${years.map(y=>`<td class="dm">${row[y]!=null?row[y]+'%':'—'}</td>`).join('')}<td>${trend}</td></tr>`;
   });
   tbl.innerHTML=html+'</tbody>';
-}
-
-// ══ GOAL TRACKER — baseline = EOY 24-25, mid-year checkpoints ══
-function renderTargets(){
-  const container=document.getElementById('targetRow'); container.innerHTML='';
-  let currentSection = '';
-
-  // ── Window context ──
-  // BOY: full goal by EOY. MOY: half-goal checkpoint. EOY: full goal.
-  const isMOY = CUR_WIN === 'MOY';
-  const isBOY = CUR_WIN === 'BOY';
-
-  // ── Baseline ──
-  const baselineWin = 'EOY 24-25';
-
-  // ── Goals by subgroup ──
-  const GOAL_BY_GRP = {'All Students':5,'Hispanics':10,'Black':10,'ELL':10,'SWD':10};
-  const SUBGROUPS   = ['All Students','Hispanics','Black','ELL','SWD'];
-  const METRICS = [
-    {section:'P1 · Acadience K–2 · On/Above Benchmark',       tc:'var(--p1)',   data:ACAD, calc:r=>r.ab+r.at},
-    {section:'P1 · iReady Reading · Mid/Above + Early On GL', tc:'var(--teal)', data:READ, calc:r=>r.m+r.e},
-    {section:'P3 · iReady Math · Mid/Above + Early On GL',    tc:'var(--blue)', data:MATH, calc:r=>r.m+r.e},
-  ];
-
-  // ── Period label for the header banner ──
-  const periodLabel = isMOY ? 'Mid-Year Checkpoint (MOY)' : isBOY ? 'Beginning of Year' : 'End of Year';
-  const periodNote  = isMOY
-    ? 'Mid-year target = baseline + ½ of annual goal. Full target due June 2026.'
-    : isBOY
-    ? 'Early-year snapshot. Full annual targets due June 2026.'
-    : 'End-of-year targets. Full annual goals.';
-
-  // Period banner across full width
-  container.innerHTML = `<div style="grid-column:1/-1;background:rgba(217,119,6,${isMOY?'.08':'.04'});border:1px solid rgba(217,119,6,${isMOY?'.3':'.12'});border-radius:12px;padding:.85rem 1.2rem;margin-bottom:.5rem;display:flex;align-items:center;gap:.9rem">
-    <div style="font-size:1.3rem">${isMOY?'🎯':isBOY?'🌱':'🏁'}</div>
-    <div>
-      <div style="font-family:var(--ff-h);font-size:.9rem;font-weight:800;color:var(--amber)">${periodLabel}</div>
-      <div style="font-family:var(--ff-m);font-size:.65rem;color:var(--text2);margin-top:.2rem">${periodNote}</div>
-    </div>
-    <div style="margin-left:auto;font-family:var(--ff-m);font-size:.62rem;color:var(--text3);text-align:right">Annual goal window<br>Sep 2025 – Jun 2026</div>
-  </div>`;
-
-  // ── Build targets array ──
-  const targets = [];
-  METRICS.forEach(met=>{
-    SUBGROUPS.forEach(sg=>{
-      targets.push({
-        label:   sg==='Hispanics'?'Hispanic':sg,
-        section: met.section, tc: met.tc, grp: sg,
-        data:    met.data, annualGoal: GOAL_BY_GRP[sg], calc: met.calc,
-      });
-    });
-  });
-
-  targets.forEach(t=>{
-    // Section header
-    if(t.section !== currentSection){
-      currentSection = t.section;
-      container.innerHTML += `<div style="grid-column:1/-1;padding:.6rem 0 .2rem;border-top:1px solid var(--border);margin-top:.6rem">
-        <span style="font-family:var(--ff-m);font-size:.63rem;color:var(--text2);text-transform:uppercase;letter-spacing:.1em">${t.section}</span>
-      </div>`;
-    }
-
-    // ── Data ──
-    const baseRow = t.data[t.grp]?.find(r=>r.w===baselineWin||r.w==='EOY 24-5'||r.w==='EOY 2024-25');
-    const latest  = mostRecent(t.data);
-    const curRow  = t.data[t.grp]?.find(r=>r.w===latest);
-
-    if(!baseRow||!curRow){
-      container.innerHTML+=`<div class="target-card" style="--tc:${t.tc};cursor:zoom-in" onclick="openCardZoom(this)">
-        <div class="tc-label">${t.label}</div>
-        <div style="font-family:var(--ff-m);font-size:.7rem;color:var(--text3);margin-top:.3rem">No EOY 24-25 baseline in Sheet</div>
-      </div>`;
-      return;
-    }
-
-    const base       = +t.calc(baseRow).toFixed(1);
-    const cur        = +t.calc(curRow).toFixed(1);
-    const annualGoal = t.annualGoal;
-    const eoyTarget  = +(base + annualGoal).toFixed(1);       // full year target
-    const moyTarget  = +(base + annualGoal/2).toFixed(1);     // mid-year checkpoint = baseline + half goal
-
-    // What are we tracking against RIGHT NOW?
-    const activeTarget = isMOY ? moyTarget : eoyTarget;
-    const activeGoalPts = isMOY ? annualGoal/2 : annualGoal;
-
-    const gained   = +(cur - base).toFixed(1);
-    const needed   = +(activeTarget - cur).toFixed(1);        // pts still needed
-    // Progress bar: % of the ACTIVE target achieved (from baseline)
-    const progress = Math.min(Math.max((gained / activeGoalPts)*100, 0), 100);
-
-    // Status: on track if at or above active checkpoint
-    const onTrack  = cur >= activeTarget;
-    const ahead    = cur > activeTarget;
-    const statusCol = ahead ? 'var(--green)' : onTrack ? 'var(--teal)' : 'var(--amber)';
-    const statusLbl = ahead ? 'Ahead ✦' : onTrack ? 'On Track ✓' : 'Watch ⚠';
-
-    // Progress bar segments: show baseline→moy checkpoint→eoy target markers
-    // Bar fills from 0→gained relative to annual goal span
-    const barPctOfAnnual = Math.min(Math.max((gained / annualGoal)*100, 0), 100);
-    const moyMarkerPct   = 50; // MOY checkpoint is always at 50% of bar
-    const cursorColor    = onTrack ? 'var(--green)' : 'var(--amber)';
-
-    container.innerHTML+=`<div class="target-card" style="--tc:${t.tc};cursor:zoom-in" onclick="openCardZoom(this)">
-
-      <!-- Subgroup label -->
-      <div class="tc-label">${t.label}</div>
-
-      <!-- Current value — large -->
-      <div class="tc-current" style="color:${t.tc}">${cur}%</div>
-
-      <!-- Three-tier milestone row -->
-      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:.15rem;margin:.5rem 0 .25rem;text-align:center">
-        <div>
-          <div style="font-family:var(--ff-m);font-size:.55rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">Baseline</div>
-          <div style="font-family:var(--ff-h);font-size:.9rem;color:var(--text2)">${base}%</div>
-          <div style="font-family:var(--ff-m);font-size:.5rem;color:var(--text3)">EOY 24-25</div>
-        </div>
-        <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:0 .3rem">
-          <div style="width:1px;flex:1;background:var(--border)"></div>
-        </div>
-        <div>
-          ${isMOY ? `
-          <div style="font-family:var(--ff-m);font-size:.55rem;color:var(--amber);text-transform:uppercase;letter-spacing:.06em">MOY Target ★</div>
-          <div style="font-family:var(--ff-h);font-size:.9rem;color:var(--amber)">${moyTarget}%</div>
-          <div style="font-family:var(--ff-m);font-size:.5rem;color:var(--text3)">+${annualGoal/2}pts checkpoint</div>
-          ` : `
-          <div style="font-family:var(--ff-m);font-size:.55rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em">EOY Target</div>
-          <div style="font-family:var(--ff-h);font-size:.9rem;color:var(--text2)">${eoyTarget}%</div>
-          <div style="font-family:var(--ff-m);font-size:.5rem;color:var(--text3)">+${annualGoal}pts by Jun 2026</div>
-          `}
-        </div>
-      </div>
-
-      <!-- Progress bar — full width, markers for MOY & EOY -->
-      <div style="position:relative;margin:.55rem 0 .3rem">
-        <!-- Track -->
-        <div style="height:7px;background:rgba(255,255,255,.07);border-radius:100px;overflow:visible;position:relative">
-          <!-- Fill -->
-          <div class="tc-bar-fill" data-w="${barPctOfAnnual}" style="height:100%;width:0%;background:${t.tc};border-radius:100px;transition:width .8s cubic-bezier(.4,0,.2,1)"></div>
-          <!-- MOY marker line -->
-          <div style="position:absolute;top:-3px;bottom:-3px;left:${moyMarkerPct}%;width:2px;background:var(--amber);border-radius:2px" title="MOY checkpoint"></div>
-          <!-- EOY end cap -->
-          <div style="position:absolute;top:-3px;bottom:-3px;right:0;width:2px;background:#f87171;border-radius:2px;opacity:.7" title="EOY target"></div>
-        </div>
-        <!-- Labels under bar -->
-        <div style="display:flex;justify-content:space-between;margin-top:.3rem">
-          <span style="font-family:var(--ff-m);font-size:.5rem;color:var(--text3)">Base ${base}%</span>
-          <span style="font-family:var(--ff-m);font-size:.5rem;color:var(--amber)">MOY ${moyTarget}%</span>
-          <span style="font-family:var(--ff-m);font-size:.5rem;color:#f87171;font-weight:700">EOY ${eoyTarget}%</span>
-        </div>
-      </div>
-
-      <!-- Status row -->
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:.35rem">
-        <span style="font-family:var(--ff-m);font-size:.65rem;font-weight:700;color:${gained>=0?'var(--green)':'var(--rose)'}">${gained>=0?'+':''}${gained} pts gained</span>
-        <span style="font-family:var(--ff-m);font-size:.65rem;font-weight:700;color:${statusCol}">${statusLbl}</span>
-      </div>
-
-      <!-- Needed to hit active checkpoint -->
-      ${needed>0 ? `<div style="font-family:var(--ff-m);font-size:.58rem;color:var(--text3);margin-top:.2rem">Need +${needed}pts to reach ${isMOY?'MOY':'EOY'} target</div>` : `<div style="font-family:var(--ff-m);font-size:.58rem;color:var(--green);margin-top:.2rem">✓ ${isMOY?'MOY checkpoint':'EOY target'} reached${ahead?' — '+Math.abs(needed)+'pts ahead':''}</div>`}
-
-    </div>`;
-  });
-
-  // Animate bars
-  setTimeout(()=>{ document.querySelectorAll('.tc-bar-fill').forEach(b=>{ b.style.width=b.dataset.w+'%'; }); }, 400);
 }
 
 // ══ HERO KPIs ══
@@ -1560,35 +1511,27 @@ function renderSEL(){
     el.innerHTML=`<div class="coming-soon"><div class="cs-icon">💛</div><div class="cs-title">SEL Data Coming Soon</div><div class="cs-desc">Priority 2 data will appear here once added to your Google Sheet.</div><span class="cs-tag">⏳ Awaiting data</span></div>`;
     return;
   }
-
   const selData = parseSEL(SEL_ROWS);
   if(!selData.length){ el.innerHTML='<div class="fetch-error">Could not parse SEL data — check column names in Sheet.</div>'; return; }
 
-  // ── Get unique windows and domains ──
   const windows = [...new Set(selData.map(r=>r.w))];
   const allDomains = [...new Set(selData.map(r=>r.domain))].filter(d=>d!=='Average');
-  const domains = allDomains; // all except Average which we handle separately
+  const domains = allDomains;
 
-  // ── Current window (prefer CUR_WIN match, else last) ──
   const curWinRows = windows.filter(w=>winType(w)===CUR_WIN);
   const curWin = curWinRows.length ? curWinRows[curWinRows.length-1] : windows[windows.length-1];
-  // Prior window: same type, prior year
   const prevWinKey = winType(curWin)+' '+prevYear(winYear(curWin));
   const prevWin = windows.find(w=>w===prevWinKey) || null;
 
-  // ── Helper: get row for a domain+window ──
   function getRow(win, domain){ return selData.find(r=>r.w===win&&r.domain===domain); }
-  function posScore(r){ return r ? r.sa+r.a : null; } // Strongly Agree + Agree = "Positive"
+  function posScore(r){ return r ? r.sa+r.a : null; }
 
-  // ── Goal banner ──
   const curAvg = getRow(curWin,'Average');
   const prevAvg = prevWin ? getRow(prevWin,'Average') : null;
   const curPos = curAvg ? posScore(curAvg) : null;
   const prevPos = prevAvg ? posScore(prevAvg) : null;
   const diff = (curPos!=null&&prevPos!=null) ? (curPos-prevPos).toFixed(1) : null;
 
-  // ── Build insight cards ──
-  const avgRow = curAvg;
   const topDomain = domains.map(d=>({d,v:posScore(getRow(curWin,d))||0})).sort((a,b)=>b.v-a.v)[0];
   const botDomain = domains.map(d=>({d,v:posScore(getRow(curWin,d))||0})).sort((a,b)=>a.v-b.v)[0];
 
@@ -1661,7 +1604,6 @@ function renderSEL(){
 
   el.innerHTML = html;
 
-  // ── Bar chart: domain comparison current window ──
   const barDomains = [...domains, 'Average'];
   const saVals  = barDomains.map(d=>{ const r=getRow(curWin,d); return r?r.sa:0; });
   const aVals   = barDomains.map(d=>{ const r=getRow(curWin,d); return r?r.a:0; });
@@ -1686,7 +1628,6 @@ function renderSEL(){
     scales:{x:{stacked:true,grid:{color:G},ticks:{color:'#475569',font:{size:9},maxRotation:35}},
             y:{stacked:true,grid:{color:G},max:100,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
-  // ── Line chart: Average positive score across all windows ──
   const lineWins = windows;
   const avgPositive = lineWins.map(w=>{ const r=getRow(w,'Average'); return r?posScore(r):null; });
   mkChart('selLine',{type:'line',data:{labels:lineWins,datasets:[{
@@ -1711,7 +1652,6 @@ function renderSEL(){
     scales:{x:{grid:{color:G},ticks:{color:'#475569',font:{size:9}}},
             y:{grid:{color:G},min:50,max:100,ticks:{color:'#475569',callback:v=>v+'%'}}}}});
 
-  // ── Table ──
   const tbody = document.getElementById('selTblBody'); if(!tbody) return;
   tbody.innerHTML = '';
   [...domains,'Average'].forEach(d=>{
@@ -1761,7 +1701,6 @@ function setGroup(type,grp,btn){
 function navTo(id, btn){
   const el = document.getElementById(id);
   if(!el) return;
-  // Offset for sticky nav height (54px)
   const top = el.getBoundingClientRect().top + window.scrollY - 58;
   window.scrollTo({top, behavior:'smooth'});
   if(btn){
@@ -1770,41 +1709,33 @@ function navTo(id, btn){
   }
 }
 
-// ── Scroll-spy: highlight nav item as sections scroll into view ──
 function initScrollSpy(){
   const sectionIds = ['cep','cep-progress','p1','p2','p3','p4','p5','ca-section'];
   const navBtns    = document.querySelectorAll('.nav-link[data-section]');
-
-  // Map section → button
   const btnMap = {};
-  navBtns.forEach(b => { btnMap[b.dataset.section] = b; }); btnMap['cep'] = btnMap['cep'] || document.querySelector('[data-section="cep"]');
+  navBtns.forEach(b => { btnMap[b.dataset.section] = b; });
 
   const observer = new IntersectionObserver(entries=>{
     entries.forEach(entry=>{
       if(entry.isIntersecting){
         const id = entry.target.id;
-        // Activate matching nav button
         navBtns.forEach(b=>b.classList.remove('active'));
         if(btnMap[id]) btnMap[id].classList.add('active');
-        // Scroll nav so active item is visible (for mobile)
         if(btnMap[id]){
           btnMap[id].scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'});
         }
       }
     });
-  },{
-    rootMargin:'-58px 0px -55% 0px', // trigger when section top enters top 45% of viewport
-    threshold: 0
-  });
+  },{rootMargin:'-58px 0px -55% 0px', threshold: 0});
 
   sectionIds.forEach(id=>{
     const el = document.getElementById(id);
     if(el) observer.observe(el);
   });
-  // Also observe the cep-progress div (it's inside the cep section)
   const cpEl = document.getElementById('cep-progress');
   if(cpEl) observer.observe(cpEl);
 }
+
 function hardRefresh(){ location.reload(); }
 
 // ══════════════════════════════════════════════
@@ -1867,35 +1798,24 @@ async function init(){
 function openCardZoom(card){
   const overlay = document.getElementById('cardZoomOverlay');
   const inner   = document.getElementById('cardZoomContent');
-
-  // Clone the entire card element at its natural size
   const clone = card.cloneNode(true);
   clone.style.cursor = 'default';
   clone.style.transform = 'none';
   clone.style.boxShadow = 'none';
   clone.style.border = 'none';
   clone.style.borderRadius = '0';
-  clone.style.width = card.offsetWidth + 'px'; // lock to original card width
-
+  clone.style.width = card.offsetWidth + 'px';
   inner.innerHTML = '';
   inner.appendChild(clone);
-
-  // Scale the inner container to exactly 2× using CSS transform
-  // transform-origin top-left so it grows rightward/downward, then we center via the outer box
   inner.style.transform = 'scale(2)';
   inner.style.transformOrigin = 'top left';
-
-  // The outer #cardZoomBox needs to be sized to fit the 2× content
-  // Set explicit width/height on the box to accommodate the scaled clone
   const zoomBox = document.getElementById('cardZoomBox');
   const cardW = card.offsetWidth;
   const cardH = card.offsetHeight;
-  zoomBox.style.width  = (cardW * 2 + 56) + 'px';   // 2× card + padding
-  zoomBox.style.height = (cardH * 2 + 80) + 'px';   // 2× card + padding + footer
+  zoomBox.style.width  = (cardW * 2 + 56) + 'px';
+  zoomBox.style.height = (cardH * 2 + 80) + 'px';
   zoomBox.style.maxWidth = 'min(95vw, ' + (cardW * 2 + 56) + 'px)';
   zoomBox.style.overflow = 'hidden';
-
-  // Re-animate the progress bar inside clone
   const fill = inner.querySelector('.tc-bar-fill');
   if(fill){
     const targetW = fill.dataset.w;
@@ -1903,8 +1823,6 @@ function openCardZoom(card){
     fill.style.width = '0%';
     setTimeout(()=>{ fill.style.transition = 'width 1s cubic-bezier(.4,0,.2,1)'; fill.style.width = targetW + '%'; }, 80);
   }
-
-  // Show modal
   overlay.style.display = 'flex';
   document.body.style.overflow = 'hidden';
   document.addEventListener('keydown', _zoomEsc);
@@ -1919,7 +1837,6 @@ function closeCardZoom(){
 function _zoomEsc(e){ if(e.key === 'Escape') closeCardZoom(); }
 
 document.addEventListener('DOMContentLoaded', init);
-
 </script>
 
 <!-- ── ZOOM MODAL ── -->
