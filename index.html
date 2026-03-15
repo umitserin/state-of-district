@@ -242,7 +242,15 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
 .btn-p{background:var(--blue);color:#fff;}.btn-p:hover{background:#3a7ae8;}
 .btn-g{background:transparent;border:1px solid var(--b2);color:var(--text2);}.btn-g:hover{border-color:var(--teal);color:var(--teal);}
 
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+/* ── CHART ZOOM BUTTON ── */
+.zoom-btn{
+  display:inline-flex;align-items:center;gap:.3rem;
+  padding:.22rem .65rem;border-radius:6px;border:1px solid var(--border);
+  background:transparent;color:var(--text3);font-family:var(--ff-m);font-size:.62rem;
+  cursor:pointer;transition:all .17s;flex-shrink:0;white-space:nowrap;
+}
+.zoom-btn:hover{border-color:var(--b2);color:var(--text2);background:rgba(15,23,42,.04);}
+.zoom-btn svg{width:11px;height:11px;opacity:.7;}
 .anim{animation:fadeUp .5s ease both;}
 .d1{animation-delay:.05s}.d2{animation-delay:.1s}.d3{animation-delay:.15s}
 
@@ -505,10 +513,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <button class="fb" onclick="setGroup('acad','SWD',this)">SWD</button>
   </div>
   <div class="g21 anim d2" style="margin-bottom:1rem">
-    <div class="card"><div class="ch"><div><div class="ct">Acadience K–2 · Benchmark Distribution</div><div class="cs" id="acad-sub">All Students · All Windows</div></div><span class="tag tt">Stacked %</span></div>
+    <div class="card"><div class="ch"><div><div class="ct">Acadience K–2 · Benchmark Distribution</div><div class="cs" id="acad-sub">All Students · All Windows</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag tt">Stacked %</span><button class="zoom-btn" onclick="openChartZoom('acadStack','Acadience K–2 · Benchmark Distribution',document.getElementById('acad-sub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div>
       <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Above</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>At</div><div class="si"><div class="sd" style="background:#f59e0b"></div>Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>Well Below</div></div>
       <div class="cw h280"><canvas id="acadStack"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct">Acadience K–2 · On/Above Trend</div><div class="cs" id="acad-line-sub">All subgroups · All Windows</div></div><span class="tag tb">Trend</span></div>
+    <div class="card"><div class="ch"><div><div class="ct">Acadience K–2 · On/Above Trend</div><div class="cs" id="acad-line-sub">All subgroups · All Windows</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag tb">Trend</span><button class="zoom-btn" onclick="openChartZoom('acadLine','Acadience K–2 · On/Above Trend',document.getElementById('acad-line-sub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div>
       <div class="cw h300"><canvas id="acadLine"></canvas></div></div>
   </div>
   <div class="card anim d3">
@@ -539,10 +547,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <button class="fb" onclick="setGroup('read','SWD',this)">SWD</button>
   </div>
   <div class="g2 anim d2" style="margin-bottom:1rem">
-    <div class="card"><div class="ch"><div><div class="ct">iReady Reading · Grade-Level Distribution</div><div class="cs" id="read-sub">All Students · All Windows</div></div><span class="tag tt">Stacked %</span></div>
+    <div class="card"><div class="ch"><div><div class="ct">iReady Reading · Grade-Level Distribution</div><div class="cs" id="read-sub">All Students · All Windows</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag tt">Stacked %</span><button class="zoom-btn" onclick="openChartZoom('readStack','iReady Reading · Grade-Level Distribution',document.getElementById('read-sub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div>
       <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Mid/Above GL</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>Early On GL</div><div class="si"><div class="sd" style="background:#f59e0b"></div>1 Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>2 Below</div><div class="si"><div class="sd" style="background:#a78bfa"></div>3+ Below</div></div>
       <div class="cw h280"><canvas id="readStack"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct" id="readGroupTitle">iReady Reading · Mid/Above GL · Year-over-Year</div><div class="cs" id="readGroupSub">Current window vs prior year</div></div><span class="tag tb">Comparison</span></div>
+    <div class="card"><div class="ch"><div><div class="ct" id="readGroupTitle">iReady Reading · Mid/Above GL · Year-over-Year</div><div class="cs" id="readGroupSub">Current window vs prior year</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag tb">Comparison</span><button class="zoom-btn" onclick="openChartZoom('readGroup',document.getElementById('readGroupTitle').textContent,document.getElementById('readGroupSub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div>
       <div class="cw h280"><canvas id="readGroup"></canvas></div></div>
   </div>
   <div class="card anim d3">
@@ -580,10 +588,10 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <button class="fb" onclick="setGroup('math','SWD',this)">SWD</button>
   </div>
   <div class="g2 anim d2" style="margin-bottom:1rem">
-    <div class="card"><div class="ch"><div><div class="ct">iReady Math · Grade-Level Distribution</div><div class="cs" id="math-sub">All Students · All Windows</div></div><span class="tag ta">Stacked %</span></div>
+    <div class="card"><div class="ch"><div><div class="ct">iReady Math · Grade-Level Distribution</div><div class="cs" id="math-sub">All Students · All Windows</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag ta">Stacked %</span><button class="zoom-btn" onclick="openChartZoom('mathStack','iReady Math · Grade-Level Distribution',document.getElementById('math-sub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div>
       <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Mid/Above GL</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>Early On GL</div><div class="si"><div class="sd" style="background:#f59e0b"></div>1 Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>2 Below</div><div class="si"><div class="sd" style="background:#a78bfa"></div>3+ Below</div></div>
       <div class="cw h280"><canvas id="mathStack"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct" id="mathYoYTitle">iReady Math · Mid/Above GL · Year-over-Year</div><div class="cs" id="mathYoYSub">Current window vs prior year</div></div><span class="tag tb">YoY</span></div>
+    <div class="card"><div class="ch"><div><div class="ct" id="mathYoYTitle">iReady Math · Mid/Above GL · Year-over-Year</div><div class="cs" id="mathYoYSub">Current window vs prior year</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag tb">YoY</span><button class="zoom-btn" onclick="openChartZoom('mathYoY',document.getElementById('mathYoYTitle').textContent,document.getElementById('mathYoYSub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div>
       <div class="cw h280"><canvas id="mathYoY"></canvas></div></div>
   </div>
   <div class="card anim d3">
@@ -642,8 +650,8 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
   </div>
   <div class="ca-grid anim d1" id="caCards"></div>
   <div class="g2 anim d2" style="margin-bottom:1rem">
-    <div class="card"><div class="ch"><div><div class="ct">Chronic Absenteeism · Monthly YTD Rate</div><div class="cs">September through June</div></div><span class="tag tr">Multi-Year</span></div><div class="cw h320"><canvas id="caLine"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct" id="ca-yoy-title">Chronic Absenteeism · Current Month YTD Rate</div><div class="cs" id="ca-yoy-sub">Most recent month · year-over-year comparison</div></div><span class="tag ta">YoY BOY</span></div><div class="cw h320"><canvas id="caSep"></canvas></div></div>
+    <div class="card"><div class="ch"><div><div class="ct">Chronic Absenteeism · Monthly YTD Rate</div><div class="cs">September through June</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag tr">Multi-Year</span><button class="zoom-btn" onclick="openChartZoom('caLine','Chronic Absenteeism · Monthly YTD Rate','September through June · Multi-Year')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div><div class="cw h320"><canvas id="caLine"></canvas></div></div>
+    <div class="card"><div class="ch"><div><div class="ct" id="ca-yoy-title">Chronic Absenteeism · Current Month YTD Rate</div><div class="cs" id="ca-yoy-sub">Most recent month · year-over-year comparison</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag ta">YoY BOY</span><button class="zoom-btn" onclick="openChartZoom('caSep',document.getElementById('ca-yoy-title').textContent,document.getElementById('ca-yoy-sub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div><div class="cw h320"><canvas id="caSep"></canvas></div></div>
   </div>
   <div class="card anim d3">
     <div class="ch"><div><div class="ct">Chronic Absenteeism · Monthly Detail</div><div class="cs">YTD chronic absenteeism rate</div></div><span class="tag tb">Full View</span></div>
@@ -702,7 +710,12 @@ const BAR_LBL   = {display:ctx=>ctx.dataset.data[ctx.dataIndex]>0,color:'#1e293b
 const TT_BASE   = {backgroundColor:'rgba(255,255,255,0.98)',titleColor:'#0f172a',bodyColor:'#475569',borderColor:'rgba(15,23,42,0.12)',borderWidth:1,padding:12,cornerRadius:10,titleFont:{size:11,weight:'700'},footerFont:{size:9}};
 
 let ci = {};
-function mkChart(id, cfg){ if(ci[id]) ci[id].destroy(); ci[id] = new Chart(document.getElementById(id), cfg); }
+let cfgStore = {};
+function mkChart(id, cfg){
+  if(ci[id]) ci[id].destroy();
+  cfgStore[id] = cfg;
+  ci[id] = new Chart(document.getElementById(id), cfg);
+}
 
 // ══ DETERMINE CURRENT WINDOW ══
 function currentWindow(){
@@ -1567,14 +1580,14 @@ function renderSEL(){
     <div class="card">
       <div class="ch">
         <div><div class="ct">SEL Survey · Domain Breakdown</div><div class="cs" id="sel-bar-sub">${curWin} · Positive Responses (SA + Agree)</div></div>
-        <span class="tag ta">All Domains</span>
+        <div style="display:flex;align-items:center;gap:.5rem"><span class="tag ta">All Domains</span><button class="zoom-btn" onclick="openChartZoom('selBar','SEL Survey · Domain Breakdown',document.getElementById('sel-bar-sub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div>
       </div>
       <div class="cw h300"><canvas id="selBar"></canvas></div>
     </div>
     <div class="card">
       <div class="ch">
         <div><div class="ct">SEL Survey · Average Score Trend</div><div class="cs">All available windows · Positive responses %</div></div>
-        <span class="tag tb">Trend</span>
+        <div style="display:flex;align-items:center;gap:.5rem"><span class="tag tb">Trend</span><button class="zoom-btn" onclick="openChartZoom('selLine','SEL Survey · Average Score Trend','All available windows · Positive responses %')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div>
       </div>
       <div class="cw h300"><canvas id="selLine"></canvas></div>
     </div>
@@ -1794,6 +1807,89 @@ async function init(){
   }
 }
 
+// ══ CHART ZOOM MODAL ══
+let zoomedChart = null;
+
+function openChartZoom(canvasId, title, subtitle) {
+  const overlay = document.getElementById('chartZoomOverlay');
+  const titleEl = document.getElementById('chartZoomTitle');
+  const subEl   = document.getElementById('chartZoomSubtitle');
+  const canvas  = document.getElementById('chartZoomCanvas');
+
+  titleEl.textContent   = title    || '';
+  subEl.textContent     = subtitle || '';
+
+  // Destroy any previous zoomed chart
+  if(zoomedChart) { zoomedChart.destroy(); zoomedChart = null; }
+
+  const cfg = cfgStore[canvasId];
+  if(!cfg) return;
+
+  // Deep-clone the config so we can tweak it for fullscreen
+  const fullCfg = JSON.parse(JSON.stringify(cfg));
+
+  // Upscale fonts for the larger canvas
+  const scale = 1.55;
+  if(fullCfg.options) {
+    // Axis ticks
+    ['x','y'].forEach(axis => {
+      const sc = fullCfg.options?.scales?.[axis];
+      if(sc?.ticks?.font?.size) sc.ticks.font.size = Math.round(sc.ticks.font.size * scale);
+      else if(sc?.ticks) sc.ticks.font = {size: Math.round(11 * scale)};
+    });
+    // Legend
+    if(fullCfg.options?.plugins?.legend?.labels) {
+      const ll = fullCfg.options.plugins.legend.labels;
+      if(ll.font?.size) ll.font.size = Math.round(ll.font.size * scale);
+      else ll.font = {size: Math.round(10 * scale)};
+      ll.padding = Math.round((ll.padding||14) * scale);
+      ll.boxWidth = Math.round((ll.boxWidth||8) * scale);
+    }
+    // Datalabels
+    const dl = fullCfg.options?.plugins?.datalabels;
+    if(dl && dl.font?.size) dl.font.size = Math.round(dl.font.size * scale);
+    // Always show datalabels in zoom (lower threshold)
+    if(dl && typeof dl.display === 'string' && dl.display.includes('>=8')) {
+      // parsed from JSON as a string — override to always show
+    }
+    fullCfg.options.animation = { duration: 600 };
+    fullCfg.options.responsive = true;
+    fullCfg.options.maintainAspectRatio = false;
+  }
+
+  // Re-attach the original live datasets (not stringified — keeps functions)
+  fullCfg.data = cfg.data;
+  // Re-attach original callbacks (JSON.parse strips functions)
+  if(cfg.options?.plugins?.tooltip?.callbacks)
+    fullCfg.options.plugins.tooltip = cfg.options.plugins.tooltip;
+  if(cfg.options?.plugins?.datalabels)
+    fullCfg.options.plugins.datalabels = cfg.options.plugins.datalabels;
+  if(cfg.options?.scales)
+    fullCfg.options.scales = cfg.options.scales;
+  if(cfg.options?.plugins?.legend)
+    fullCfg.options.plugins.legend = cfg.options.plugins.legend;
+
+  overlay.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+  document.addEventListener('keydown', _chartZoomEsc);
+
+  // Render after the modal is visible so canvas has dimensions
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      zoomedChart = new Chart(canvas, fullCfg);
+    });
+  });
+}
+
+function closeChartZoom() {
+  document.getElementById('chartZoomOverlay').style.display = 'none';
+  document.body.style.overflow = '';
+  document.removeEventListener('keydown', _chartZoomEsc);
+  if(zoomedChart) { zoomedChart.destroy(); zoomedChart = null; }
+}
+
+function _chartZoomEsc(e) { if(e.key === 'Escape') closeChartZoom(); }
+
 // ══ CARD ZOOM MODAL ══
 function openCardZoom(card){
   const overlay = document.getElementById('cardZoomOverlay');
@@ -1839,7 +1935,26 @@ function _zoomEsc(e){ if(e.key === 'Escape') closeCardZoom(); }
 document.addEventListener('DOMContentLoaded', init);
 </script>
 
-<!-- ── ZOOM MODAL ── -->
+<!-- ── CHART ZOOM MODAL ── -->
+<div id="chartZoomOverlay" onclick="closeChartZoom()" style="display:none;position:fixed;inset:0;z-index:600;background:rgba(10,15,25,.92);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:1.5rem">
+  <div onclick="event.stopPropagation()" style="position:relative;width:min(96vw,1400px);height:min(88vh,840px);background:#ffffff;border:1px solid rgba(30,41,59,.15);border-radius:20px;padding:1.5rem 1.75rem 1.25rem;box-shadow:0 40px 100px rgba(0,0,0,.7);display:flex;flex-direction:column;">
+    <!-- Header -->
+    <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:1rem;gap:1rem;flex-shrink:0">
+      <div>
+        <div id="chartZoomTitle" style="font-family:'Syne',sans-serif;font-size:1.15rem;font-weight:800;color:#0f172a;line-height:1.2"></div>
+        <div id="chartZoomSubtitle" style="font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:#64748b;margin-top:.3rem"></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.75rem;flex-shrink:0">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:.6rem;color:#94a3b8">ESC or click outside to close</div>
+        <button onclick="closeChartZoom()" style="background:rgba(15,23,42,.07);border:1px solid rgba(15,23,42,.12);color:#475569;font-size:1rem;width:34px;height:34px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0" onmouseover="this.style.background='rgba(15,23,42,.14)'" onmouseout="this.style.background='rgba(15,23,42,.07)'">✕</button>
+      </div>
+    </div>
+    <!-- Chart canvas -->
+    <div style="flex:1;position:relative;min-height:0">
+      <canvas id="chartZoomCanvas"></canvas>
+    </div>
+  </div>
+</div>
 <div id="cardZoomOverlay" onclick="closeCardZoom()" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.75);backdrop-filter:blur(6px);align-items:center;justify-content:center;padding:1.5rem">
   <div id="cardZoomBox" onclick="event.stopPropagation()" style="position:relative;background:var(--card2);border:1px solid var(--b2);border-radius:20px;padding:2rem 2.2rem 1.5rem;box-shadow:0 32px 80px rgba(0,0,0,.6)">
     <button onclick="closeCardZoom()" style="position:absolute;top:.9rem;right:.9rem;background:rgba(255,255,255,.08);border:none;color:var(--text2);font-size:1.1rem;width:32px;height:32px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .15s" onmouseover="this.style.background='rgba(255,255,255,.15)'" onmouseout="this.style.background='rgba(255,255,255,.08)'">✕</button>
