@@ -550,7 +550,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <div class="card"><div class="ch"><div><div class="ct">iReady Reading · Grade-Level Distribution</div><div class="cs" id="read-sub">All Students · All Windows</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag tt">Stacked %</span><button class="zoom-btn" onclick="openChartZoom('readStack','iReady Reading · Grade-Level Distribution',document.getElementById('read-sub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div>
       <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Mid/Above GL</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>Early On GL</div><div class="si"><div class="sd" style="background:#f59e0b"></div>1 Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>2 Below</div><div class="si"><div class="sd" style="background:#a78bfa"></div>3+ Below</div></div>
       <div class="cw h280"><canvas id="readStack"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct" id="readGroupTitle">iReady Reading · Mid/Above GL · Year-over-Year</div><div class="cs" id="readGroupSub">Current window vs prior year</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag tb">Comparison</span><button class="zoom-btn" onclick="openChartZoom('readGroup',document.getElementById('readGroupTitle').textContent,document.getElementById('readGroupSub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div>
+    <div class="card"><div class="ch"><div><div class="ct" id="readGroupTitle">iReady Reading · On-Track Total · Year-over-Year</div><div class="cs" id="readGroupSub">Current window vs prior year</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag tb">Comparison</span><button class="zoom-btn" onclick="openChartZoom('readGroup',document.getElementById('readGroupTitle').textContent,document.getElementById('readGroupSub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div>
       <div class="cw h280"><canvas id="readGroup"></canvas></div></div>
   </div>
   <div class="card anim d3">
@@ -591,7 +591,7 @@ footer{position:relative;z-index:1;border-top:1px solid var(--border);padding:1.
     <div class="card"><div class="ch"><div><div class="ct">iReady Math · Grade-Level Distribution</div><div class="cs" id="math-sub">All Students · All Windows</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag ta">Stacked %</span><button class="zoom-btn" onclick="openChartZoom('mathStack','iReady Math · Grade-Level Distribution',document.getElementById('math-sub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div>
       <div class="sl"><div class="si"><div class="sd" style="background:#4ade80"></div>Mid/Above GL</div><div class="si"><div class="sd" style="background:#4f8ef7"></div>Early On GL</div><div class="si"><div class="sd" style="background:#f59e0b"></div>1 Below</div><div class="si"><div class="sd" style="background:#fb7185"></div>2 Below</div><div class="si"><div class="sd" style="background:#a78bfa"></div>3+ Below</div></div>
       <div class="cw h280"><canvas id="mathStack"></canvas></div></div>
-    <div class="card"><div class="ch"><div><div class="ct" id="mathYoYTitle">iReady Math · Mid/Above GL · Year-over-Year</div><div class="cs" id="mathYoYSub">Current window vs prior year</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag tb">YoY</span><button class="zoom-btn" onclick="openChartZoom('mathYoY',document.getElementById('mathYoYTitle').textContent,document.getElementById('mathYoYSub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div>
+    <div class="card"><div class="ch"><div><div class="ct" id="mathYoYTitle">iReady Math · On-Track Total · Year-over-Year</div><div class="cs" id="mathYoYSub">Current window vs prior year</div></div><div style="display:flex;align-items:center;gap:.5rem"><span class="tag tb">YoY</span><button class="zoom-btn" onclick="openChartZoom('mathYoY',document.getElementById('mathYoYTitle').textContent,document.getElementById('mathYoYSub').textContent)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>Expand</button></div></div>
       <div class="cw h280"><canvas id="mathYoY"></canvas></div></div>
   </div>
   <div class="card anim d3">
@@ -1267,17 +1267,19 @@ function renderRead(grp){
   const curYrW  = groups.length?READ[groups[0]]?.filter(r=>winType(r.w)===yw).slice(-1)[0]?.w:null;
   const prevYrW = curYrW?winType(curYrW)+' '+prevYear(winYear(curYrW)):null;
   mkChart('readGroup',{type:'bar',data:{labels:groups,datasets:[
-    {label:prevYrW||'Prior Year '+yw,data:groups.map(g=>READ[g]?.find(r=>r.w===prevYrW)?.m||READ[g]?.find(r=>winType(r.w)===yw&&r.w!==curYrW)?.m||0),backgroundColor:'rgba(37,99,235,0.15)',borderRadius:6},
-    {label:curYrW||'Current '+yw,   data:groups.map(g=>READ[g]?.find(r=>r.w===curYrW)?.m||0),backgroundColor:C.blue,borderRadius:6},
+    {label:prevYrW||'Prior Year '+yw,data:groups.map(g=>{const r=READ[g]?.find(x=>x.w===prevYrW)||READ[g]?.find(x=>winType(x.w)===yw&&x.w!==curYrW);return r?(r.m+r.e):0;}),backgroundColor:'rgba(37,99,235,0.15)',borderRadius:6},
+    {label:curYrW||'Current '+yw,   data:groups.map(g=>{const r=READ[g]?.find(x=>x.w===curYrW);return r?(r.m+r.e):0;}),backgroundColor:C.blue,borderRadius:6},
   ]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{position:'bottom',labels:{color:'#475569'}},datalabels:BAR_LBL,
       tooltip:{...TT_BASE,callbacks:{
-        title:i=>i[0].label+' — iReady Reading Mid/Above GL',
+        title:i=>i[0].label+' — iReady Reading On-Track (Mid/Above + Early On GL)',
         label:ctx=>' '+ctx.dataset.label+': '+ctx.parsed.y+'%',
         afterBody:i=>{
           const g=i[0].label;
-          const prev=READ[g]?.find(r=>r.w===prevYrW)?.m||0;
-          const cur=READ[g]?.find(r=>r.w===curYrW)?.m||0;
+          const prevR=READ[g]?.find(r=>r.w===prevYrW);
+          const curR=READ[g]?.find(r=>r.w===curYrW);
+          const prev=prevR?(prevR.m+prevR.e):0;
+          const cur=curR?(curR.m+curR.e):0;
           const diff=cur-prev;
           return ['',' YoY ('+prevYrW+' → '+curYrW+'): '+(diff>=0?'+':'')+diff+' pts'];
         },
@@ -1286,7 +1288,7 @@ function renderRead(grp){
 
   document.getElementById('read-sub').textContent=grp+' · '+(readWinFilter==='ALL'?'All Windows':readWinFilter+' windows only');
   if(document.getElementById('readGroupSub')){
-    document.getElementById('readGroupSub').textContent='iReady Reading · '+(curYrW||'Current')+' vs '+(prevYrW||'Prior Year')+' · Mid/Above Grade Level';
+    document.getElementById('readGroupSub').textContent='iReady Reading · '+(curYrW||'Current')+' vs '+(prevYrW||'Prior Year')+' · On-Track Total (Mid/Above + Early On GL)';
   }
   const latest=mostRecent(READ);
   const readPriorW = priorYearRow(READ,'All Students',latest);
@@ -1341,17 +1343,19 @@ function renderMath(grp){
   const curYrW=groups.length?MATH[groups[0]]?.filter(r=>winType(r.w)===yw).slice(-1)[0]?.w:null;
   const prevYrW=curYrW?winType(curYrW)+' '+prevYear(winYear(curYrW)):null;
   mkChart('mathYoY',{type:'bar',data:{labels:groups,datasets:[
-    {label:prevYrW||'Prior Year '+yw,data:groups.map(g=>MATH[g]?.find(r=>r.w===prevYrW)?.m||MATH[g]?.find(r=>winType(r.w)===yw&&r.w!==curYrW)?.m||0),backgroundColor:'rgba(217,119,6,0.15)',borderRadius:6},
-    {label:curYrW||'Current '+yw,    data:groups.map(g=>MATH[g]?.find(r=>r.w===curYrW)?.m||0),backgroundColor:C.amber,borderRadius:6},
+    {label:prevYrW||'Prior Year '+yw,data:groups.map(g=>{const r=MATH[g]?.find(x=>x.w===prevYrW)||MATH[g]?.find(x=>winType(x.w)===yw&&x.w!==curYrW);return r?(r.m+r.e):0;}),backgroundColor:'rgba(217,119,6,0.15)',borderRadius:6},
+    {label:curYrW||'Current '+yw,    data:groups.map(g=>{const r=MATH[g]?.find(x=>x.w===curYrW);return r?(r.m+r.e):0;}),backgroundColor:C.amber,borderRadius:6},
   ]},options:{responsive:true,maintainAspectRatio:false,
     plugins:{legend:{position:'bottom',labels:{color:'#475569'}},datalabels:BAR_LBL,
       tooltip:{...TT_BASE,callbacks:{
-        title:i=>i[0].label+' — iReady Math Mid/Above GL',
+        title:i=>i[0].label+' — iReady Math On-Track (Mid/Above + Early On GL)',
         label:ctx=>' '+ctx.dataset.label+': '+ctx.parsed.y+'%',
         afterBody:i=>{
           const g=i[0].label;
-          const prev=MATH[g]?.find(r=>r.w===prevYrW)?.m||0;
-          const cur=MATH[g]?.find(r=>r.w===curYrW)?.m||0;
+          const prevR=MATH[g]?.find(r=>r.w===prevYrW);
+          const curR=MATH[g]?.find(r=>r.w===curYrW);
+          const prev=prevR?(prevR.m+prevR.e):0;
+          const cur=curR?(curR.m+curR.e):0;
           const diff=cur-prev;
           return ['',' YoY ('+prevYrW+' → '+curYrW+'): '+(diff>=0?'+':'')+diff+' pts'];
         },
@@ -1361,7 +1365,7 @@ function renderMath(grp){
   const latest=mostRecent(MATH);
   document.getElementById('math-sub').textContent=grp+' · '+(mathWinFilter==='ALL'?'All Windows':mathWinFilter+' windows only');
   if(document.getElementById('mathYoYSub')){
-    document.getElementById('mathYoYSub').textContent='iReady Math · '+(curYrW||'Current')+' vs '+(prevYrW||'Prior Year')+' · Mid/Above Grade Level';
+    document.getElementById('mathYoYSub').textContent='iReady Math · '+(curYrW||'Current')+' vs '+(prevYrW||'Prior Year')+' · On-Track Total (Mid/Above + Early On GL)';
   }
   const mathPriorW = priorYearRow(MATH,'All Students',latest);
   document.getElementById('math-tbl-sub').textContent=latest+(mathPriorW?' vs '+mathPriorW.w+' (YoY)':'');
