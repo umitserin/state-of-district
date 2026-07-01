@@ -138,31 +138,41 @@ h1 .acc{color:var(--teal);}
 .tc-note{font-family:var(--ff-m);font-size:.6rem;color:var(--text3);margin-top:.4rem;}
 
 
-/* ── COMMUNITY PROGRESS SUMMARY ── */
-.progress-intro{grid-column:1/-1;background:linear-gradient(135deg,rgba(8,145,178,.07),rgba(37,99,235,.045));border:1px solid rgba(8,145,178,.18);border-radius:var(--r2);padding:1.15rem 1.35rem;margin-bottom:.35rem;display:flex;gap:1rem;align-items:flex-start;}
-.progress-intro-icon{font-size:1.45rem;line-height:1;}
-.progress-intro-title{font-family:var(--ff-h);font-size:1rem;font-weight:800;color:var(--teal);margin-bottom:.25rem;}
-.progress-intro-text{font-family:var(--ff-b);font-size:.82rem;color:var(--text2);line-height:1.65;}
-.progress-grid{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;}
-@media(max-width:1050px){.progress-grid{grid-template-columns:1fr 1fr;}}
-@media(max-width:650px){.progress-grid{grid-template-columns:1fr;}.progress-intro{flex-direction:column;}}
-.progress-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);padding:1.25rem 1.35rem;border-top:4px solid var(--pc,var(--teal));box-shadow:0 1px 4px rgba(0,0,0,.06);transition:transform .18s,box-shadow .18s,border-color .18s;cursor:pointer;}
-.progress-card:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,0,0,.18);border-color:var(--b2);}
-.progress-kicker{font-family:var(--ff-m);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:.45rem;}
-.progress-title{font-family:var(--ff-h);font-size:1.05rem;line-height:1.2;font-weight:800;color:var(--text);margin-bottom:.75rem;}
-.progress-values{display:grid;grid-template-columns:1fr auto 1fr;gap:.6rem;align-items:end;margin-bottom:.75rem;}
-.progress-value-label{font-family:var(--ff-m);font-size:.55rem;letter-spacing:.08em;text-transform:uppercase;color:var(--text3);margin-bottom:.2rem;}
-.progress-value{font-family:var(--ff-h);font-size:1.75rem;line-height:1;font-weight:800;color:var(--pc,var(--teal));}
-.progress-target{text-align:right;}
-.progress-target .progress-value{font-size:1.25rem;color:var(--text2);}
-.progress-arrow{font-family:var(--ff-m);font-size:.9rem;color:var(--text3);padding-bottom:.25rem;}
-.progress-status{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--ff-m);font-size:.66rem;font-weight:700;border-radius:999px;padding:.26rem .65rem;margin-bottom:.55rem;}
-.progress-status.good{background:rgba(22,163,74,.1);color:var(--green);border:1px solid rgba(22,163,74,.18);}
-.progress-status.watch{background:rgba(217,119,6,.1);color:var(--amber);border:1px solid rgba(217,119,6,.18);}
-.progress-status.urgent{background:rgba(225,29,72,.1);color:var(--rose);border:1px solid rgba(225,29,72,.18);}
-.progress-status.soon{background:rgba(148,163,184,.13);color:var(--text2);border:1px solid rgba(148,163,184,.25);}
-.progress-message{font-size:.78rem;color:var(--text2);line-height:1.55;min-height:2.4em;}
-.progress-link{font-family:var(--ff-m);font-size:.62rem;color:var(--pc,var(--teal));margin-top:.8rem;display:inline-block;}
+/* ── COMMUNITY PROGRESS SUMMARY TABLE ── */
+.progress-intro{background:linear-gradient(135deg,rgba(8,145,178,.07),rgba(37,99,235,.045));border:1px solid rgba(8,145,178,.18);border-radius:var(--r2);padding:1.2rem 1.4rem;margin-bottom:1rem;display:flex;gap:1rem;align-items:flex-start;}
+.progress-intro-icon{font-size:1.4rem;line-height:1;}
+.progress-intro-title{font-family:var(--ff-h);font-size:1.15rem;font-weight:800;color:var(--teal);margin-bottom:.25rem;letter-spacing:.01em;}
+.progress-intro-text{font-family:var(--ff-b);font-size:.88rem;color:var(--text2);line-height:1.65;max-width:1120px;}
+.progress-table-card{background:var(--card);border:1px solid var(--border);border-radius:var(--r2);box-shadow:0 1px 5px rgba(15,23,42,.06);overflow:hidden;}
+.progress-table-wrap{width:100%;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.progress-table{width:100%;border-collapse:collapse;font-family:var(--ff-b);font-size:.9rem;color:var(--text);}
+.progress-table th{font-family:var(--ff-h);font-size:.76rem;letter-spacing:.04em;text-transform:uppercase;color:var(--text2);background:var(--card2);padding:.95rem 1rem;border-bottom:1px solid var(--border);text-align:left;white-space:nowrap;}
+.progress-table td{padding:1rem;border-bottom:1px solid rgba(30,41,59,.08);vertical-align:middle;line-height:1.45;}
+.progress-table tr:last-child td{border-bottom:none;}
+.progress-table tr:hover td{background:rgba(8,145,178,.035);}
+.pt-priority{font-family:var(--ff-h);font-size:.98rem;font-weight:800;color:var(--text);min-width:210px;}
+.pt-kicker{font-family:var(--ff-m);font-size:.6rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);margin-bottom:.2rem;}
+.pt-current,.pt-target{font-family:var(--ff-h);font-size:1.25rem;font-weight:800;white-space:nowrap;text-align:right;}
+.pt-current{color:var(--row-color,var(--teal));}
+.pt-target{color:var(--text2);}
+.progress-table th.num,.progress-table td.num{text-align:right;}
+.pt-status{display:inline-flex;align-items:center;gap:.35rem;font-family:var(--ff-m);font-size:.68rem;font-weight:700;border-radius:999px;padding:.28rem .65rem;white-space:nowrap;}
+.pt-status.good{background:rgba(22,163,74,.1);color:var(--green);border:1px solid rgba(22,163,74,.18);}
+.pt-status.watch{background:rgba(217,119,6,.1);color:var(--amber);border:1px solid rgba(217,119,6,.18);}
+.pt-status.urgent{background:rgba(225,29,72,.1);color:var(--rose);border:1px solid rgba(225,29,72,.18);}
+.pt-status.soon{background:rgba(148,163,184,.13);color:var(--text2);border:1px solid rgba(148,163,184,.25);}
+.pt-message{font-size:.86rem;color:var(--text2);max-width:520px;}
+.pt-link{font-family:var(--ff-m);font-size:.64rem;color:var(--row-color,var(--teal));margin-top:.35rem;display:inline-block;cursor:pointer;}
+.pt-link:hover{text-decoration:underline;}
+@media(max-width:760px){
+  .progress-intro{flex-direction:column;padding:1rem 1.1rem;}
+  .progress-intro-title{font-size:1rem;}
+  .progress-intro-text{font-size:.8rem;}
+  .progress-table{font-size:.8rem;min-width:820px;}
+  .progress-table th{font-size:.68rem;padding:.75rem .8rem;}
+  .progress-table td{padding:.8rem;}
+  .pt-current,.pt-target{font-size:1.05rem;}
+}
 
 /* ── SECTION ── */
 .section{margin-bottom:4rem;scroll-margin-top:64px;}
@@ -1077,33 +1087,40 @@ function renderTargets(){
     <div class="progress-intro">
       <div class="progress-intro-icon">📌</div>
       <div>
-        <div class="progress-intro-title">A simpler community view</div>
-        <div class="progress-intro-text">The summary below shows the current district result, the June 2026 target, and a plain-language status. Assessment targets compare the current ${periodLabel} result to the same testing window from the prior year. Attendance is interpreted in the opposite direction because a lower chronic absenteeism rate is better.</div>
+        <div class="progress-intro-title">District Progress at a Glance</div>
+        <div class="progress-intro-text">This summary shows where District 25 currently stands, the June 2026 target, and a plain-language interpretation of progress. Assessment targets compare the current ${periodLabel} result to the same testing window from the prior year. Attendance is interpreted in the opposite direction because a lower chronic absenteeism rate is better.</div>
       </div>
     </div>
-    <div class="progress-grid">
-      ${cards.map(c=>`
-        <div class="progress-card" style="--pc:${c.color}" onclick="navTo('${c.sectionId}',null)">
-          <div class="progress-kicker">${c.kicker}</div>
-          <div class="progress-title">${c.title}</div>
-          <div class="progress-values">
-            <div>
-              <div class="progress-value-label">Current</div>
-              <div class="progress-value">${fmt(c.current)}</div>
-            </div>
-            <div class="progress-arrow">→</div>
-            <div class="progress-target">
-              <div class="progress-value-label">Target</div>
-              <div class="progress-value">${fmt(c.target)}</div>
-            </div>
-          </div>
-          <div class="progress-status ${statusClass(c.status)}"><span>${statusIcon(c.status)}</span>${c.status}</div>
-          <div class="progress-message">${c.message}</div>
-          <div class="progress-link">View details · ${c.detail}</div>
-        </div>
-      `).join('')}
-    </div>`;
-}
+    <div class="progress-table-card">
+      <div class="progress-table-wrap">
+        <table class="progress-table" aria-label="District Progress at a Glance">
+          <thead>
+            <tr>
+              <th>Priority Area</th>
+              <th class="num">Current Status</th>
+              <th class="num">June 2026 Target</th>
+              <th>Status</th>
+              <th>What This Means</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${cards.map(c=>`
+              <tr style="--row-color:${c.color}" onclick="navTo('${c.sectionId}',null)">
+                <td>
+                  <div class="pt-kicker">${c.kicker}</div>
+                  <div class="pt-priority">${c.title}</div>
+                  <div class="pt-link">View details · ${c.detail}</div>
+                </td>
+                <td class="num"><span class="pt-current">${fmt(c.current)}</span></td>
+                <td class="num"><span class="pt-target">${fmt(c.target)}</span></td>
+                <td><span class="pt-status ${statusClass(c.status)}"><span>${statusIcon(c.status)}</span>${c.status}</span></td>
+                <td><div class="pt-message">${c.message}</div></td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    </div>`;}
 
 
 
